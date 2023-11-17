@@ -1,10 +1,8 @@
 public class Map {
     private Entity[][] map;
 
-    // constructeur claqué mais faudra le modifier en fonction de l'aléatoire etc
-    // etc
-    public Map(Entity[][] map) {
-        this.map = map;
+    public Map() {
+        map = new Entity[5][15];
     }
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
@@ -12,7 +10,7 @@ public class Map {
         this.map[e.getPosition()[0]][e.getPosition()[1]] = e;
     }
 
-    // à appeler dans une update
+    // à appeler dans une update de
     public void removeDeadEntities() {
         for (int i = 0; i < this.map.length; i++) {
             for (int j = 0; j < this.map[i].length; j++) {
@@ -27,5 +25,27 @@ public class Map {
 
     public void removeEntity(int x, int y) {
         this.map[x][y] = null;
+    }
+
+    public String toString() {
+        String s = "   ";
+        for (int i = 0; i < this.map[0].length; i++) {
+            if (i < 10)
+                s += i + "  ";
+            else
+                s += (char) (i + 55) + "  ";
+        }
+        s += "\n";
+        for (int i = 0; i < this.map.length; i++) {
+            s += i + " ";
+            for (int j = 0; j < this.map[i].length; j++) {
+                if (this.map[i][j] == null)
+                    s += "   ";
+                else
+                    s += this.map[i][j] + "  ";
+            }
+            s += "\n";
+        }
+        return s;
     }
 }

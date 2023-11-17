@@ -1,4 +1,4 @@
-public class Entity implements Updatable {
+public abstract class Entity implements Updatable {
     private int hp;
     private int[] position;
     private int damage;
