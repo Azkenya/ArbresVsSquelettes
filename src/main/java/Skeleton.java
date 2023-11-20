@@ -22,8 +22,10 @@ public class Skeleton extends Entity {
 
     }
 
-    public void move(int[] position) {
-        this.setPosition(position);
+    public void move() {
+        int[] pos = this.getPosition();
+        pos[1]++;
+        this.setPosition(pos);
     }
 
     public boolean attack(Entity e) {

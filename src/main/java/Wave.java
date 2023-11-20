@@ -2,12 +2,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Wave implements Updatable {
-    public Skeleton[][] enemies;
-    public ArrayList<Skeleton> enemiesOnMap;
+    private Skeleton[][] enemies;
+    private ArrayList<Skeleton> enemiesOnMap;
+    private int currentSubWave;
+    private boolean isFinished;
 
     public Wave(Skeleton[][] enemies, ArrayList<Skeleton> enemiesOnMap) {
         this.enemies = enemies;
-        this.enemiesOnMap = enemiesOnMap;
+        this.isFinished = false;
     }
 
     /**
@@ -179,7 +181,6 @@ public class Wave implements Updatable {
     }
 
     public void update() {
-        System.out.println("Wave updated");
     }
 
     public String toString() {
@@ -196,4 +197,33 @@ public class Wave implements Updatable {
         }
         return s + "fin";
     }
+
+    public boolean isFinished() {
+        return this.isFinished;
+    }
+
+    public ArrayList<Skeleton> getEnemiesOnMap() {
+        return this.enemiesOnMap;
+    }
+
+    public void setEnemiesOnMap(ArrayList<Skeleton> enemiesOnMap) {
+        this.enemiesOnMap = enemiesOnMap;
+    }
+
+    public Skeleton[][] getEnemies() {
+        return this.enemies;
+    }
+
+    public void setEnemies(Skeleton[][] enemies) {
+        this.enemies = enemies;
+    }
+
+    public int getCurrentSubWave() {
+        return this.currentSubWave;
+    }
+
+    public void setCurrentSubWave(int currentSubWave) {
+        this.currentSubWave = currentSubWave;
+    }
+
 }

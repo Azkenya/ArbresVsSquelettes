@@ -9,6 +9,7 @@ public class Shop {
         this.playerMoney = playerMoney;
         this.availableTrees = availableTrees;
         this.Map = Map;
+
     }
 
     // this method takes in a tree and checks
@@ -41,5 +42,14 @@ public class Shop {
 
     public void closeShop() {
         System.out.println("Shop closed");
+    }
+
+    public String toString() {
+        String s = "";
+        for (Tree t : this.availableTrees) {
+            s += t.toString() + "\n";
+        }
+
+        return "Shop";
     }
 }

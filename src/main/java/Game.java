@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game implements Updatable {
     private Money money;
@@ -6,15 +7,26 @@ public class Game implements Updatable {
     private Shop shop;
     private int currentTurn;
     private ArrayList<Tree> trees;
-    private ArrayList<Wave> wavesToCome;
+    private Wave wave;
 
-    public Game(Money money, Map map, Shop shop, int currentTurn, ArrayList<Tree> trees, ArrayList<Wave> wavesToCome) {
+    public Game(Money money, Shop shop, ArrayList<Tree> trees, Wave wave) {
         this.money = money;
-        this.map = map;
+        this.map = new Map();
         this.shop = shop;
-        this.currentTurn = currentTurn;
+        this.currentTurn = 0;
         this.trees = trees;
-        this.wavesToCome = wavesToCome;
+        this.wave = wave;
+    }
+
+    public void start() {
+        gameLoop();
+    }
+
+    public String Scan(String Message) {
+        Scanner scan = new Scanner(System.in);
+        String input = scan.nextLine();
+        scan.close();
+        return input;
     }
 
     public void update() {
@@ -25,6 +37,10 @@ public class Game implements Updatable {
     public void win() {
         System.out.println("You win!");
         System.exit(0);
+    }
+
+    public void gameLoop() {
+
     }
 
     public void lose() {
