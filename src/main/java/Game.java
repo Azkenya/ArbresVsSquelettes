@@ -43,7 +43,6 @@ public class Game implements Updatable {
                         displayChoices();
                 }
             }
-            System.exit(0);
         }
     }
 
