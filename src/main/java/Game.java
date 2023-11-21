@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Tree;
+
 public class Game implements Updatable {
     private Money money;
     private Map map;
@@ -8,6 +10,8 @@ public class Game implements Updatable {
     private int currentTurn;
     private ArrayList<Tree> trees;
     private Wave wave;
+
+    private
 
     public Game(Money money, Shop shop, ArrayList<Tree> trees, Wave wave) {
         this.money = money;

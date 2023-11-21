@@ -1,10 +1,10 @@
-public class Oak extends Tree {
+public class Acacia extends Tree {
 
-    public static final int cost = 10;
-    public static final int hp = 15;
-    public static final int damage = 2;
+    public static final int cost = 25;
+    public static final int hp = 20;
+    public static final int damage = 8;
 
-    public Oak(int[] position) {
+    public Acacia(int[] position) {
         super(cost, hp, position, damage);
     }
 

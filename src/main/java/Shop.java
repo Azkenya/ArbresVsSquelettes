@@ -9,18 +9,20 @@ public class Shop {
         this.playerMoney = playerMoney;
         this.availableTrees = availableTrees;
         this.Map = Map;
-
     }
 
     // this method takes in a tree and checks
     // if the tree is available to buy
     // if it is, it calls buyTree
-    public void selectTree(Tree t) {
-        if (this.availableTrees.contains(t)) {
-            System.out.println("Tree selected");
-            buyTree(t);
-        } else {
-            System.out.println("Tree not available");
+    public Tree selectTree(int i) {
+        // TODO: si l'arbre est dispo
+        // TODO: interface terminal, afficher ce qu'il faut, demander les coordonnées
+        int[] pos = { 0, 0 };
+        switch (i) {
+            case 0:
+                return new Oak(pos);
+            case 1:
+                return new Acacia(pos);
         }
     }
 

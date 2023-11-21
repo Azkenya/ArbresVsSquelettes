@@ -11,7 +11,7 @@ public class Skeleton extends Entity {
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
     public Skeleton(int hp, int lane) {
-        super(hp, new int[] { 15, lane }, 1);
+        super(hp, new int[] { 14, lane }, 1);
         this.range = 0;
         this.speed = 1;
     }

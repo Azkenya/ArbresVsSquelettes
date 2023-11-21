@@ -180,7 +180,8 @@ public class Wave implements Updatable {
         }
     }
 
-    public void update() {
+    public void update(int currentTurn) {
+
     }
 
     public String toString() {
