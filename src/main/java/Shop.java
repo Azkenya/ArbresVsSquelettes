@@ -24,12 +24,14 @@ public class Shop {
             case 1:
                 return new Acacia(pos);
         }
+        return null;
     }
 
     // this method takes in a tree and adds the tree
     // to the map if the player has enough money through the addTree method
     // from the map class
-    public void buyTree(Tree t) {
+    public void buyTree(int i) {
+        Tree t = selectTree(i);
         if (this.playerMoney.remove(new Money(t.getPrice()))) {
             this.Map.addEntity(t); // faire en sorte que addEntity prenne des coordonnées en paramètre
         } else {
