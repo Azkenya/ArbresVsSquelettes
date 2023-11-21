@@ -22,8 +22,8 @@ public class KeyListenerTest extends JFrame implements KeyListener
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         switch (keyCode){
-            case KeyEvent.VK_ENTER -> label.setText("HAHAHAHAHAHA");
-            default -> label.setText("NOOOOOOOOOOOOOOOOOOOOON");
+            case KeyEvent.VK_ENTER: label.setText("HAHAHAHAHAHA"); break;
+            default: label.setText("NOOOOOOOOOOOOOOOOOOOOON");break;
         }
     }
     public void keyReleased(KeyEvent e) {
