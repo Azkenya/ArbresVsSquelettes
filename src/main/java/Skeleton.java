@@ -2,39 +2,70 @@ public class Skeleton extends Entity {
     private int range;
     private int speed;
 
-    public Skeleton(int hp, int lane, int damage, int range, int speed) {
-        super(hp, new int[] { 15, lane }, damage);
+    public Skeleton(int hp, int lane, int damage, int range, int speed, Map map) {
+        super(hp, lane, 15, damage, map);
         this.range = range;
         this.speed = speed;
     }
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
-    public Skeleton(int hp, int lane) {
-        super(hp, new int[] { 14, lane }, 1);
+    public Skeleton(int hp, int lane, Map map) {
+        super(hp, lane, 14, 1, map);
         this.range = 0;
         this.speed = 1;
     }
 
     @Override
     public void update() {
-        System.out.println("Skeleton updated");
+        int actualLine = this.getLine();
+        int actualColumn = this.getColumn();
 
+        //Range of the first tree we can attack
+        int treeAt = this.treeInOurRange();
+        //If there is an entity in our range is a Tree, attack it
+        if(treeAt != -1){
+            this.attack(this.getMap().getEntityAt(actualLine,actualColumn - treeAt - 1));
+        }
+
+        //Else, move as far as we can regarding our speed and room before us
+        else {
+            int actualForwardMove = speed;
+            //While we have no room before us AND we want to stay here, try moving 1 unit less
+            while(this.getMap().getEntityAt(actualLine, actualColumn - actualForwardMove) != null && actualForwardMove > 0){
+                actualForwardMove--;
+            }
+            //If we move
+            if(actualForwardMove > 0){
+                //Moving
+                int newColumn = actualColumn - actualForwardMove;
+                this.setColumn(newColumn);
+                this.getMap().addEntity(this);
+                this.getMap().removeEntity(actualLine,actualColumn);
+            }
+        }
     }
 
-    public void move() {
-        int[] pos = this.getPosition();
-        pos[1]++;
-        this.setPosition(pos);
-    }
 
     public boolean attack(Entity e) {
-        if (this.range >= Math.abs(this.getPosition()[0] - e.getPosition()[0])
-                && this.range >= Math.abs(this.getPosition()[1] - e.getPosition()[1])) {
+        if (this.range >= Math.abs(this.getLine() - e.getLine())) {
             e.kill(this.getDamage());
             return true;
         }
         return false;
+    }
+
+    //Returns -1 if there is no tree in our range
+    //Else returns the range between us and the tree
+    public int treeInOurRange(){
+        int actualRange = this.range;
+        while( actualRange >= 0){
+            if(this.getMap().getEntityAt(this.getLine(),this.getColumn() - actualRange - 1) instanceof Tree){
+                return actualRange;
+            }
+            actualRange--;
+        }
+        return -1;
     }
 
     public int getRange() {

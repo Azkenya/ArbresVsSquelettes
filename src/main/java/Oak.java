@@ -4,8 +4,8 @@ public class Oak extends Tree {
     public static final int hp = 15;
     public static final int damage = 2;
 
-    public Oak(int[] position) {
-        super(cost, hp, position, damage);
+    public Oak(int line, int column, Map map) {
+        super(cost, hp, line, column, damage, map);
     }
 
     @Override
@@ -34,19 +34,14 @@ public class Oak extends Tree {
         super.setDamage(damage);
     }
 
-    public int[] getPosition() {
-        return super.getPosition();
-    }
-
-    public void setPosition(int[] position) {
-        super.setPosition(position);
-    }
-
     public void update() {
         System.out.println("Tree updated");
     }
 
     public void kill(int damageDealt) {
         super.kill(damageDealt);
+    }
+    public String toString(){
+        return "O";
     }
 }

@@ -6,10 +6,13 @@ public class Wave implements Updatable {
     private ArrayList<Skeleton> enemiesOnMap;
     private int currentSubWave;
     private boolean isFinished;
+    private static Map map;
 
-    public Wave(Skeleton[][] enemies, ArrayList<Skeleton> enemiesOnMap) {
+    public Wave(Skeleton[][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
         this.isFinished = false;
+        this.enemiesOnMap = enemiesOnMap;
+        this.map = map;
     }
 
     /**
@@ -17,8 +20,8 @@ public class Wave implements Updatable {
      * 
      * @param n the level of the wave, 1, 2 or 3
      */
-    public Wave(int n) {
-        this(makeWave(n), new ArrayList<Skeleton>());
+    public Wave(int n, Map map) {
+        this(makeWave(n), new ArrayList<Skeleton>(), map);
     }
 
     /**
@@ -173,16 +176,13 @@ public class Wave implements Updatable {
             while (!placeBool) {
                 int place = random(4);
                 if (enemies[i][place] == null) {
-                    enemies[i][place] = new Skeleton(10, place);
+                    enemies[i][place] = new Skeleton(10, place,map);
                     placeBool = true;
                 }
             }
         }
     }
 
-    public void update(int currentTurn) {
-
-    }
 
     public String toString() {
         // print the enemies array
@@ -227,4 +227,8 @@ public class Wave implements Updatable {
         this.currentSubWave = currentSubWave;
     }
 
+    @Override
+    public void update() {
+
+    }
 }
