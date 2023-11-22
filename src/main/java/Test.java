@@ -4,22 +4,14 @@ public class Test {
 
         Skeleton skTest = new Skeleton(15, 3, map);
         Tree trTest = new Oak(3,12,map);
+        Tree trTest2 = new Oak(3,11,map);
         map.addEntity(skTest);
         map.addEntity(trTest);
+        map.addEntity(trTest2);
 //        map.removeEntity(0,0);
 
-        System.out.println(trTest.getHp());
         System.out.println(map);
-
-        skTest.update();
-
-        System.out.println(trTest.getHp());
-        System.out.println(map);
-
-        skTest.update();
-
-        System.out.println(trTest.getHp());
-        System.out.println(map);
+        System.out.println(skTest.treeInOurRange());
 
 
     }
