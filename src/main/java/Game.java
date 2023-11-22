@@ -11,8 +11,6 @@ public class Game implements Updatable {
     private ArrayList<Tree> trees;
     private Wave wave;
 
-    private
-
     public Game(Money money, Shop shop, ArrayList<Tree> trees, Wave wave) {
         this.money = money;
         this.map = new Map();
