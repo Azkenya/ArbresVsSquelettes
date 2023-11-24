@@ -7,7 +7,7 @@ public class Map {
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
     public void addEntity(Entity e) {
-        this.map[e.getPosition()[0]][e.getPosition()[1]] = e;
+        this.map[e.getLine()][e.getColumn()] = e;
     }
 
     // à appeler dans une update de
@@ -23,8 +23,12 @@ public class Map {
         }
     }
 
-    public void removeEntity(int x, int y) {
-        this.map[x][y] = null;
+    public void removeEntity(int line, int column) {
+        this.map[line][column] = null;
+    }
+
+    public Entity getEntityAt(int line, int column){
+        return map[line][column];
     }
 
     public String toString() {
@@ -37,7 +41,7 @@ public class Map {
         }
         s += "\n";
         for (int i = 0; i < this.map.length; i++) {
-            s += i + " ";
+            s += i + "  ";
             for (int j = 0; j < this.map[i].length; j++) {
                 if (this.map[i][j] == null)
                     s += "   ";
@@ -48,4 +52,5 @@ public class Map {
         }
         return s;
     }
+
 }

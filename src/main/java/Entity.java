@@ -1,16 +1,16 @@
 public abstract class Entity implements Updatable {
     private int hp;
-    private int[] position;
+    private int line;
+    private int column;
     private int damage;
+    private static Map map;
 
-    public Entity(int hp, int[] position, int damage) {
+    public Entity(int hp, int line, int column, int damage, Map map) {
         this.hp = hp;
-        this.position = position;
+        this.line = line;
+        this.column = column;
         this.damage = damage;
-    }
-
-    public void update() {
-        System.out.println("Entity updated");
+        Entity.map = map;
     }
 
     public void kill(int damageDealt) {
@@ -18,6 +18,7 @@ public abstract class Entity implements Updatable {
             this.hp -= damageDealt;
         else
             this.hp = 0;
+        Entity.map.removeEntity(this.line, this.column);
     }
 
     public int getHp() {
@@ -36,11 +37,23 @@ public abstract class Entity implements Updatable {
         this.damage = damage;
     }
 
-    public int[] getPosition() {
-        return this.position;
+    public int getLine() {
+        return line;
     }
 
-    public void setPosition(int[] position) {
-        this.position = position;
+    public int getColumn() {
+        return column;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public Map getMap() {
+        return map;
     }
 }

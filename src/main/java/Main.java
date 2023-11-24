@@ -6,7 +6,7 @@ public class Main {
         // System.out.println(wave);
         // Wave wave2 = new Wave(2);
         // System.out.println(wave2);
-        Wave wave3 = new Wave(3);
+        Wave wave3 = new Wave(3,map);
         System.out.println(wave3);
     }
 }
