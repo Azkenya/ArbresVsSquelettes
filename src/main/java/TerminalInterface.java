@@ -14,7 +14,7 @@ public class TerminalInterface {
 
         Map map = new Map();
         Money playerMoney = new Money(100);
-        game = new Game(playerMoney, new Shop(playerMoney, new ArrayList<>(), map), new ArrayList<>(), new Wave(3, map),
+        game = new Game(playerMoney, new Shop(playerMoney, new ArrayList<>(), map), new ArrayList<>(), new Wave(1, map),
                 map);
 
         boolean hasStarted = startMainMenu();
@@ -47,8 +47,8 @@ public class TerminalInterface {
                     return true;
                 case "Q":
                 case "q":
-                    System.exit(0);
                     System.out.println("Thanks for playing ArbresVsSquelettes, see you next time !");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Unrecognized command, please retry.");

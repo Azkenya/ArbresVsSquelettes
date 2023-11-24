@@ -54,6 +54,6 @@ public abstract class Entity implements Updatable {
     }
 
     public Map getMap() {
-        return map;
+        return Entity.map;
     }
 }
