@@ -12,7 +12,7 @@ public class Skeleton extends Entity {
     // il apparaitra toujours sur la colonne 15
     public Skeleton(int hp, int lane, Map map) {
         super(hp, lane, 14, 1, map);
-        this.range = 0;
+        this.range = 2;
         this.speed = 1;
     }
 
@@ -28,23 +28,23 @@ public class Skeleton extends Entity {
             this.attack(this.getMap().getEntityAt(actualLine,actualColumn - treeAt - 1));
         }
 
-        //Else, move as far as we can regarding our speed and room before us
-        else {
-            int actualForwardMove = speed;
-            //While we have no room before us AND we want to stay here, try moving 1 unit less
-            while(this.getMap().getEntityAt(actualLine, actualColumn - actualForwardMove) != null && actualForwardMove > 0){
-                actualForwardMove--;
-            }
-            //If we move
-            if(actualForwardMove > 0){
-                //Moving
-                int newColumn = actualColumn - actualForwardMove;
-                this.setColumn(newColumn);
-                this.getMap().addEntity(this);
-                this.getMap().removeEntity(actualLine,actualColumn);
-            }
+        //Then, move as far as we can regarding our speed and room before us
+
+        int actualForwardMove = speed;
+        //While we have no room before us AND we want to stay here, try moving 1 unit less
+        while(this.getMap().getEntityAt(actualLine, actualColumn - actualForwardMove) != null && actualForwardMove > 0){
+            actualForwardMove--;
+        }
+        //If we move
+        if(actualForwardMove > 0){
+            //Moving
+            int newColumn = actualColumn - actualForwardMove;
+            this.setColumn(newColumn);
+            this.getMap().addEntity(this);
+            this.getMap().removeEntity(actualLine,actualColumn);
         }
     }
+
 
 
     public boolean attack(Entity e) {
@@ -56,14 +56,14 @@ public class Skeleton extends Entity {
     }
 
     //Returns -1 if there is no tree in our range
-    //Else returns the range between us and the tree
+    //Else returns the range between us and the first tree
     public int treeInOurRange(){
-        int actualRange = this.range;
-        while( actualRange >= 0){
+        int actualRange = 0;
+        while( actualRange <= this.range){
             if(this.getMap().getEntityAt(this.getLine(),this.getColumn() - actualRange - 1) instanceof Tree){
                 return actualRange;
             }
-            actualRange--;
+            actualRange++;
         }
         return -1;
     }
