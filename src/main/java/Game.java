@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game implements Updatable {
@@ -49,6 +50,13 @@ public class Game implements Updatable {
 
     public void update() {
         System.out.println("Game updated");
+
+        if(this.wave.isFinished() && this.wave.getEnemiesOnMap().isEmpty()){
+            System.out.println("You have won ArbresVsSquelettes congrats !\nSee you next time :)");
+            System.out.println("By Azkenya & Ama92");
+            System.exit(0);
+        }
+
     }
 
     public void win() {
