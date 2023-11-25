@@ -42,15 +42,18 @@ public class Wave implements Updatable {
         for (int i = 0; i < this.enemiesOnMap.size(); i++) {
             this.enemiesOnMap.get(i).update();
         }
+        enemiesOnMap.removeIf(skeleton -> skeleton.getHp() <= 0);
+
     }
 
     public void spawnEnemies() {
         System.out.println("Spawn enemies: current turn : " + this.currentTurn);
-        for (int i = 0; i < this.enemies[this.currentTurn].length; i++) {
+        for (int i = 0; i < 5; i++) {
             if (this.enemies[this.currentTurn][i] != null) {
-                this.enemiesOnMap.add(this.enemies[this.currentTurn][i]);
-                this.enemies[this.currentTurn][i] = null;
-                Wave.map.addEntity(this.enemiesOnMap.get(this.enemiesOnMap.size() - 1));
+                var enemy = this.enemies[this.currentTurn][i];
+                this.enemiesOnMap.add(enemy);
+                Wave.map.addEntity(enemy);
+                System.out.println("entity added");
             }
         }
     }

@@ -7,7 +7,19 @@ public class Map {
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
     public void addEntity(Entity e) {
-        this.map[e.getLine()][e.getColumn()] = e;
+        if (this.map[e.getLine()][e.getColumn()] == null) {
+            this.map[e.getLine()][e.getColumn()] = e;
+        }
+
+    }
+
+    public Skeleton getFirstSkeletonInLine(int line) {
+        for (int i = 0; i < this.map[line].length; i++) {
+            if (this.map[line][i] != null && !(this.map[line][i] instanceof Tree)) {
+                return (Skeleton) this.map[line][i];
+            }
+        }
+        return null;
     }
 
     // à appeler dans une update de
@@ -27,8 +39,14 @@ public class Map {
         this.map[line][column] = null;
     }
 
-    public Entity getEntityAt(int line, int column){
+    public Entity getEntityAt(int line, int column) {
         return map[line][column];
+    }
+
+    public Tree getTreeAt(int line, int column) {
+        if (map[line][column] instanceof Tree)
+            return (Tree) map[line][column];
+        return null;
     }
 
     public String toString() {
@@ -40,9 +58,9 @@ public class Map {
                 s += (char) (i + 55) + "  ";
         }
         s += "\n";
-        for (int i = 0; i < this.map.length; i++) {
+        for (int i = 0; i < 5; i++) {
             s += i + "  ";
-            for (int j = 0; j < this.map[i].length; j++) {
+            for (int j = 0; j < 15; j++) {
                 if (this.map[i][j] == null)
                     s += "   ";
                 else

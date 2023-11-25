@@ -35,13 +35,14 @@ public class Oak extends Tree {
     }
 
     public void update() {
-        System.out.println("Tree updated");
+        super.update();
     }
 
     public void kill(int damageDealt) {
         super.kill(damageDealt);
     }
-    public String toString(){
+
+    public String toString() {
         return "O";
     }
 }

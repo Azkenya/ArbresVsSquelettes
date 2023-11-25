@@ -19,15 +19,21 @@ public class Game implements Updatable {
     }
 
     public void start(Scanner userInput) {
+        for (int i = 0; i < 5; i++) {
+            trees.add(this.map.getTreeAt(i, 0));
+        }
+        System.out.println(this.wave);
+        displayMap();
         while (true) {
 
-            this.displayMap();
             displayChoices();
 
             String answer = userInput.nextLine();
             if (answer.isEmpty()) {
                 // Prochain tour
                 this.update();
+                this.displayMap();
+
             } else {
                 switch (answer) {
                     case "S":
@@ -56,7 +62,12 @@ public class Game implements Updatable {
     public void update() {
         System.out.println("Game updated");
         this.wave.update();
-
+        if (this.currentTurn < 0) {
+            for (Tree tree : this.trees) {
+                tree.update();
+            }
+        }
+        this.currentTurn++;
     }
 
     public void win() {
