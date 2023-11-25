@@ -1,8 +1,13 @@
+import java.util.Arrays;
+
 public class Map {
     private Entity[][] map;
+    private boolean[] chainsaws;
 
     public Map() {
         map = new Entity[5][15];
+        chainsaws =  new boolean[map.length];
+        Arrays.fill(chainsaws, true);
     }
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
@@ -39,7 +44,7 @@ public class Map {
     }
 
     public String toString() {
-        String s = "   ";
+        String s = "    ";
         for (int i = 0; i < this.map[0].length; i++) {
             if (i < 10)
                 s += i + "  ";
@@ -48,7 +53,15 @@ public class Map {
         }
         s += "\n";
         for (int i = 0; i < this.map.length; i++) {
-            s += i + "  ";
+            s += i + " ";
+
+            //Ajoute les chainsaw
+            if(this.chainsaws[i]){
+                s += "c ";
+            }
+            else{
+                s += "  ";
+            }
             for (int j = 0; j < this.map[i].length; j++) {
                 if (this.map[i][j] == null)
                     s += "   ";
@@ -66,5 +79,19 @@ public class Map {
 
     public int numberOfColumns(){
         return map[0].length;
+    }
+
+    public boolean[] getChainsaws() {
+        return chainsaws;
+    }
+
+    public void killEverythingOnLine(int line){
+        for(int column = 0; column < map[line].length; column++){
+            Entity currentEntity = this.getEntityAt(line, column);
+            if(currentEntity != null){
+                currentEntity.setHp(0); //Permet de tuer effectivement l'entité
+                removeEntity(line, column); //Elle est retirée de la map
+            }
+        }
     }
 }
