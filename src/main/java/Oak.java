@@ -1,8 +1,8 @@
 public class Oak extends Tree {
 
-    public static final int cost = 10;
-    public static final int hp = 15;
-    public static final int damage = 2;
+    private static final int cost = 10;
+    private static final int hp = 15;
+    private static final int damage = 2;
 
     public Oak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
@@ -11,11 +11,6 @@ public class Oak extends Tree {
     @Override
     public void attack(Entity e) {
         e.kill(this.getDamage());
-    }
-
-    @Override
-    public int getPrice() {
-        return 10;
     }
 
     public int getHp() {

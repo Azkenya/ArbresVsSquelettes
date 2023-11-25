@@ -1,5 +1,5 @@
 public abstract class Tree extends Entity {
-    public int cost;
+    private int cost;
 
     public Tree(int cost, int hp, int line, int column, int damage, Map map) {
         super(hp, line, column, damage, map);
@@ -20,4 +20,7 @@ public abstract class Tree extends Entity {
         return this.cost;
     }
 
+    public int getCost() {
+        return cost;
+    }
 }

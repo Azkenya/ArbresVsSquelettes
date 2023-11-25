@@ -14,11 +14,6 @@ public class Acacia extends Tree {
     }
 
     //TODO make getters and setters in the parent class
-    @Override
-    public int getPrice() {
-        return 10;
-    }
-
     public int getHp() {
         return super.getHp();
     }

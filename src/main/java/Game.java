@@ -33,7 +33,7 @@ public class Game implements Updatable {
             else {
                 switch (answer){
                     case "S": case "s": //shop.open ?
-                        System.out.println("Le shop est open");
+                        shop.openShop();
                         break;
                     case "Q": case "q":
                         System.out.println("Thanks for playing ArbresVsSquelettes, see you next time !");
@@ -46,12 +46,6 @@ public class Game implements Updatable {
         }
     }
 
-    public String Scan(String Message) {
-        Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        scan.close();
-        return input;
-    }
 
     public void update() {
         System.out.println("Game updated");

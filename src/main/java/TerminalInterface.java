@@ -14,7 +14,7 @@ public class TerminalInterface {
 
         Map map = new Map();
         Money playerMoney = new Money(100);
-        game = new Game(playerMoney,new Shop(playerMoney, new ArrayList<>(), map), new ArrayList<>(), new Wave(3,map), map);
+        game = new Game(playerMoney,new Shop(playerMoney, map, userInput), new ArrayList<>(), new Wave(3,map), map);
 
         boolean hasStarted = startMainMenu();
         if (hasStarted){

@@ -6,8 +6,15 @@ public class Map {
     }
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
-    public void addEntity(Entity e) {
-        this.map[e.getLine()][e.getColumn()] = e;
+    public boolean addEntity(Entity e) {
+        if (this.getEntityAt(e.getLine(),e.getColumn()) == null){
+            this.map[e.getLine()][e.getColumn()] = e;
+            return true;
+        }
+        else{
+            System.out.println("Error : there is already an entity here\n");
+            return false;
+        }
     }
 
     // à appeler dans une update de
@@ -53,4 +60,11 @@ public class Map {
         return s;
     }
 
+    public int numberOfLines(){
+        return map.length;
+    }
+
+    public int numberOfColumns(){
+        return map[0].length;
+    }
 }
