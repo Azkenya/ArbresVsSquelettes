@@ -1,10 +1,9 @@
-public class Oak extends Tree {
+public class Baobab extends Tree {
+    public static final int cost = 250;
+    public static final int hp = 10;
+    public static final int damage = 10000;
 
-    public static final int cost = 100;
-    public static final int hp = 15;
-    public static final int damage = 2;
-
-    public Oak(int line, int column, Map map) {
+    public Baobab(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
     }
 
@@ -15,7 +14,7 @@ public class Oak extends Tree {
 
     @Override
     public int getPrice() {
-        return 10;
+        return super.getPrice();
     }
 
     public int getHp() {
@@ -43,6 +42,7 @@ public class Oak extends Tree {
     }
 
     public String toString() {
-        return "O";
+        return "B";
     }
+
 }

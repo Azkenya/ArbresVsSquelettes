@@ -1,10 +1,10 @@
-public class Birch extends Tree {
-    public static final int cost = 10;
+public class PineTree extends Tree {
+    public static final int cost = 50;
     public static final int hp = 1;
-    public static final int damage = 5;
+    public static final int damage = 1;
 
-    public Birch(int[] position) {
-        super(cost, hp, position, damage);
+    public PineTree(int line, int column, Map map) {
+        super(cost, hp, line, column, damage, map);
     }
 
     @Override
@@ -33,19 +33,15 @@ public class Birch extends Tree {
         super.setDamage(damage);
     }
 
-    public int[] getPosition() {
-        return super.getPosition();
-    }
-
-    public void setPosition(int[] position) {
-        super.setPosition(position);
-    }
-
     public void update() {
-        System.out.println("Tree updated");
+        super.update();
     }
 
     public void kill(int damageDealt) {
         super.kill(damageDealt);
+    }
+
+    public String toString() {
+        return "P";
     }
 }
