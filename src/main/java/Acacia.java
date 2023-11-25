@@ -1,8 +1,8 @@
 public class Acacia extends Tree {
 
-    public static final int cost = 25;
+    public static final int cost = 50;
     public static final int hp = 20;
-    public static final int damage = 8;
+    public static final int damage = 0;
 
     public Acacia(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
@@ -13,11 +13,8 @@ public class Acacia extends Tree {
         e.kill(this.getDamage());
     }
 
-    //TODO make getters and setters in the parent class
+    // TODO make getters and setters in the parent class
     @Override
-    public int getPrice() {
-        return 10;
-    }
 
     public int getHp() {
         return super.getHp();
@@ -36,14 +33,13 @@ public class Acacia extends Tree {
     }
 
     public void update() {
-        System.out.println("Tree updated");
     }
 
     public void kill(int damageDealt) {
         super.kill(damageDealt);
     }
 
-    public String toString(){
+    public String toString() {
         return "A";
     }
 }

@@ -1,21 +1,25 @@
-public class Oak extends Tree {
-
-    public static final int cost = 100;
+public class IceTree extends Tree {
+    public static final int cost = 175;
     public static final int hp = 15;
     public static final int damage = 2;
+    public int freezingMode = 0;
 
-    public Oak(int line, int column, Map map) {
+    public IceTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
     }
 
     @Override
     public void attack(Entity e) {
         e.kill(this.getDamage());
+        if (freezingMode == 0) {
+            ((Skeleton) e).freeze();
+            freezingMode = 3;
+        }
     }
 
     @Override
     public int getPrice() {
-        return 10;
+        return super.getPrice();
     }
 
     public int getHp() {
@@ -36,6 +40,9 @@ public class Oak extends Tree {
 
     public void update() {
         super.update();
+        if (freezingMode > 0) {
+            freezingMode--;
+        }
     }
 
     public void kill(int damageDealt) {
@@ -43,6 +50,7 @@ public class Oak extends Tree {
     }
 
     public String toString() {
-        return "O";
+        return "I";
     }
+
 }

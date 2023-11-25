@@ -13,9 +13,6 @@ public class TerminalInterface {
     public static void main(String[] args) {
 
         Map map = new Map();
-        for (int i = 0; i < 5; i++) {
-            map.addEntity(new Oak(i, 0, map));
-        }
         Money playerMoney = new Money(100);
         game = new Game(playerMoney, new Shop(playerMoney, new ArrayList<>(), map), new ArrayList<>(), new Wave(1, map),
                 map);

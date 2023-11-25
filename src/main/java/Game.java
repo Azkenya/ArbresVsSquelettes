@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.lang.Math;
 
 public class Game implements Updatable {
     private Money playerMoney;
@@ -22,8 +23,9 @@ public class Game implements Updatable {
         for (int i = 0; i < 5; i++) {
             trees.add(this.map.getTreeAt(i, 0));
         }
-        System.out.println(this.wave);
+        trees.add(this.map.getTreeAt(1, 1));
         displayMap();
+
         while (true) {
 
             displayChoices();
@@ -60,22 +62,34 @@ public class Game implements Updatable {
     }
 
     public void update() {
-        System.out.println("Game updated");
         this.wave.update();
+        this.updateTrees();
+        this.randMoney();
+        this.currentTurn++;
+    }
+
+    public void randMoney() {
+        if (random()) {
+            playerMoney.add(new Money(25));
+        }
+    }
+
+    public void updateTrees() {
         for (Tree tree : this.trees) {
             tree.update();
+            if ((tree instanceof Acacia) && (random())) {
+                playerMoney.add(new Money(10));
+            }
         }
+    }
 
-        this.currentTurn++;
+    public boolean random() {
+        return Math.random() < 0.3;
     }
 
     public void win() {
         System.out.println("You win!");
         System.exit(0);
-    }
-
-    public void gameLoop() {
-
     }
 
     public void lose() {

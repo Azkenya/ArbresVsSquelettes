@@ -27,8 +27,8 @@ public class Wave implements Updatable {
 
     @Override
     public void update() {
-        if (this.currentTurn <= this.enemies.length) {
-            this.updateEnemies();
+        this.updateEnemies();
+        if (this.currentTurn < this.enemies.length) {
             this.spawnEnemies();
             this.currentTurn++;
         }
@@ -47,13 +47,11 @@ public class Wave implements Updatable {
     }
 
     public void spawnEnemies() {
-        System.out.println("Spawn enemies: current turn : " + this.currentTurn);
         for (int i = 0; i < 5; i++) {
             if (this.enemies[this.currentTurn][i] != null) {
                 var enemy = this.enemies[this.currentTurn][i];
                 this.enemiesOnMap.add(enemy);
                 Wave.map.addEntity(enemy);
-                System.out.println("entity added");
             }
         }
     }
@@ -210,7 +208,7 @@ public class Wave implements Updatable {
             while (!placeBool) {
                 int place = random(4);
                 if (enemies[i][place] == null) {
-                    enemies[i][place] = new Skeleton(10, place, map);
+                    enemies[i][place] = new Skeleton(16, place, map);
                     placeBool = true;
                 }
             }

@@ -8,13 +8,9 @@ public abstract class Tree extends Entity {
 
     @Override
     public void update() {
-        System.out.println("Tree updated (" + this.getLine() + "," + this.getColumn() + ")");
         var enemy = this.getMap().getFirstSkeletonInLine(this.getLine());
         if (enemy != null) {
             this.attack(enemy);
-            System.out.println(
-                    "skeleton attacked HP: " + enemy.getHp() + " enemy place: (" + enemy.getLine() + ","
-                            + enemy.getColumn() + ")");
         }
     }
 
@@ -24,6 +20,14 @@ public abstract class Tree extends Entity {
 
     public int getPrice() {
         return this.cost;
+    }
+
+    public int getHp() {
+        return super.getHp();
+    }
+
+    public int getDamage() {
+        return super.getDamage();
     }
 
 }

@@ -1,11 +1,13 @@
 public class Skeleton extends Entity {
     private int range;
     private int speed;
+    private boolean isFrozen;
 
     public Skeleton(int hp, int lane, int damage, int range, int speed, Map map) {
         super(hp, lane, 15, damage, map);
         this.range = range;
         this.speed = speed;
+        this.isFrozen = false;
     }
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
@@ -28,24 +30,26 @@ public class Skeleton extends Entity {
         }
 
         // Then, move as far as we can regarding our speed and room before us
-
-        int currentForwardMove = speed;
-        // While we have no room before us AND we want to stay here, try moving 1 unit
-        // less
-        while (this.getMap().getEntityAt(currentLine, currentColumn - currentForwardMove) != null
-                && currentForwardMove > 0) {
-            currentForwardMove--;
-        }
-        // If we move
-        if (currentForwardMove > 0) {
-            // Moving
-            int newColumn = currentColumn - currentForwardMove;
-            if (newColumn < 0) {
-                newColumn = 0;
+        if (!isFrozen) {
+            int currentForwardMove = speed;
+            // While we have no room before us AND we want to stay here, try moving 1 unit
+            // less
+            if (currentColumn - currentForwardMove >= 0)
+                while (this.getMap().getEntityAt(currentLine, currentColumn - currentForwardMove) != null
+                        && currentForwardMove > 0) {
+                    currentForwardMove--;
+                }
+            // If we move
+            if (currentForwardMove > 0) {
+                // Moving
+                int newColumn = currentColumn - currentForwardMove;
+                if (newColumn < 0) {
+                    newColumn = 0;
+                }
+                this.setColumn(newColumn);
+                this.getMap().addEntity(this);
+                this.getMap().removeEntity(currentLine, currentColumn);
             }
-            this.setColumn(newColumn);
-            this.getMap().addEntity(this);
-            this.getMap().removeEntity(currentLine, currentColumn);
         }
     }
 
@@ -96,5 +100,9 @@ public class Skeleton extends Entity {
     @Override
     public Map getMap() {
         return super.getMap();
+    }
+
+    public void freeze() {
+        this.isFrozen = true;
     }
 }
