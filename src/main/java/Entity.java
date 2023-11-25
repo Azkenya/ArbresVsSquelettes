@@ -16,9 +16,10 @@ public abstract class Entity implements Updatable {
     public void kill(int damageDealt) {
         if (this.hp > damageDealt)
             this.hp -= damageDealt;
-        else
+        else {
             this.hp = 0;
-        Entity.map.removeEntity(this.line, this.column);
+            Entity.map.removeEntity(this.line, this.column);
+        }
     }
 
     public int getHp() {

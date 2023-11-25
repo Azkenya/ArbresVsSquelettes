@@ -62,11 +62,10 @@ public class Game implements Updatable {
     public void update() {
         System.out.println("Game updated");
         this.wave.update();
-        if (this.currentTurn < 0) {
-            for (Tree tree : this.trees) {
-                tree.update();
-            }
+        for (Tree tree : this.trees) {
+            tree.update();
         }
+
         this.currentTurn++;
     }
 
