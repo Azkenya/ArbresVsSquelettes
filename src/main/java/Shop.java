@@ -42,20 +42,11 @@ public class Shop {
             playerMoney.add(selectTreeCost); //On refund l'achat
             return null;
         }
-
-        switch (i) {
-            case 1:
-                return new Oak(coos[0],coos[1], map);
-            case 2:
-                return new Acacia(coos[0],coos[1], map);
-            case 3:
-                return new PineTree(coos[0],coos[1],map);
-            case 4:
-                return new IceTree(coos[0],coos[1],map);
-            case 5:
-                return new Baobab(coos[0],coos[1],map);
+        try{
+            return availableTrees.get(i - 1).getClass().getConstructor(int.class,int.class,Map.class).newInstance(coos[0],coos[1],map); //Crée dynamiquement l'arbre souhaité
+        }catch (Exception e){
+            return null;
         }
-        return null; //Remarque : Cette ligne ne s'appelle jamais, c'est juste pour faire plaisir au compilateur
     }
 
     // this method takes in a tree and adds the tree
@@ -107,7 +98,7 @@ public class Shop {
 
             //Si le nombre choisi n'est pas dans la liste proposée, on renvoie l'utilisateur à son choix
             if(chosenTree > availableTrees.size() || chosenTree <= 0){
-                System.out.println("Error : the number you inputed is not among buyable trees");
+                System.out.println("\nError : the number you inputed is not among buyable trees\n");
                 continue;
             }
 
