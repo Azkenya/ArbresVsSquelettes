@@ -66,7 +66,6 @@ public class Shop {
         }
     }
 
-    // aucune idée de comment gérer ça mais je vais reflechir
     public void openShop() {
         boolean firstTimeEntering = true;
         while(true){
@@ -109,7 +108,13 @@ public class Shop {
     public void displayTreesAvailable(){
         int k = 1;
         for (Tree t : availableTrees){
-            System.out.printf("%d / %s tree : Cost - %d, Damages - %d\n",k,t.getClass().toString().substring(6), t.getCost(), t.getDamage());
+            System.out.printf("%d / %s tree : Cost - %d, Damages - %d ",k,t.getClass().toString().substring(6), t.getCost(), t.getDamage());
+            if(t instanceof IceTree){
+                System.out.print(" - This tree can freeze enemies");
+            }else if(t instanceof Acacia){
+                System.out.print(" - This tree randomly makes you earn money");
+            }
+            System.out.println();
             k++;
         }
         System.out.println("Press M to display the map or Q to exit the shop...");
@@ -156,15 +161,18 @@ public class Shop {
                 System.out.println();
                 break;
             }
-
-            if(!answerIsANumber(answer)){
+           if(!answerIsANumberOrAChar(answer)){
                 continue;
             }
-
-            int column = Integer.parseInt(answer);
-
+            int column = -1;
+            try{
+                column= Integer.parseInt(answer);
+            }catch(NumberFormatException e){
+                column = answer.toUpperCase().charAt(0) - 'A'+10;
+            }
+            System.out.println("Column : "+column);
             if(column >= map.numberOfColumns() || column < 0){
-                System.out.println("Error : column number is not valid");
+                System.out.println("Error : column is not valid");
                 continue;
             }
             coos[1] = column;
@@ -175,6 +183,28 @@ public class Shop {
 
 
     //On teste si la réponse est bien un entier
+    public static boolean answerIsANumberOrAChar(String answer){
+        if(answer.length() > 2){
+            System.out.println("Error : please input a valid column");
+            return false;
+        }else{
+            try{
+                Integer.parseInt(answer);
+            }
+            catch(NumberFormatException e){
+                try{
+                    if(answer.toUpperCase().charAt(0) < 'A' || answer.toUpperCase().charAt(0) > 'Z'){
+                        System.out.println("Error : please input a valid column");
+                        return false;
+                    }
+                }catch(Exception ex){
+                        System.out.println("Error : please input a valid column");
+                        return false;
+                    }
+            }  
+        }     
+        return true;   
+    }
     public static boolean answerIsANumber(String answer){
         try{
             Integer.parseInt(answer);
@@ -185,5 +215,4 @@ public class Shop {
         }
         return true;
     }
-
 }
