@@ -14,11 +14,13 @@ public class TerminalInterface {
 
         Map map = new Map();
         Money playerMoney = new Money(100);
-
         boolean hasStarted = startMainMenu();
         if (hasStarted) {
             int difficultyLvl = chooseDifficultyLevel();
-            game = new Game(playerMoney,new Shop(playerMoney, map, userInput), new ArrayList<>(), new Wave(difficultyLvl,map), map);
+            game = new Game(playerMoney,null, new ArrayList<>(), new Wave(difficultyLvl,map), map);
+            Shop shop = new Shop(playerMoney, map, userInput,game);
+            game.setShop(shop);
+
             playGame();
         }
     }
@@ -47,8 +49,8 @@ public class TerminalInterface {
                     return true;
                 case "Q":
                 case "q":
-                    System.exit(0);
                     System.out.println("Thanks for playing ArbresVsSquelettes, see you next time !");
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Unrecognized command, please retry.");

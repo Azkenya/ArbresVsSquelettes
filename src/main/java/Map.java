@@ -12,14 +12,22 @@ public class Map {
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
     public boolean addEntity(Entity e) {
-        if (this.getEntityAt(e.getLine(),e.getColumn()) == null){
+        if (this.getEntityAt(e.getLine(), e.getColumn()) == null) {
             this.map[e.getLine()][e.getColumn()] = e;
             return true;
-        }
-        else{
+        } else {
             System.out.println("Error : there is already an entity here\n");
             return false;
         }
+    }
+
+    public Skeleton getFirstSkeletonInLine(int line) {
+        for (int i = 0; i < this.map[line].length; i++) {
+            if (this.map[line][i] != null && !(this.map[line][i] instanceof Tree)) {
+                return (Skeleton) this.map[line][i];
+            }
+        }
+        return null;
     }
 
     // à appeler dans une update de
@@ -39,8 +47,15 @@ public class Map {
         this.map[line][column] = null;
     }
 
-    public Entity getEntityAt(int line, int column){
+    public Entity getEntityAt(int line, int column) {
         return map[line][column];
+    }
+
+    public Tree getTreeAt(int line, int column) {
+        if (map[line][column] instanceof Tree){
+            return (Tree) map[line][column];
+        }
+        return null;
     }
 
     public String toString() {
@@ -63,10 +78,13 @@ public class Map {
                 s += "  ";
             }
             for (int j = 0; j < this.map[i].length; j++) {
-                if (this.map[i][j] == null)
+
+                if (this.map[i][j] == null){
                     s += "   ";
-                else
+                }
+                else{
                     s += this.map[i][j] + "  ";
+                }
             }
             s += "\n";
         }

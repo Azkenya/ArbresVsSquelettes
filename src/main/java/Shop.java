@@ -1,3 +1,4 @@
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,14 +8,19 @@ public class Shop {
     private ArrayList<Tree> availableTrees;
     private Map map;
     private Scanner userInput;
+    private final Game game;
 
-    public Shop(Money playerMoney, Map map, Scanner userInput) {
+    public Shop(Money playerMoney, Map map, Scanner userInput, Game game) {
         this.playerMoney = playerMoney;
         this.availableTrees = new ArrayList<>();
+        this.game = game;
 
-        //Moyen d'automatiser l'ajout ?
+        //TODO Moyen d'automatiser l'ajout ?
         availableTrees.add(new Oak(-1,-1,null));
         availableTrees.add(new Acacia(-1,-1,null));
+        availableTrees.add(new PineTree(-1,-1,null));
+        availableTrees.add(new IceTree(-1,-1,null));
+        availableTrees.add(new Baobab(-1,-1,null));
 
         this.map = map;
         this.userInput = userInput;
@@ -23,7 +29,7 @@ public class Shop {
     // this method takes in a tree and checks
     // if the tree is available to buy
     // if it is, it calls buyTree
-    public Tree selectTree(int i) {
+    public Tree selectTree(int i){
         Money selectTreeCost = new Money(availableTrees.get(i-1).getCost());
         if(!playerMoney.remove(selectTreeCost)){
             System.out.println("\nYou don't have enough money to buy this tree\n");
@@ -42,6 +48,12 @@ public class Shop {
                 return new Oak(coos[0],coos[1], map);
             case 2:
                 return new Acacia(coos[0],coos[1], map);
+            case 3:
+                return new PineTree(coos[0],coos[1],map);
+            case 4:
+                return new IceTree(coos[0],coos[1],map);
+            case 5:
+                return new Baobab(coos[0],coos[1],map);
         }
         return null; //Remarque : Cette ligne ne s'appelle jamais, c'est juste pour faire plaisir au compilateur
     }
@@ -56,6 +68,7 @@ public class Shop {
         }
         if (this.map.addEntity(t)) {
             System.out.println("\nSuccesfully placed the tree at line " + t.getLine() + " and at column " + t.getColumn() + "\n");
+            game.addTree(t);
         }
         else{
             playerMoney.add(new Money(t.getCost()));//Si on ne peut pas placer l'arbre, on recrédite le compte du joueur du prix de l'arbre

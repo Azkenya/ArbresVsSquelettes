@@ -1,10 +1,9 @@
-public class Acacia extends Tree {
+public class Baobab extends Tree {
+    public static final int cost = 250;
+    public static final int hp = 10;
+    public static final int damage = 10000;
 
-    public static final int cost = 50;
-    public static final int hp = 20;
-    public static final int damage = 0;
-
-    public Acacia(int line, int column, Map map) {
+    public Baobab(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
     }
 
@@ -13,7 +12,11 @@ public class Acacia extends Tree {
         e.kill(this.getDamage());
     }
 
-    //TODO make getters and setters in the parent class
+    @Override
+    public int getPrice() {
+        return super.getPrice();
+    }
+
     public int getHp() {
         return super.getHp();
     }
@@ -31,6 +34,7 @@ public class Acacia extends Tree {
     }
 
     public void update() {
+        super.update();
     }
 
     public void kill(int damageDealt) {
@@ -38,6 +42,7 @@ public class Acacia extends Tree {
     }
 
     public String toString() {
-        return "A";
+        return "B";
     }
+
 }

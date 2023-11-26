@@ -4,15 +4,16 @@ import java.util.Random;
 public class Wave implements Updatable {
     private Skeleton[][] enemies;
     private ArrayList<Skeleton> enemiesOnMap;
-    private int currentSubWave;
     private boolean isFinished;
     private static Map map;
+    private int currentTurn = 0;
 
     public Wave(Skeleton[][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
         this.isFinished = false;
         this.enemiesOnMap = enemiesOnMap;
-        this.map = map;
+        Wave.map = map;
+        this.currentTurn = 0;
     }
 
     /**
@@ -21,7 +22,40 @@ public class Wave implements Updatable {
      * @param n the level of the wave, 1, 2 or 3
      */
     public Wave(int n, Map map) {
-        this(makeWave(n), new ArrayList<Skeleton>(), map);
+        this(makeWave(n, map), new ArrayList<Skeleton>(), map);
+    }
+
+    @Override
+    public void update() {
+        this.updateEnemies();
+        if (this.currentTurn < this.enemies.length) {
+            this.spawnEnemies();
+            this.currentTurn++;
+        }
+        else{
+            this.isFinished = true;
+        }
+    }
+
+    public boolean noEnemiesOnMap() {
+        return this.enemiesOnMap.isEmpty();
+    }
+
+    public void updateEnemies() {//FIXME PROBLEME DE JEU
+        for (int i = 0; i < this.enemiesOnMap.size(); i++) {
+            this.enemiesOnMap.get(i).update();
+        }
+        enemiesOnMap.removeIf(skeleton -> skeleton.getHp() <= 0);
+    }
+
+    public void spawnEnemies() {
+        for (int i = 0; i < 5; i++) {
+            if (this.enemies[this.currentTurn][i] != null) {
+                var enemy = this.enemies[this.currentTurn][i];
+                this.enemiesOnMap.add(enemy);
+                Wave.map.addEntity(enemy);
+            }
+        }
     }
 
     /**
@@ -43,13 +77,13 @@ public class Wave implements Updatable {
      * @param lvl the level of the wave, 1, 2 or 3
      * @return the wave of enemies depending on the level
      */
-    public static Skeleton[][] makeWave(int lvl) {
+    public static Skeleton[][] makeWave(int lvl, Map map) {
         if (lvl == 1) {
-            return makeEasy();
+            return makeEasy(map);
         } else if (lvl == 2) {
-            return makeMedium();
+            return makeMedium(map);
         } else {
-            return makeHard();
+            return makeHard(map);
         }
     }
 
@@ -67,20 +101,20 @@ public class Wave implements Updatable {
      * 
      * @return the wave of enemies
      */
-    public static Skeleton[][] makeEasy() {
+    public static Skeleton[][] makeEasy(Map map) {
         Skeleton[][] enemies = new Skeleton[40][5];
         for (int i = 0; i < 40; i++) {
             int prob = random(100);
             if (prob <= 3 && i >= 22) {
-                place(enemies, i, 4);
+                place(enemies, i, 4, map);
             } else if (prob <= 10 && i >= 15) {
-                place(enemies, i, 3);
+                place(enemies, i, 3, map);
             } else if (prob <= 25 && i >= 6) {
-                place(enemies, i, 2);
+                place(enemies, i, 2, map);
             } else if (prob <= 50) {
-                place(enemies, i, 1);
+                place(enemies, i, 1, map);
             } else if (prob <= 75 && i >= 20) {
-                place(enemies, i, 1);
+                place(enemies, i, 1, map);
             }
         }
         return enemies;
@@ -100,22 +134,22 @@ public class Wave implements Updatable {
      * 
      * @return the wave of enemies
      */
-    public static Skeleton[][] makeMedium() {
+    public static Skeleton[][] makeMedium(Map map) {
         Skeleton[][] enemies = new Skeleton[60][5];
         for (int i = 0; i < 60; i++) {
             int prob = random(100);
             if (prob <= 5 && i >= 35) {
-                place(enemies, i, 5);
+                place(enemies, i, 5, map);
             } else if (prob <= 13 && i >= 22) {
-                place(enemies, i, 4);
+                place(enemies, i, 4, map);
             } else if (prob <= 30 && i >= 15) {
-                place(enemies, i, 3);
+                place(enemies, i, 3, map);
             } else if (prob <= 55 && i >= 6) {
-                place(enemies, i, 2);
+                place(enemies, i, 2, map);
             } else if (prob <= 75) {
-                place(enemies, i, 1);
+                place(enemies, i, 1, map);
             } else if (prob <= 100 && i >= 30) {
-                place(enemies, i, 1);
+                place(enemies, i, 1, map);
             }
         }
         return enemies;
@@ -138,24 +172,24 @@ public class Wave implements Updatable {
      * @return the wave of enemies
      * 
      */
-    public static Skeleton[][] makeHard() {
+    public static Skeleton[][] makeHard(Map map) {
         Skeleton[][] enemies = new Skeleton[80][5];
         for (int i = 0; i < 80; i++) {
             int prob = random(100);
             if (prob <= 8 && i >= 35) {
-                place(enemies, i, 5);
+                place(enemies, i, 5, map);
             } else if (prob <= 20 && i >= 22) {
-                place(enemies, i, 4);
+                place(enemies, i, 4, map);
             } else if (prob <= 40 && i >= 15) {
-                place(enemies, i, 3);
+                place(enemies, i, 3, map);
             } else if (prob <= 65 && i >= 6) {
-                place(enemies, i, 2);
+                place(enemies, i, 2, map);
             } else if (prob <= 85 && i <= 50) {
-                place(enemies, i, 1);
+                place(enemies, i, 1, map);
             } else if (prob <= 100 && i >= 50) {
-                place(enemies, i, 2);
+                place(enemies, i, 2, map);
             } else if (prob <= 100 && i >= 30) {
-                place(enemies, i, 1);
+                place(enemies, i, 1, map);
             }
         }
         return enemies;
@@ -170,19 +204,18 @@ public class Wave implements Updatable {
      * 
      * @param n       the number of enemies to place at the i-th position
      */
-    public static void place(Skeleton[][] enemies, int i, int n) {
+    public static void place(Skeleton[][] enemies, int i, int n, Map map) {
         for (int j = 0; j < n; j++) {
             boolean placeBool = false;
             while (!placeBool) {
                 int place = random(4);
                 if (enemies[i][place] == null) {
-                    enemies[i][place] = new Skeleton(10, place,map);
+                    enemies[i][place] = new Skeleton(16, place, map);
                     placeBool = true;
                 }
             }
         }
     }
-
 
     public String toString() {
         // print the enemies array
@@ -219,16 +252,4 @@ public class Wave implements Updatable {
         this.enemies = enemies;
     }
 
-    public int getCurrentSubWave() {
-        return this.currentSubWave;
-    }
-
-    public void setCurrentSubWave(int currentSubWave) {
-        this.currentSubWave = currentSubWave;
-    }
-
-    @Override
-    public void update() {
-
-    }
 }

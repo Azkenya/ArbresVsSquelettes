@@ -1,8 +1,9 @@
 public class Oak extends Tree {
 
-    private static final int cost = 10;
-    private static final int hp = 15;
-    private static final int damage = 2;
+
+    public static final int cost = 100;
+    public static final int hp = 15;
+    public static final int damage = 2;
 
     public Oak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
@@ -30,13 +31,14 @@ public class Oak extends Tree {
     }
 
     public void update() {
-        System.out.println("Tree updated");
+        super.update();
     }
 
     public void kill(int damageDealt) {
         super.kill(damageDealt);
     }
-    public String toString(){
+
+    public String toString() {
         return "O";
     }
 }

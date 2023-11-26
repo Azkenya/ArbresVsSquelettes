@@ -1,11 +1,13 @@
 public class Skeleton extends Entity {
     private int range;
     private int speed;
+    private boolean isFrozen;
 
     public Skeleton(int hp, int lane, int damage, int range, int speed, Map map) {
         super(hp, lane, 15, damage, map);
         this.range = range;
         this.speed = speed;
+        this.isFrozen = false;
     }
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
@@ -18,19 +20,23 @@ public class Skeleton extends Entity {
 
     @Override
     public void update() {
-        boolean stillHere = true; //Used if the skelton gets removed while we're updating it
-        int actualLine = this.getLine();
-        int actualColumn = this.getColumn();
+        if(this.getHp() <= 0){
+            return;
+        }
+        int currentLine = this.getLine();
+        int currentColumn = this.getColumn();
 
         //Range of the first tree we can attack
         int treeAt = this.treeInOurRange();
-        //If there is an entity in our range is a Tree, attack it
-        if(treeAt != -1){
-            this.attack(this.getMap().getEntityAt(actualLine,actualColumn - treeAt - 1));
+        // If there is an entity in our range is a Tree, attack it
+        if (treeAt != -1) {
+            this.attack(this.getMap().getEntityAt(currentLine, currentColumn - treeAt - 1));
         }
 
-        //Moves as far as possible
-        this.moveOne(this.speed);
+        //Moves as far as possible if not frozen
+        if(!isFrozen){
+            this.moveOne(this.speed);
+        }
     }
 
     //Advances a skeleton by one step
@@ -72,12 +78,13 @@ public class Skeleton extends Entity {
         return false;
     }
 
+
     //Returns -1 if there is no tree in our range
     //Else returns the range between us and the first tree
     public int treeInOurRange(){
         int actualRange = 0;
-        while(actualRange <= this.range && this.getColumn() - actualRange - 1 >= 0){
-            if(this.getMap().getEntityAt(this.getLine(),this.getColumn() - actualRange - 1) instanceof Tree){
+        while(actualRange <= this.range && this.getColumn() - actualRange - 1 >= 0) {
+            if (this.getMap().getEntityAt(this.getLine(), this.getColumn() - actualRange - 1) instanceof Tree) {
                 return actualRange;
             }
             actualRange++;
@@ -105,8 +112,16 @@ public class Skeleton extends Entity {
         return "S";
     }
 
-    public void skeletonsWin(){
+    public void skeletonsWin() {
         System.out.println("Les squelettes ont gagné, game over");
         System.exit(0);
+    }
+    @Override
+    public Map getMap() {
+        return super.getMap();
+    }
+
+    public void freeze() {
+        this.isFrozen = true;
     }
 }
