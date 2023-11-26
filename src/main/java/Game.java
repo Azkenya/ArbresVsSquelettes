@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.Math;
 
@@ -20,27 +21,20 @@ public class Game implements Updatable {
     }
 
     public void start(Scanner userInput) {
-        for (int i = 0; i < 5; i++) {
-            trees.add(this.map.getTreeAt(i, 0));
-        }
-        trees.add(this.map.getTreeAt(1, 1));
-        displayMap();
-
         while (true) {
 
+            displayMap();
             displayChoices();
-
             String answer = userInput.nextLine();
             if (answer.isEmpty()) {
                 // Prochain tour
                 this.update();
-                this.displayMap();
+            }
 
-            } else {
-                switch (answer) {
-                    case "S":
-                    case "s": // shop.open ?
-                        System.out.println("Le shop est open");
+            else {
+                switch (answer){
+                    case "S": case "s":
+                        shop.openShop();
                         break;
                     case "Q":
                     case "q":
@@ -54,14 +48,13 @@ public class Game implements Updatable {
         }
     }
 
-    public String Scan(String Message) {
-        Scanner scan = new Scanner(System.in);
-        String input = scan.nextLine();
-        scan.close();
-        return input;
-    }
 
     public void update() {
+        if(this.wave.isFinished() && this.wave.getEnemiesOnMap().isEmpty()){
+            System.out.println("You have won ArbresVsSquelettes congrats !\nSee you next time :)");
+            System.out.println("By Azkenya & Ama92");
+            System.exit(0);
+        }
         this.wave.update();
         this.updateTrees();
         this.randMoney();
@@ -103,5 +96,13 @@ public class Game implements Updatable {
 
     public static void displayChoices() {
         System.out.println("Enter - Skip to next turn / S - Display Shop / Q - Exit the game (Enter/S/Q) : ");
+    }
+
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
+
+    public void addTree(Tree t){
+        trees.add(t);
     }
 }

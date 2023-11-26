@@ -14,11 +14,13 @@ public class TerminalInterface {
 
         Map map = new Map();
         Money playerMoney = new Money(100);
-        game = new Game(playerMoney, new Shop(playerMoney, new ArrayList<>(), map), new ArrayList<>(), new Wave(1, map),
-                map);
-
         boolean hasStarted = startMainMenu();
         if (hasStarted) {
+            int difficultyLvl = chooseDifficultyLevel();
+            game = new Game(playerMoney,null, new ArrayList<>(), new Wave(difficultyLvl,map), map);
+            Shop shop = new Shop(playerMoney, map, userInput,game);
+            game.setShop(shop);
+
             playGame();
         }
     }
@@ -63,4 +65,26 @@ public class TerminalInterface {
         game.start(userInput);
     }
 
+    public static int chooseDifficultyLevel(){
+        while(true){
+
+            System.out.println("Please enter the difficulty you want : ");
+            System.out.println("1 - Easy\n2 - Medium\n3 - Hard");
+            String answer = userInput.nextLine();
+
+            try{
+                Integer.parseInt(answer);
+            }catch (Exception e){
+                System.out.println("Error : please enter a valid difficulty number (1/2/3) !");
+                continue;
+            }
+
+            int difficultyLevel = Integer.parseInt(answer);
+            if(difficultyLevel <= 0 || difficultyLevel > 3){
+                System.out.println("Error : please enter a valid difficulty number (1/2/3) !");
+                continue;
+            }
+            return difficultyLevel;
+        }
+    }
 }

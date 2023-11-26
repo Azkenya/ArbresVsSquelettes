@@ -32,18 +32,20 @@ public class Wave implements Updatable {
             this.spawnEnemies();
             this.currentTurn++;
         }
+        else{
+            this.isFinished = true;
+        }
     }
 
     public boolean noEnemiesOnMap() {
-        return this.enemiesOnMap.size() == 0;
+        return this.enemiesOnMap.isEmpty();
     }
 
-    public void updateEnemies() {
+    public void updateEnemies() {//FIXME PROBLEME DE JEU
         for (int i = 0; i < this.enemiesOnMap.size(); i++) {
             this.enemiesOnMap.get(i).update();
         }
         enemiesOnMap.removeIf(skeleton -> skeleton.getHp() <= 0);
-
     }
 
     public void spawnEnemies() {

@@ -13,9 +13,7 @@ public class Acacia extends Tree {
         e.kill(this.getDamage());
     }
 
-    // TODO make getters and setters in the parent class
-    @Override
-
+    //TODO make getters and setters in the parent class
     public int getHp() {
         return super.getHp();
     }

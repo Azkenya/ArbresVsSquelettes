@@ -33,6 +33,6 @@ public class Money {
     }
 
     public String toString() {
-        return "Money: " + this.amount;
+        return this.amount + " golds";
     }
 }

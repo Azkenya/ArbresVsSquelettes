@@ -14,44 +14,61 @@ public class Skeleton extends Entity {
     // il apparaitra toujours sur la colonne 15
     public Skeleton(int hp, int lane, Map map) {
         super(hp, lane, 14, 1, map);
-        this.range = 2;
+        this.range = 1;
         this.speed = 1;
     }
 
     @Override
     public void update() {
+        if(this.getHp() <= 0){
+            return;
+        }
         int currentLine = this.getLine();
         int currentColumn = this.getColumn();
-        // Range of the first tree we can attack
+
+        //Range of the first tree we can attack
         int treeAt = this.treeInOurRange();
         // If there is an entity in our range is a Tree, attack it
         if (treeAt != -1) {
             this.attack(this.getMap().getEntityAt(currentLine, currentColumn - treeAt - 1));
         }
 
-        // Then, move as far as we can regarding our speed and room before us
-        if (!isFrozen) {
-            int currentForwardMove = speed;
-            // While we have no room before us AND we want to stay here, try moving 1 unit
-            // less
-            if (currentColumn - currentForwardMove >= 0)
-                while (this.getMap().getEntityAt(currentLine, currentColumn - currentForwardMove) != null
-                        && currentForwardMove > 0) {
-                    currentForwardMove--;
-                }
-            // If we move
-            if (currentForwardMove > 0) {
-                // Moving
-                int newColumn = currentColumn - currentForwardMove;
-                if (newColumn < 0) {
-                    newColumn = 0;
-                }
-                this.setColumn(newColumn);
-                this.getMap().addEntity(this);
-                this.getMap().removeEntity(currentLine, currentColumn);
-            }
+        //Moves as far as possible if not frozen
+        if(!isFrozen){
+            this.moveOne(this.speed);
         }
     }
+
+    //Advances a skeleton by one step
+    public void moveOne(int leftToMove){
+        //If we have no moving to do, dont move
+        if(leftToMove == 0){
+            return;
+        }
+        //If we are at the end of the map
+        if(this.getColumn() == 0){
+            //If there is no chainsaw, lose
+            if(!this.getMap().getChainsaws()[this.getLine()]){
+                this.skeletonsWin();
+            }
+            //Else activate chainsaw
+            else{
+                this.getMap().killEverythingOnLine(this.getLine());
+                this.getMap().getChainsaws()[this.getLine()] = false;
+                return;
+            }
+        }
+
+        //Else check for entity next to us
+        //If there is none, move
+        if(this.getMap().getEntityAt(this.getLine(), this.getColumn() - 1) == null){
+            this.getMap().removeEntity(this.getLine(), this.getColumn());
+            this.setColumn(this.getColumn() - 1);
+            this.getMap().addEntity(this);
+            this.moveOne(leftToMove - 1);
+        }
+    }
+
 
     public boolean attack(Entity e) {
         if (this.range >= Math.abs(this.getLine() - e.getLine())) {
@@ -61,18 +78,16 @@ public class Skeleton extends Entity {
         return false;
     }
 
-    // Returns -1 if there is no tree in our range
-    // Else returns the range between us and the first tree
-    public int treeInOurRange() {
-        int currentRange = 0;
-        while (currentRange <= this.range) {
-            if (this.getColumn() - currentRange - 1 < 0) {
-                return -1;
+
+    //Returns -1 if there is no tree in our range
+    //Else returns the range between us and the first tree
+    public int treeInOurRange(){
+        int actualRange = 0;
+        while(actualRange <= this.range && this.getColumn() - actualRange - 1 >= 0) {
+            if (this.getMap().getEntityAt(this.getLine(), this.getColumn() - actualRange - 1) instanceof Tree) {
+                return actualRange;
             }
-            if (this.getMap().getEntityAt(this.getLine(), this.getColumn() - currentRange - 1) instanceof Tree) {
-                return currentRange;
-            }
-            currentRange++;
+            actualRange++;
         }
         return -1;
     }
@@ -97,6 +112,10 @@ public class Skeleton extends Entity {
         return "S";
     }
 
+    public void skeletonsWin() {
+        System.out.println("Les squelettes ont gagné, game over");
+        System.exit(0);
+    }
     @Override
     public Map getMap() {
         return super.getMap();
