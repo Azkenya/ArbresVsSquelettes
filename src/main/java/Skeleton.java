@@ -116,10 +116,6 @@ public class Skeleton extends Entity {
         System.out.println("Les squelettes ont gagné, game over");
         System.exit(0);
     }
-    @Override
-    public Map getMap() {
-        return super.getMap();
-    }
 
     public void freeze() {
         this.isFrozen = true;
