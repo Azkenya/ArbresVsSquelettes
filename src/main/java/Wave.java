@@ -41,6 +41,7 @@ public class Wave implements Updatable {
                 this.currentRound = -5;
                 if(this.noEnemiesOnMap()){
                     this.currentSubWave++;
+                    System.out.println("Subwave Finished");
                 }
                 
             }
@@ -516,7 +517,7 @@ public class Wave implements Updatable {
      * 
      * @param n       the number of enemies to place at the i-th position
      */
-    public static void place(Skeleton[][][] enemies, int i, int n, Map map) {
+    public static void place(Skeleton[][] enemies, int i, int n, Map map) {
         for (int j = 0; j < n; j++) {
             boolean placeBool = false;
             while (!placeBool) {
