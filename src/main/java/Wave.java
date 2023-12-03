@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Wave implements Updatable {
-    private Skeleton[][] enemies;
+    private Skeleton[][][]enemies;
     private ArrayList<Skeleton> enemiesOnMap;
     private boolean isFinished;
     private static Map map;
     private int currentTurn = 0;
 
-    public Wave(Skeleton[][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
+    public Wave(Skeleton[][][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
         this.isFinished = false;
         this.enemiesOnMap = enemiesOnMap;
@@ -77,7 +77,7 @@ public class Wave implements Updatable {
      * @param lvl the level of the wave, 1, 2 or 3
      * @return the wave of enemies depending on the level
      */
-    public static Skeleton[][] makeWave(int lvl, Map map) {
+    public static Skeleton[][][] makeWave(int lvl, Map map) {
         if (lvl == 1) {
             return makeEasy(map);
         } else if (lvl == 2) {
@@ -89,36 +89,159 @@ public class Wave implements Updatable {
 
     /**
      * Make an easy mode wave of enemies
-     * Make it randomized with a probability of 25% to have one enemy at a position
-     * 15% to have 2 enemies at a position
-     * 7% to have 3 enemies at a position
-     * 3% to have 4 enemies at a position
-     * And 50% to have no enemy at a position
+     * @param map the map
+     * 
+     * This wave is made of 7 waves of enemies
+     * The first wave is made of 20 enemies
+     * The other waves are made of 30 enemies
+     * We use the makeBeginningWave, makeMidGameWaveEasy and makeFinalWaveEasy
+     * methods to make the waves
+     * 
+     * A wave represents the whole game.
+     * For the easy mode, it is made of a 7 box long array, which represents 7 sub-waves of enemies.
+     * Each sub-wave is made of 20 or 30 box long arrays, which represent the rounds of the wave
+     * Each round is made of an array of 5 Skeletons, which represent the 5 lanes where enemies spawn
+     * 
+     * For example, enemies[2][3] represents the 4th round of the 3rd sub-wave of the wave
+     * And enemies[2][3][4] represents the enemy on the 5th lane of the 4th round 
+     * of the 3rd sub-wave of the wave
      *
-     * From the 20th position, there is a 75% chance to have at least one enemy at a
-     * position
-     * and 25% to have no enemy at a position
+     * @return the wave of enemies
+     */
+    public static Skeleton[][][] makeEasy(Map map) {
+        Skeleton [][][] enemies=new Skeleton[7];
+        Skeleton[0]=makeBeginningWave(map);
+        Skeleton[1]=makeMidGameWaveEasy(map);
+        Skeleton[2]=makeMidGameWaveEasy(map);
+        Skeleton[3]=makeFinalWaveEasy(map);
+        Skeleton[4]=makeMidGameWaveEasy(map);
+        Skeleton[5]=makeMidGameWaveEasy(map);
+        Skeleton[6]=makeFinalWaveEasy(map);
+        return enemies;
+    }
+    /** 
+     *Make the first wave for any difficulty
+     * @param map the map, to place the enemies
+     * 
+     * Make a wave of 20 rounds
+     * The first 5 rounds have no enemies, for a smooth start
+     * Starting from the 6th round, there is:
+     * - A 55% chance to have 1 enemy
+     * - A 15% chance to have 2 enemies
+     * - A 30% chance to have no enemies
+     * 
+     * The canPlace boolean is used to make sure that there aren't two 
+     * consecutive rounds with enemies, so as not to make the game too hard
+     * or unplayable
+     * @return a beginning wave of enemies
+    */
+    public static Skeleton[][] makeBeginningWave(Map map){
+        Skeleton[][] enemies = new Skeleton[20][5];
+        boolean canPlace=true;
+        for(int i=0;i<20;i++){ 
+            if(i>=5){
+                int prob = random(100);
+                if(prob <= 55 && canPlace){
+                    place(enemies, i, 1, map);
+                    canPlace=false
+                }else if(prob <= 70 && canPlace){
+                    place(enemies, i, 2, map);
+                    canPlace=false;
+                }else if(!canPlace){
+                    canPlace=true;
+                }
+            }
+        }
+        return enemies; 
+    }
+    /**
+     * Make a mid-game wave of enemies for the easy mode
+     * @param map the map, to place the enemies
+     * 
+     * Make a wave of 30 rounds
+     * Make each round randomized with a probability of:
+     * - A 55% chance to have 1 enemy
+     * - A 25% chance to have 2 enemies
+     * - A 10% chance to have 3 enemies
+     * - A 10% chance to have no enemies
+     * 
+     * The canPlace int is used to make sure that there aren't two
+     * consecutive rounds with enemies, so as not to make the game too hard
+     * How it works:
+     * - If canPlace is 0, then we can place enemies
+     * - If we place 1 or 2 enemies, then we can't place enemies for the next round
+     * - If we place 3 enemies, then we can't place enemies for the next two rounds
      * 
      * @return the wave of enemies
      */
-    public static Skeleton[][] makeEasy(Map map) {
-        Skeleton[][] enemies = new Skeleton[40][5];
-        for (int i = 0; i < 40; i++) {
-            int prob = random(100);
-            if (prob <= 3 && i >= 22) {
-                place(enemies, i, 4, map);
-            } else if (prob <= 10 && i >= 15) {
-                place(enemies, i, 3, map);
-            } else if (prob <= 25 && i >= 6) {
-                place(enemies, i, 2, map);
-            } else if (prob <= 50) {
-                place(enemies, i, 1, map);
-            } else if (prob <= 75 && i >= 20) {
-                place(enemies, i, 1, map);
+    public static Skeleton[][] makeMidGameWaveEasy(Map map){
+        Skeleton[][] enemies=new Skeleton[30][5];
+        int canPlace=0;
+        for(int i=0;i<30;i++){
+            int prob =random(100);
+            if(canPlace!=0)
+                canPlace--;
+            else if(canPlace==0&&prob<=55){
+                canPlace++;
+                place(enemies,i,1,map);
+            }else if(canPlace==0&&prob<=80){
+                canPlace++;
+                place(enemies,i,2,map);
+            }else if(canPlace==0&&prob<=90){
+                canPlace+=2;
+                place(enemies,i,3,map);
             }
         }
         return enemies;
     }
+    /**
+     * Make the final wave for the easy mode
+     * @param map the map, to place the enemies
+     * 
+     * Make a wave of 30 rounds
+     * Make each round randomized with a probability of:
+     * - A 30% chance to have 1 enemy
+     * - A 30% chance to have 2 enemies
+     * - A 15% chance to have 3 enemies
+     * - A 10% chance to have 4 enemies
+     * - A 7% chance to have 5 enemies
+     * - A 8% chance to have no enemies
+     * 
+     * The canPlace int is used to make sure that there aren't two
+     * consecutive rounds with enemies, so as not to make the game too hard
+     * How it works:
+     * - If canPlace is 0, then we can place enemies
+     * - If we place 1, 2 or 3 enemies, then we can't place enemies for the next round
+     * - If we place 4 or 5 enemies, then we can't place enemies for the next two rounds
+     * 
+     * @return the wave of enemies
+     */
+    public static Skeleton[][] makeFinalWaveEasy(Map map){
+        Skeleton[][]enemies=new Skeleton[30][5];
+        int canPlace=0;
+        enemies[0][2] = new Skeleton(10, 2, map);//make this a Wave Leader Skeleton
+        for(int i=1;i<30;i++){
+            int prob=random(100);
+            if(canPlace!=0){
+                canPlace--;
+            }else if (canPlace==0&&prob<=30) {
+                canPlace++;
+                place(enemies,i,1,map);                
+            }else if(canPlace==0&&prob<=60){
+                canPlace++;
+                place(enemies,i,2,map);
+            }else if(canPlace==0&&prob<=75){
+                canPlace++;
+                place(enemies,i,3,map);
+            }else if(canPlace==0&&prob<=85){
+                canPlace+=2;
+                place(enemies,i,4,map);
+            }else if(canPlace==0&&prob<=92){
+                canPlace+=2;
+                place(enemies,i,5,map);
+            }
+        }
+    }  
 
     /**
      * Make a medium mode wave of enemies
@@ -210,7 +333,7 @@ public class Wave implements Updatable {
             while (!placeBool) {
                 int place = random(4);
                 if (enemies[i][place] == null) {
-                    enemies[i][place] = new Skeleton(16, place, map);
+                    enemies[i][place] = new Skeleton(10, place, map);
                     placeBool = true;
                 }
             }
