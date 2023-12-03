@@ -28,7 +28,7 @@ public class Test {
 //        Baobab test = template.getClass().getConstructor(int.class,int.class,Map.class).newInstance(-1,-1,null);
 //        System.out.println(test.getHp());
 
-        Wave test = new Wave(new Skeleton[][]{},new ArrayList<>(),map);
+        Wave test = new Wave(new Skeleton[][][]{},new ArrayList<>(),map);
         test.update();
         System.out.println(test.isFinished() && test.getEnemiesOnMap().isEmpty());
     }

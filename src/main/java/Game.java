@@ -21,6 +21,7 @@ public class Game implements Updatable {
     }
 
     public void start(Scanner userInput) {
+        System.out.println(this.wave);
         while (true) {
 
             displayMap();
@@ -50,7 +51,7 @@ public class Game implements Updatable {
 
 
     public void update() {
-        if(this.wave.isFinished() && this.wave.getEnemiesOnMap().isEmpty()){
+        if(this.wave.isFinished() && this.wave.noEnemiesOnMap()){
             System.out.println("You have won ArbresVsSquelettes congrats !\nSee you next time :)");
             System.out.println("By Azkenya & Ama92");
             System.exit(0);
