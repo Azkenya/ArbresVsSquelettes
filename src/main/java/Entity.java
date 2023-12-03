@@ -3,14 +3,13 @@ public abstract class Entity implements Updatable {
     private int line;
     private int column;
     private int damage;
-    private static Map map;
+    private static final Map map = new Map();
 
     public Entity(int hp, int line, int column, int damage, Map map) {
         this.hp = hp;
         this.line = line;
         this.column = column;
         this.damage = damage;
-        Entity.map = map;
     }
 
     public void kill(int damageDealt) {
@@ -18,7 +17,7 @@ public abstract class Entity implements Updatable {
             this.hp -= damageDealt;
         else {
             this.hp = 0;
-            Entity.map.removeEntity(this.line, this.column);
+            map.removeEntity(this.line, this.column);
         }
     }
 
@@ -54,7 +53,8 @@ public abstract class Entity implements Updatable {
         this.column = column;
     }
 
-    public Map getMap() {
+    public static Map getMap() {
         return Entity.map;
     }
+
 }

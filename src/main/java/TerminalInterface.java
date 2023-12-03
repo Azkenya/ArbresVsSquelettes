@@ -12,7 +12,7 @@ public class TerminalInterface {
     // Terminal version start
     public static void main(String[] args) {
 
-        Map map = new Map();
+        Map map = Entity.getMap();
         Money playerMoney = new Money(100);
         boolean hasStarted = startMainMenu();
         if (hasStarted) {
