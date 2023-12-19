@@ -50,10 +50,8 @@ public class Game implements Updatable {
 
 
     public void update() {
-        if(this.wave.isFinished() && this.wave.getEnemiesOnMap().isEmpty()){
-            System.out.println("You have won ArbresVsSquelettes congrats !\nSee you next time :)");
-            System.out.println("By Azkenya & Ama92");
-            System.exit(0);
+        if(this.wave.isFinished() && this.wave.noEnemiesOnMap()){
+            this.win();
         }
         this.wave.update();
         this.updateTrees();
@@ -81,12 +79,8 @@ public class Game implements Updatable {
     }
 
     public void win() {
-        System.out.println("You win!");
-        System.exit(0);
-    }
-
-    public void lose() {
-        System.out.println("You lose!");
+        System.out.println("You have won ArbresVsSquelettes congrats !\nSee you next time :)");
+        System.out.println("By Azkenya & Ama92");
         System.exit(0);
     }
 
