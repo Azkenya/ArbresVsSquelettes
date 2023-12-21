@@ -1,5 +1,9 @@
-import java.util.Arrays;
+package model.config;
+import model.Entity;
+import model.entities.Skeleton;
+import model.entities.Tree;
 
+import java.util.Arrays;
 public class Map {
     private Entity[][] map;
     private boolean[] chainsaws;

@@ -1,7 +1,14 @@
+package model.config;
+
+import model.entities.*;
+import model.entities.trees.*;
+import controller.Game;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class Shop {
     private Money playerMoney;

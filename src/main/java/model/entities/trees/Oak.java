@@ -1,25 +1,23 @@
-public class IceTree extends Tree {
-    public static final int cost = 175;
+package model.entities.trees;
+
+import model.Entity;
+import model.config.Map;
+import model.entities.Tree;
+
+public class Oak extends Tree {
+
+
+    public static final int cost = 100;
     public static final int hp = 15;
     public static final int damage = 2;
-    public int freezingMode = 0;
 
-    public IceTree(int line, int column, Map map) {
+    public Oak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
     }
 
     @Override
     public void attack(Entity e) {
         e.kill(this.getDamage());
-        if (freezingMode == 0) {
-            ((Skeleton) e).freeze();
-            freezingMode = 3;
-        }
-    }
-
-    @Override
-    public int getPrice() {
-        return super.getPrice();
     }
 
     public int getHp() {
@@ -40,9 +38,6 @@ public class IceTree extends Tree {
 
     public void update() {
         super.update();
-        if (freezingMode > 0) {
-            freezingMode--;
-        }
     }
 
     public void kill(int damageDealt) {
@@ -50,7 +45,6 @@ public class IceTree extends Tree {
     }
 
     public String toString() {
-        return "I";
+        return "O";
     }
-
 }

@@ -1,3 +1,8 @@
+package model.entities;
+
+import model.Entity;
+import model.config.Map;
+
 public class Skeleton extends Entity {
     private int range;
     private int speed;

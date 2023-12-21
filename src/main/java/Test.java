@@ -1,6 +1,11 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import model.*;
+import model.config.*;
+import model.entities.*;
+import model.entities.trees.*;
+import view.*;
 
 public class Test {
     public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {

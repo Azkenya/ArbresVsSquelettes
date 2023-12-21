@@ -1,3 +1,6 @@
+package model.entities;
+import model.Entity;
+import model.config.Map;
 public abstract class Tree extends Entity {
     private int cost;
 
