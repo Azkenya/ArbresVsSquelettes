@@ -1,5 +1,10 @@
+package view;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import controller.Game;
+import model.Entity;
+import model.config.*;
 
 public class TerminalInterface {
 

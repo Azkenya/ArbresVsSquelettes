@@ -1,5 +1,10 @@
+package model.config;
+
 import java.util.ArrayList;
 import java.util.Random;
+import controller.Updatable;
+import model.Entity;
+import model.entities.Skeleton;
 
 public class Wave implements Updatable {
     private Skeleton[][][]enemies;

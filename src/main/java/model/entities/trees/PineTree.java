@@ -1,9 +1,15 @@
-public class Baobab extends Tree {
-    public static final int cost = 250;
-    public static final int hp = 10;
-    public static final int damage = 10000;
+package model.entities.trees;
 
-    public Baobab(int line, int column, Map map) {
+import model.Entity;
+import model.config.Map;
+import model.entities.Tree;
+
+public class PineTree extends Tree {
+    public static final int cost = 50;
+    public static final int hp = 1;
+    public static final int damage = 1;
+
+    public PineTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
     }
 
@@ -14,7 +20,7 @@ public class Baobab extends Tree {
 
     @Override
     public int getPrice() {
-        return super.getPrice();
+        return 10;
     }
 
     public int getHp() {
@@ -42,7 +48,6 @@ public class Baobab extends Tree {
     }
 
     public String toString() {
-        return "B";
+        return "P";
     }
-
 }

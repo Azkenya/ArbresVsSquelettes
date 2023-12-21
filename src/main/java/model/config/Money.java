@@ -1,3 +1,4 @@
+package model.config;
 public class Money {
     private int amount;
 

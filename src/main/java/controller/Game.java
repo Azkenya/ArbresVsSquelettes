@@ -1,8 +1,13 @@
+package controller;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.Math;
-
+import model.config.*;
+import model.entities.*;
+import view.*;
+import model.entities.trees.*;
 public class Game implements Updatable {
     private Money playerMoney;
     private Map map;

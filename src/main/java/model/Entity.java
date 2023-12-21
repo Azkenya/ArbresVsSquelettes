@@ -1,3 +1,6 @@
+package model;
+import model.config.Map;
+import controller.Updatable;
 public abstract class Entity implements Updatable {
     private int hp;
     private int line;

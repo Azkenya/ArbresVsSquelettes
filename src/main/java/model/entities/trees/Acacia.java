@@ -1,11 +1,16 @@
-public class Oak extends Tree {
+package model.entities.trees;
 
+import model.Entity;
+import model.config.Map;
+import model.entities.Tree;
 
-    public static final int cost = 100;
-    public static final int hp = 15;
-    public static final int damage = 2;
+public class Acacia extends Tree {
 
-    public Oak(int line, int column, Map map) {
+    public static final int cost = 50;
+    public static final int hp = 20;
+    public static final int damage = 0;
+
+    public Acacia(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
     }
 
@@ -14,6 +19,7 @@ public class Oak extends Tree {
         e.kill(this.getDamage());
     }
 
+    //TODO make getters and setters in the parent class
     public int getHp() {
         return super.getHp();
     }
@@ -31,7 +37,6 @@ public class Oak extends Tree {
     }
 
     public void update() {
-        super.update();
     }
 
     public void kill(int damageDealt) {
@@ -39,6 +44,6 @@ public class Oak extends Tree {
     }
 
     public String toString() {
-        return "O";
+        return "A";
     }
 }
