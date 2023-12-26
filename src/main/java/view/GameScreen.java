@@ -1,5 +1,8 @@
 package view;
 
+import model.config.Map;
+import model.entities.trees.Oak;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,18 +19,13 @@ public class GameScreen extends JFrame {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
-        JLabel testTree = instantiateTree(0,0);
-        mainContainer.add(testTree);
+        Oak testOak = new Oak(0,0,new Map());
+        mainContainer.add(testOak.getAttachedImage());
 
-        animate(testTree,new Point(500,500),200,5);
+        animate(testOak.getAttachedImage(), new Point(500,500),200,5);
 
     }
 
-    public JLabel instantiateTree(int x, int y){
-        JLabel tree = new JLabel(new ImageIcon("src/main/resources/tree.png"));
-        tree.setBounds(x,y,200,200);
-        return tree;
-    }
 
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
