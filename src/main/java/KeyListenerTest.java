@@ -5,8 +5,7 @@ public class KeyListenerTest extends JFrame implements KeyListener
     JLabel label;
     JTextField text;
 
-    KeyListenerTest()
-    {
+    KeyListenerTest(){
         label = new JLabel();
         label.setBounds(20,20,100,20);
         text = new JTextField();
