@@ -11,7 +11,7 @@ public class Skeleton extends Entity {
     private double realColumn;
     private double realSpeed;
     private int attackOnCooldown;
-
+    private JLabel attachedImage;
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15

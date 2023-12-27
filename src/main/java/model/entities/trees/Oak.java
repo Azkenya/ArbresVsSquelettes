@@ -5,6 +5,8 @@ import model.config.Map;
 import model.entities.Tree;
 import model.entities.Projectile;
 
+import javax.swing.*;
+
 public class Oak extends Tree {
 
 
@@ -14,6 +16,9 @@ public class Oak extends Tree {
 
     public Oak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
+        JLabel tree = new JLabel(new ImageIcon("src/main/resources/tree.png"));
+        tree.setBounds(line,column,200,200);
+        this.setAttachedImage(tree);
     }
 
     @Override
