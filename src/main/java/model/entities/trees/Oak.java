@@ -3,6 +3,7 @@ package model.entities.trees;
 import model.Entity;
 import model.config.Map;
 import model.entities.Tree;
+import model.entities.Projectile;
 
 public class Oak extends Tree {
 
@@ -38,7 +39,23 @@ public class Oak extends Tree {
 
     public void update() {
         super.update();
+        this.updateGraphic();
     }
+
+    public void updateGraphic() {
+        if (this.ProjectileCooldown == 0) {
+            this.shoot();
+            this.ProjectileCooldown = 10;
+        } else {
+            this.ProjectileCooldown--;
+        }
+    }
+
+    public void shoot() {
+        Projectile projectile = new Projectile(this.getLine(), this.getColumn(), this.getDamage(), this.getMap());
+        super.addProjectile(projectile);
+    }
+
 
     public void kill(int damageDealt) {
         super.kill(damageDealt);
