@@ -9,12 +9,13 @@ import model.entities.*;
 import view.*;
 import model.entities.trees.*;
 public class Game implements Updatable {
-    private Money playerMoney;
+    private static Money playerMoney;
     private Map map;
     private Shop shop;
     private int currentTurn;
     private ArrayList<Tree> trees;
     private Wave wave;
+    public static boolean graphicMode=true;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
         this.playerMoney = playerMoney;
@@ -27,7 +28,6 @@ public class Game implements Updatable {
 
     public void start(Scanner userInput) {
         while (true) {
-
             displayMap();
             displayChoices();
             String answer = userInput.nextLine();
@@ -64,22 +64,25 @@ public class Game implements Updatable {
         this.currentTurn++;
     }
 
-    public void randMoney() {
+    public static void randMoney() {
         if (random()) {
             playerMoney.add(new Money(25));
         }
     }
-
+    public static void addMoney(){
+        playerMoney.add(new Money(25));
+    }
     public void updateTrees() {
         for (Tree tree : this.trees) {
-            tree.update();
-            if ((tree instanceof Acacia) && (random())) {
-                playerMoney.add(new Money(10));
-            }
+            if (tree.getHp() <= 0) {
+                this.trees.remove(tree);
+            }else{
+                tree.update();
+         }
         }
     }
 
-    public boolean random() {
+    public static boolean random() {
         return Math.random() < 0.3;
     }
 

@@ -2,8 +2,10 @@ package model.config;
 import model.Entity;
 import model.entities.Skeleton;
 import model.entities.Tree;
-
+import model.config.Wave;
+import controller.Game;
 import java.util.Arrays;
+import java.util.ArrayList;
 public class Map {
     private Entity[][] map;
     private boolean[] chainsaws;
@@ -108,12 +110,42 @@ public class Map {
     }
 
     public void killEverythingOnLine(int line){
-        for(int column = 0; column < map[line].length; column++){
-            Entity currentEntity = this.getEntityAt(line, column);
-            if(currentEntity != null){
-                currentEntity.setHp(0); //Permet de tuer effectivement l'entité
-                removeEntity(line, column); //Elle est retirée de la map
+        if(!Game.graphicMode){
+            for(int column = 0; column < map[line].length; column++){
+                Entity currentEntity = this.getEntityAt(line, column);
+                if(currentEntity != null){
+                    currentEntity.setHp(0); //Permet de tuer effectivement l'entité
+                    removeEntity(line, column); //Elle est retirée de la map
+                }
             }
+        }
+        else{
+            ArrayList<Skeleton> skeletonsToRemove = new ArrayList<>();
+            for(Skeleton s : Wave.getEnemiesOnMap()){
+                if(s.getLine() == line){
+                    skeletonsToRemove.add(s);
+                }
+            }
+            Wave.getEnemiesOnMap().removeAll(skeletonsToRemove);
+        }
+    }
+    public boolean isEnemyOnLastColumn(){
+        if(!Game.graphicMode){
+            for(int line = 0; line < map.length; line++){
+                if(map[line][map[line].length - 1] != null && !(map[line][map[line].length - 1] instanceof Tree)){
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        else{
+            for(Skeleton s : Wave.getEnemiesOnMap()){
+                if(s.getRealColumn() >= map[0].length - 1.5){
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

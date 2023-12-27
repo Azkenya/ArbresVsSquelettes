@@ -4,7 +4,8 @@ import model.Entity;
 import model.config.Map;
 import model.entities.Tree;
 import model.entities.Skeleton;
-
+import model.entities.Projectile;
+import model.entities.projectiles.IceProjectile;
 public class IceTree extends Tree {
     public static final int cost = 175;
     public static final int hp = 15;
@@ -47,9 +48,25 @@ public class IceTree extends Tree {
 
     public void update() {
         super.update();
+        this.updateGraphic();
         if (freezingMode > 0) {
             freezingMode--;
         }
+        
+    }
+
+    public void updateGraphic() {
+        if (this.ProjectileCooldown == 0) {
+            this.shoot();
+            this.ProjectileCooldown = 10;
+        } else {
+            this.ProjectileCooldown--;
+        }
+    }
+
+    public void shoot() {
+        Projectile projectile = new IceProjectile(this.getLine(), this.getColumn(), this.getDamage(), this.getMap());
+        super.addProjectile(projectile);
     }
 
     public void kill(int damageDealt) {

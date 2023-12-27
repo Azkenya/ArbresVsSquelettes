@@ -1,9 +1,16 @@
 package model.entities;
+
 import model.Entity;
 import model.config.Map;
+import model.entities.Projectile;
+import controller.Game;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public abstract class Tree extends Entity {
     private int cost;
-
+    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+    protected int ProjectileCooldown = 0;
     public Tree(int cost, int hp, int line, int column, int damage, Map map) {
         super(hp, line, column, damage, map);
         this.cost = cost;
@@ -11,10 +18,26 @@ public abstract class Tree extends Entity {
 
     @Override
     public void update() {
-        var enemy = this.getMap().getFirstSkeletonInLine(this.getLine());
-        if (enemy != null) {
-            this.attack(enemy);
+        if(!Game.graphicMode){
+            var enemy = this.getMap().getFirstSkeletonInLine(this.getLine());
+            if (enemy != null) {
+                this.attack(enemy);
+            }
+        }else{
+            Iterator<Projectile> iterator = projectiles.iterator();
+            while (iterator.hasNext()) {
+                Projectile projectile = iterator.next();
+                if (projectile.getHp() <= 0) {
+                    iterator.remove();
+                } else {
+                    projectile.update();
+                }
+            }
         }
+    }
+
+    public void addProjectile(Projectile projectile){
+        this.projectiles.add(projectile);
     }
 
     public void attack(Entity e) {
