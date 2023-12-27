@@ -5,19 +5,21 @@ import java.util.Random;
 import controller.Updatable;
 import model.Entity;
 import model.entities.Skeleton;
+import controller.Game;
 
 public class Wave implements Updatable {
     private Skeleton[][][]enemies;
-    private ArrayList<Skeleton> enemiesOnMap;
+    private static ArrayList<Skeleton> enemiesOnMap;
     private boolean isFinished;
     private static Map map;
     private int currentRound;
     private int currentSubWave;
+    private static int cooldown;
 
     public Wave(Skeleton[][][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
         this.isFinished = false;
-        this.enemiesOnMap = enemiesOnMap;
+        Wave.enemiesOnMap = enemiesOnMap;
         Wave.map = map;
         this.currentRound = -5;
         this.currentSubWave = 0;
@@ -38,13 +40,33 @@ public class Wave implements Updatable {
         this.updateEnemies();
         if (this.currentSubWave < this.enemies.length) {
             if(this.currentRound < this.enemies[this.currentSubWave].length){
-                if(this.currentRound>=0)
-                    this.spawnEnemies();
-                this.currentRound++;
+                    if(!map.isEnemyOnLastColumn()){
+                        if(!Game.graphicMode){
+                            if(this.currentRound>=0)
+                                this.spawnEnemies();
+                            this.currentRound++;
+                        }else{
+                            System.out.println("NextRoundIsEmpty : "+nextRoundIsEmpty()+"\nCurrentRound: "+this.currentRound);
+                            if(cooldown==0){
+                                if(this.currentRound>=0&&this.currentRound<this.enemies[this.currentSubWave].length){
+                                    this.spawnEnemies();
+                                    System.out.println("Spawned enemies");
+                                }
+                                this.currentRound++;
+                                if(nextRoundIsEmpty()){
+                                    cooldown = 25;
+                                }
+                            }else{
+                                cooldown--;
+                                System.out.println("Cooldown : "+cooldown);
+                            }
+                        }
+                    }
+                
             }
             else{
-                this.currentRound = -5;
-                if(this.noEnemiesOnMap()){
+                if(noEnemiesOnMap()){
+                    this.currentRound = -5;
                     this.currentSubWave++;
                     System.out.println("Subwave Finished");
                 }
@@ -55,24 +77,42 @@ public class Wave implements Updatable {
             this.isFinished = true;
         }
     }
+    public boolean nextRoundIsEmpty(){
+        if(this.currentRound<0){
+            return true;
+        }
+        if(this.currentRound+1>=this.enemies[this.currentSubWave].length){
+            return true;
+        }
+        for(int i=0;i<5;i++){
+            
+            if(this.enemies[this.currentSubWave][this.currentRound+1][i]!=null){
+                return false;
+            }
+        }
+        return true;
+    }
     public boolean isFinished() {
         return this.isFinished;
     }
-    public boolean noEnemiesOnMap() {
-        return this.enemiesOnMap.isEmpty();
+    public static boolean noEnemiesOnMap() {
+        return enemiesOnMap.isEmpty();
     }
 
     public void updateEnemies() {//FIXME PROBLEME DE JEU
-        for (int i = 0; i < this.enemiesOnMap.size(); i++) {
-            this.enemiesOnMap.get(i).update();
+        System.out.println("Updating enemies");
+        for (int i = 0; i < Wave.enemiesOnMap.size(); i++) {
+            Wave.enemiesOnMap.get(i).update();
         }
         enemiesOnMap.removeIf(skeleton -> skeleton.getHp() <= 0);
     }
 
     public void spawnEnemies() {
+        System.out.println("Spawning enemies");
         for (int i = 0; i < 5; i++) {
             if (this.enemies[this.currentSubWave][this.currentRound][i] != null) {
-                this.enemiesOnMap.add(this.enemies[this.currentSubWave][this.currentRound][i]);
+                Wave.enemiesOnMap.add(this.enemies[this.currentSubWave][this.currentRound][i]);
+                System.out.println("Enemy added to arraylist");
                 this.enemies[this.currentSubWave][this.currentRound][i] = null;
             }
         }
@@ -556,12 +596,12 @@ public class Wave implements Updatable {
         return s;
     }
 
-    public ArrayList<Skeleton> getEnemiesOnMap() {
-        return this.enemiesOnMap;
+    public static ArrayList<Skeleton> getEnemiesOnMap() {
+        return Wave.enemiesOnMap;
     }
 
-    public void setEnemiesOnMap(ArrayList<Skeleton> enemiesOnMap) {
-        this.enemiesOnMap = enemiesOnMap;
+    public static void setEnemiesOnMap(ArrayList<Skeleton> enemiesOnMap) {
+        Wave.enemiesOnMap = enemiesOnMap;
     }
 
     public Skeleton[][][] getEnemies() {

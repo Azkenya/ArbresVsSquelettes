@@ -1,6 +1,7 @@
 package model;
 import model.config.Map;
 import controller.Updatable;
+import model.entities.Projectile;
 public abstract class Entity implements Updatable {
     private int hp;
     private int line;
@@ -20,7 +21,8 @@ public abstract class Entity implements Updatable {
             this.hp -= damageDealt;
         else {
             this.hp = 0;
-            map.removeEntity(this.line, this.column);
+            if(!(this instanceof Projectile))
+                map.removeEntity(this.line, this.column);
         }
     }
 
