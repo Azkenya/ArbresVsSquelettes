@@ -3,6 +3,9 @@ package model.entities;
 import model.Entity;
 import model.config.Map;
 import controller.Game;
+
+import javax.swing.*;
+
 public class Skeleton extends Entity {
     private int range;
     private int speed;
@@ -11,7 +14,6 @@ public class Skeleton extends Entity {
     private double realColumn;
     private double realSpeed;
     private int attackOnCooldown;
-    private JLabel attachedImage;
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
@@ -22,6 +24,10 @@ public class Skeleton extends Entity {
         this.realSpeed = 0.12;
         this.realColumn = 14;
         this.isFrozen = false;
+
+        JLabel skelImg = new JLabel(new ImageIcon("src/main/resources/skeldef.png"));
+        skelImg.setBounds(15*111 + 111,lane*200,111, 200);
+        this.setAttachedImage(skelImg);
     }
 
     @Override

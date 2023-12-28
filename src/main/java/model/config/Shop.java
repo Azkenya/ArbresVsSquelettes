@@ -3,9 +3,6 @@ package model.config;
 import model.entities.*;
 import model.entities.trees.*;
 import controller.Game;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,12 +12,10 @@ public class Shop {
     private ArrayList<Tree> availableTrees;
     private Map map;
     private Scanner userInput;
-    private final Game game;
 
-    public Shop(Money playerMoney, Map map, Scanner userInput, Game game) {
+    public Shop(Money playerMoney, Map map, Scanner userInput) {
         this.playerMoney = playerMoney;
         this.availableTrees = new ArrayList<>();
-        this.game = game;
 
         //TODO Moyen d'automatiser l'ajout ?
         availableTrees.add(new Oak(-1,-1,null));
@@ -66,7 +61,7 @@ public class Shop {
         }
         if (this.map.addEntity(t)) {
             System.out.println("\nSuccesfully placed the tree at line " + t.getLine() + " and at column " + t.getColumn() + "\n");
-            game.addTree(t);
+            Game.trees.add(t);
         }
         else{
             playerMoney.add(new Money(t.getCost()));//Si on ne peut pas placer l'arbre, on recrédite le compte du joueur du prix de l'arbre
@@ -171,7 +166,7 @@ public class Shop {
            if(!answerIsANumberOrAChar(answer)){
                 continue;
             }
-            int column = -1;
+            int column;
             try{
                 column= Integer.parseInt(answer);
             }catch(NumberFormatException e){

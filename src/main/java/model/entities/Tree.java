@@ -2,16 +2,14 @@ package model.entities;
 
 import model.Entity;
 import model.config.Map;
-import model.entities.Projectile;
 import controller.Game;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
 public abstract class Tree extends Entity {
     private int cost;
-    private ArrayList<Projectile> projectiles = new ArrayList<Projectile>();
+    private ArrayList<Projectile> projectiles = new ArrayList<>();
     protected int ProjectileCooldown = 0;
-    private JLabel attachedImage;
 
     public Tree(int cost, int hp, int line, int column, int damage, Map map) {
         super(hp, line, column, damage, map);
@@ -61,11 +59,4 @@ public abstract class Tree extends Entity {
         return super.getDamage();
     }
 
-    public JLabel getAttachedImage() {
-        return attachedImage;
-    }
-
-    public void setAttachedImage(JLabel attachedImage) {
-        this.attachedImage = attachedImage;
-    }
 }

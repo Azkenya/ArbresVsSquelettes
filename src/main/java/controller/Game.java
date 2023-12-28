@@ -1,28 +1,25 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.lang.Math;
 import model.config.*;
 import model.entities.*;
-import view.*;
-import model.entities.trees.*;
 public class Game implements Updatable {
     private static Money playerMoney;
     private Map map;
     private Shop shop;
     private int currentTurn;
-    private ArrayList<Tree> trees;
+    public static ArrayList<Tree> trees;
     private Wave wave;
     public static boolean graphicMode=true;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
-        this.playerMoney = playerMoney;
+        Game.playerMoney = playerMoney;
         this.map = map;
         this.shop = shop;
         this.currentTurn = 0;
-        this.trees = trees;
+        Game.trees = trees;
         this.wave = wave;
     }
 
@@ -55,12 +52,12 @@ public class Game implements Updatable {
 
 
     public void update() {
-        if(this.wave.isFinished() && this.wave.noEnemiesOnMap()){
+        if(this.wave.isFinished() && Wave.noEnemiesOnMap()){
             this.win();
         }
         this.wave.update();
         this.updateTrees();
-        this.randMoney();
+        randMoney();
         this.currentTurn++;
     }
 
@@ -73,9 +70,9 @@ public class Game implements Updatable {
         playerMoney.add(new Money(25));
     }
     public void updateTrees() {
-        for (Tree tree : this.trees) {
+        for (Tree tree : trees) {
             if (tree.getHp() <= 0) {
-                this.trees.remove(tree);
+                trees.remove(tree);
             }else{
                 tree.update();
          }
@@ -106,5 +103,9 @@ public class Game implements Updatable {
 
     public void addTree(Tree t){
         trees.add(t);
+    }
+
+    public Wave getWave() {
+        return wave;
     }
 }

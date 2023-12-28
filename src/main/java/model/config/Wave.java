@@ -3,7 +3,6 @@ package model.config;
 import java.util.ArrayList;
 import java.util.Random;
 import controller.Updatable;
-import model.Entity;
 import model.entities.Skeleton;
 import controller.Game;
 
@@ -150,22 +149,18 @@ public class Wave implements Updatable {
     /**
      * Make an easy mode wave of enemies
      * @param map the map
-     * 
      * This wave is made of 7 waves of enemies
      * The first wave is made of 20 enemies
      * The other waves are made of 30 enemies
      * We use the makeBeginningWave, makeMidGameWaveEasy and makeFinalWaveEasy
      * methods to make the waves
-     * 
      * A wave represents the whole game.
      * For the easy mode, it is made of a 7 box long array, which represents 7 sub-waves of enemies.
      * Each sub-wave is made of 20 or 30 box long arrays, which represent the rounds of the wave
      * Each round is made of an array of 5 Skeletons, which represent the 5 lanes where enemies spawn
-     * 
      * For example, enemies[2][3] represents the 4th round of the 3rd sub-wave of the wave
      * And enemies[2][3][4] represents the enemy on the 5th lane of the 4th round 
      * of the 3rd sub-wave of the wave
-     *
      * @return the wave of enemies
      */
     public static Skeleton[][][] makeEasy(Map map) {
@@ -606,10 +601,6 @@ public class Wave implements Updatable {
 
     public Skeleton[][][] getEnemies() {
         return this.enemies;
-    }
-
-    public void setEnemies(Skeleton[][][] enemies) {
-        this.enemies = enemies;
     }
 
 }

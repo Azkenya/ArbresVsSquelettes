@@ -2,12 +2,16 @@ package model;
 import model.config.Map;
 import controller.Updatable;
 import model.entities.Projectile;
+
+import javax.swing.*;
+
 public abstract class Entity implements Updatable {
     private int hp;
     private int line;
     private int column;
     private int damage;
     private static final Map map = new Map();
+    private JLabel attachedImage;
 
     public Entity(int hp, int line, int column, int damage, Map map) {
         this.hp = hp;
@@ -60,6 +64,13 @@ public abstract class Entity implements Updatable {
 
     public static Map getMap() {
         return Entity.map;
+    }
+    public JLabel getAttachedImage() {
+        return attachedImage;
+    }
+
+    public void setAttachedImage(JLabel attachedImage) {
+        this.attachedImage = attachedImage;
     }
 
 }
