@@ -126,6 +126,7 @@ public class Map {
                     skeletonsToRemove.add(s);
                 }
             }
+            skeletonsToRemove.forEach(skeleton -> skeleton.getAttachedImage().setVisible(false));
             Wave.getEnemiesOnMap().removeAll(skeletonsToRemove);
         }
     }

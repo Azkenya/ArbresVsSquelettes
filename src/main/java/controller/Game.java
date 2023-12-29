@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 import java.lang.Math;
 import model.config.*;
@@ -58,7 +59,7 @@ public class Game implements Updatable {
         if(this.wave.isFinished() && Wave.noEnemiesOnMap()){
             this.win();
         }
-        view.spawnSkeletons();
+        if(graphicMode)view.spawnSkeletons();
         this.wave.update();
         this.updateTrees();
         randMoney();
@@ -74,7 +75,8 @@ public class Game implements Updatable {
         playerMoney.add(new Money(25));
     }
     public void updateTrees() {
-        for (Tree tree : trees) {
+        ArrayList<Tree> tempTrees = new ArrayList<>(trees);
+        for (Tree tree : tempTrees) {
             if (tree.getHp() <= 0) {
                 trees.remove(tree);
             }else{
@@ -107,10 +109,19 @@ public class Game implements Updatable {
 
     public void addTree(Tree t){
         trees.add(t);
+        if(graphicMode){
+            this.map.addEntity(t);
+            view.getMainContainer().add(t.getAttachedImage());
+            t.getAttachedImage().setVisible(true);
+        }
     }
 
     public Wave getWave() {
         return wave;
+    }
+
+    public Map getMap() {
+        return map;
     }
 
     public void setView(GameScreen view) {

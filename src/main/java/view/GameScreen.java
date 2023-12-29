@@ -4,6 +4,8 @@ import controller.Game;
 import controller.Updatable;
 import model.config.Wave;
 import model.entities.Skeleton;
+import model.entities.trees.Oak;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,18 +20,26 @@ public class GameScreen extends JFrame implements Updatable {
     private Timer gameUpdateTimer;
     private int currentTurn = 0;
     private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
-    private static final ArrayList<JLabel> modelsOnMap = new ArrayList<>();
 
     public GameScreen(Game game)throws IOException {
         this.game = game;
         this.wave = game.getWave();
         game.setView(this);
+
+
         mainContainer = new JPanel(null);
         mainContainer.setPreferredSize(new Dimension(1776,1000));
 
         this.setContentPane(mainContainer);
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        Oak testOak = new Oak(0,0,game.getMap());
+        Oak testOak2 = new Oak(2,1,game.getMap());
+        this.game.addTree(testOak);
+        this.game.addTree(testOak2);
+
+        System.out.println(game.getMap().getEntityAt(0,0));
 
         this.initializeTimer();
         this.gameUpdateTimer.start();
@@ -45,7 +55,6 @@ public class GameScreen extends JFrame implements Updatable {
                 Skeleton skeleton = wave.getEnemies()[currentSubWave][currentRound][i];
                 if(skeleton != null){
                     mainContainer.add(skeleton.getAttachedImage());
-                    modelsOnMap.add(skeleton.getAttachedImage());
                 }
             }
             mainContainer.repaint();
@@ -65,9 +74,13 @@ public class GameScreen extends JFrame implements Updatable {
         for(Skeleton s : enemiesOnMap){
             System.out.print("Line " + s.getLine() + " Column " + s.getRealColumn() + "\n");
         }
+        System.out.println();
         currentTurn++;
     }
 
+    public JPanel getMainContainer() {
+        return mainContainer;
+    }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
         //Frame est le nombre de frames totales de l'animation ATTENTION LE NOMBRE DE FRAMES NE PEUT PAS ETRE SUPERIEUR AU NOMBRE DE PIXELS DE LIMAGE ANIMEE

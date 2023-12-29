@@ -95,12 +95,14 @@ public class Wave implements Updatable {
         return enemiesOnMap.isEmpty();
     }
 
-    public void updateEnemies() {//FIXME PROBLEME DE JEU
-        System.out.println("Updating enemies");
+    public void updateEnemies() {
         for (int i = 0; i < Wave.enemiesOnMap.size(); i++) {
-            Wave.enemiesOnMap.get(i).update();
+            Skeleton skeleton = Wave.enemiesOnMap.get(i);
+            skeleton.update();
+            if (skeleton.getHp() <= 0){
+                enemiesOnMap.remove(skeleton);
+            }
         }
-        enemiesOnMap.removeIf(skeleton -> skeleton.getHp() <= 0);
     }
 
     public void spawnEnemies() {

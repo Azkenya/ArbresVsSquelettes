@@ -47,7 +47,6 @@ public class Skeleton extends Entity {
     public void updateGraphic(){
         double currentColumn = this.realColumn;
         int currentLine = this.getLine();
-
         //Range of the first tree we can attack
         int treeAt = this.treeInOurRange();
         // If there is an entity in our range and it is a Tree, attack it
@@ -61,23 +60,23 @@ public class Skeleton extends Entity {
             }
         }
 
+
         //Moves as far as possible if not frozen
         if(!isFrozen){
-            this.realColumn -= this.realSpeed;
-            System.out.println("("+this.getLine()+"'"+this.realColumn+")");
             this.setColumn((int) currentColumn);
+            this.realColumn -= this.realSpeed;
             this.getAttachedImage().setBounds((int) (currentColumn*111),getAttachedImage().getY(),getAttachedImage().getWidth(),getAttachedImage().getHeight()); //Actualise l'affichage de la vue
         }
         else{
-            this.realColumn -= this.realSpeed/2;
             this.setColumn((int) currentColumn);
+            this.realColumn -= this.realSpeed/2;
             this.freezeDuration--;
             if(this.freezeDuration == 0){
                 this.isFrozen = false;
             }
         }
         //If we are at the end of the map
-        if(this.realColumn <=0){
+        if(currentColumn <= 0){
             //If there is no chainsaw, lose
             if(!getMap().getChainsaws()[this.getLine()]){
                 this.skeletonsWin();
@@ -86,10 +85,9 @@ public class Skeleton extends Entity {
             else{
                 getMap().killEverythingOnLine(this.getLine());
                 getMap().getChainsaws()[this.getLine()] = false;
-                return;
             }
         }
-        
+
         //Else check for entity next to us
         //If there is none, move
         else if(getMap().getEntityAt(this.getLine(), (int)Math.ceil(currentColumn) - 1) == null){
@@ -97,6 +95,7 @@ public class Skeleton extends Entity {
             this.setColumn((int)Math.ceil(currentColumn) - 1);
             //getMap().addEntity(this);
         }
+
     }
 
     //Updates the skeleton in console mode
@@ -159,10 +158,10 @@ public class Skeleton extends Entity {
     //Returns -1 if there is no tree in our range
     //Else returns the range between us and the first tree
     public int treeInOurRange(){
-        int column =(Game.graphicMode)? (int)Math.ceil(this.realColumn) : this.getColumn();
+        int curColumn =(Game.graphicMode)? (int)Math.ceil(this.realColumn) : this.getColumn();
         int actualRange = 0;
-        while(actualRange <= this.range && column - actualRange - 1 >= 0) {
-            if (getMap().getEntityAt(this.getLine(), column - actualRange - 1) instanceof Tree) {
+        while(actualRange <= this.range && curColumn - actualRange - 1 >= 0) {
+            if (getMap().getEntityAt(this.getLine(), curColumn - actualRange - 1) instanceof Tree) {
                 return actualRange;
             }
             actualRange++;
