@@ -13,7 +13,6 @@ public class Skeleton extends Entity {
     private int freezeDuration;
     private double realColumn;
     private double realSpeed;
-    private int attackOnCooldown;
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
@@ -27,6 +26,7 @@ public class Skeleton extends Entity {
 
         JLabel skelImg = new JLabel(new ImageIcon("src/main/resources/skeldef.png"));
         skelImg.setBounds(15*111,lane*200,111, 200);
+        //skelImg.setBounds(15*55,lane*100,55, 100);
         this.setAttachedImage(skelImg);
     }
 
@@ -48,31 +48,26 @@ public class Skeleton extends Entity {
         double currentColumn = this.realColumn;
         int currentLine = this.getLine();
         //Range of the first tree we can attack
-        int treeAt = this.treeInOurRange();
+        int treeAtIndex=this.treeInOurRange();
         // If there is an entity in our range and it is a Tree, attack it
-        if (treeAt != -1) {
-            if(this.attackOnCooldown == 0){
-                this.attack(getMap().getEntityAt(currentLine, (int)Math.ceil(currentColumn) - treeAt - 1));
-                this.attackOnCooldown = 10;
+        if (treeAtIndex != -1) {
+                this.attack(Game.trees.get(treeAtIndex));
+        }else{
+
+
+            //Moves as far as possible if not frozen
+            if(!isFrozen){
+                this.setColumn((int) currentColumn);
+                this.realColumn -= this.realSpeed;
+                this.getAttachedImage().setBounds((int) (currentColumn*111),getAttachedImage().getY(),getAttachedImage().getWidth(),getAttachedImage().getHeight()); //Actualise l'affichage de la vue
             }
             else{
-                this.attackOnCooldown--;
-            }
-        }
-
-
-        //Moves as far as possible if not frozen
-        if(!isFrozen){
-            this.setColumn((int) currentColumn);
-            this.realColumn -= this.realSpeed;
-            this.getAttachedImage().setBounds((int) (currentColumn*111),getAttachedImage().getY(),getAttachedImage().getWidth(),getAttachedImage().getHeight()); //Actualise l'affichage de la vue
-        }
-        else{
-            this.setColumn((int) currentColumn);
-            this.realColumn -= this.realSpeed/2;
-            this.freezeDuration--;
-            if(this.freezeDuration == 0){
-                this.isFrozen = false;
+                this.setColumn((int) currentColumn);
+                this.realColumn -= this.realSpeed/2;
+                this.freezeDuration--;
+                if(this.freezeDuration == 0){
+                    this.isFrozen = false;
+                }
             }
         }
         //If we are at the end of the map
@@ -158,15 +153,56 @@ public class Skeleton extends Entity {
     //Returns -1 if there is no tree in our range
     //Else returns the range between us and the first tree
     public int treeInOurRange(){
-        int curColumn =(Game.graphicMode)? (int)Math.ceil(this.realColumn) : this.getColumn();
-        int actualRange = 0;
-        while(actualRange <= this.range && curColumn - actualRange - 1 >= 0) {
-            if (getMap().getEntityAt(this.getLine(), curColumn - actualRange - 1) instanceof Tree) {
-                return actualRange;
+        if(!Game.graphicMode){
+            int curColumn =this.getColumn();
+            int actualRange = 0;
+            while(actualRange <= this.range && curColumn - actualRange - 1 >= 0) {
+                if (getMap().getEntityAt(this.getLine(), curColumn - actualRange - 1) instanceof Tree) {
+                    System.out.println("Tree at " + (curColumn - actualRange - 1) + " and we are at " + curColumn);
+                    return actualRange;
+                }
+                actualRange++;
             }
-            actualRange++;
+            System.out.println("No tree in range");
+            return -1;
+        }else{
+            int curLine = this.getLine();
+            double curColumn=this.realColumn;
+            int [] closestTreeDistance=this.firstTreeInLine(curLine,curColumn);
+            System.out.println("Closest tree distance : "+closestTreeDistance[0]);
+            if(!(closestTreeDistance[0]>this.range||closestTreeDistance[0]==-1)){
+                return closestTreeDistance[1];
+            }
+            return -1;
         }
-        return -1;
+        
+    }
+
+
+    public int [] firstTreeInLine(int line,double column){
+        int closestTree=-1;
+        Tree gottenTree= null;
+        for(Tree tree: Game.trees){
+            if(tree.getLine()==line){
+                if(tree.getColumn()<=column){
+                    if(closestTree==-1&&tree.getColumn()<=column){
+                        closestTree=(int) (column-tree.getColumn());
+                        gottenTree=tree;
+                    }
+                    else if((int) (column-tree.getColumn())<closestTree){
+                        closestTree=(int) (column-tree.getColumn());
+                        gottenTree=tree;
+                    }
+                }
+            }
+        }
+        if(gottenTree!=null){
+            //get the tree's index in the arraylist
+            int index=Game.trees.indexOf(gottenTree);
+            return new int[]{closestTree,index};
+        }else{
+            return new int[]{-1,-1};
+        }
     }
 
     public int getRange() {

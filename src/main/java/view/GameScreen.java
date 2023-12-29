@@ -29,7 +29,7 @@ public class GameScreen extends JFrame implements Updatable {
 
         mainContainer = new JPanel(null);
         mainContainer.setPreferredSize(new Dimension(1776,1000));
-
+        //mainContainer.setPreferredSize(new Dimension(888,500));
         this.setContentPane(mainContainer);
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -40,7 +40,7 @@ public class GameScreen extends JFrame implements Updatable {
         this.game.addTree(testOak2);
 
         System.out.println(game.getMap().getEntityAt(0,0));
-
+        
         this.initializeTimer();
         this.gameUpdateTimer.start();
 

@@ -18,6 +18,7 @@ public class Oak extends Tree {
         super(cost, hp, line, column, damage, map);
         JLabel oakImg = new JLabel(new ImageIcon("src/main/resources/treedef.png"));
         oakImg.setBounds(column*111,line*200,111,200);
+        //oakImg.setBounds(column*55,line*100,55, 100);
         this.setAttachedImage(oakImg);
     }
 

@@ -78,8 +78,10 @@ public class Game implements Updatable {
         ArrayList<Tree> tempTrees = new ArrayList<>(trees);
         for (Tree tree : tempTrees) {
             if (tree.getHp() <= 0) {
+                System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has been destroyed");
                 trees.remove(tree);
             }else{
+                System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has " + tree.getHp() + " hp");
                 tree.update();
          }
         }
