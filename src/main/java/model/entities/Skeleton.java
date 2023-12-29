@@ -21,12 +21,12 @@ public class Skeleton extends Entity {
         super(hp, lane, 14, 1, map);
         this.range = 1;
         this.speed = 1;
-        this.realSpeed = 0.12;
+        this.realSpeed = 1;
         this.realColumn = 14;
         this.isFrozen = false;
 
         JLabel skelImg = new JLabel(new ImageIcon("src/main/resources/skeldef.png"));
-        skelImg.setBounds(15*111 + 111,lane*200,111, 200);
+        skelImg.setBounds(15*111,lane*200,111, 200);
         this.setAttachedImage(skelImg);
     }
 
@@ -41,7 +41,6 @@ public class Skeleton extends Entity {
         else{
             this.updateConsole();
         }
-       
     }
 
     //Updates the skeleton in graphic mode
@@ -54,7 +53,7 @@ public class Skeleton extends Entity {
         // If there is an entity in our range and it is a Tree, attack it
         if (treeAt != -1) {
             if(this.attackOnCooldown == 0){
-                this.attack(this.getMap().getEntityAt(currentLine, (int)Math.ceil(currentColumn) - treeAt - 1));
+                this.attack(getMap().getEntityAt(currentLine, (int)Math.ceil(currentColumn) - treeAt - 1));
                 this.attackOnCooldown = 10;
             }
             else{
@@ -67,6 +66,7 @@ public class Skeleton extends Entity {
             this.realColumn -= this.realSpeed;
             System.out.println("("+this.getLine()+"'"+this.realColumn+")");
             this.setColumn((int) currentColumn);
+            this.getAttachedImage().setBounds((int) (currentColumn*111),getAttachedImage().getY(),getAttachedImage().getWidth(),getAttachedImage().getHeight()); //Actualise l'affichage de la vue
         }
         else{
             this.realColumn -= this.realSpeed/2;
@@ -79,23 +79,23 @@ public class Skeleton extends Entity {
         //If we are at the end of the map
         if(this.realColumn <=0){
             //If there is no chainsaw, lose
-            if(!this.getMap().getChainsaws()[this.getLine()]){
+            if(!getMap().getChainsaws()[this.getLine()]){
                 this.skeletonsWin();
             }
             //Else activate chainsaw
             else{
-                this.getMap().killEverythingOnLine(this.getLine());
-                this.getMap().getChainsaws()[this.getLine()] = false;
+                getMap().killEverythingOnLine(this.getLine());
+                getMap().getChainsaws()[this.getLine()] = false;
                 return;
             }
         }
         
         //Else check for entity next to us
         //If there is none, move
-        else if(this.getMap().getEntityAt(this.getLine(), (int)Math.ceil(currentColumn) - 1) == null){
-            //this.getMap().removeEntity(this.getLine(), (int)Math.ceil(currentColumn));
+        else if(getMap().getEntityAt(this.getLine(), (int)Math.ceil(currentColumn) - 1) == null){
+            //getMap().removeEntity(this.getLine(), (int)Math.ceil(currentColumn));
             this.setColumn((int)Math.ceil(currentColumn) - 1);
-            //this.getMap().addEntity(this);
+            //getMap().addEntity(this);
         }
     }
 
@@ -108,7 +108,7 @@ public class Skeleton extends Entity {
         int treeAt = this.treeInOurRange();
         // If there is an entity in our range is a Tree, attack it
         if (treeAt != -1) {
-            this.attack(this.getMap().getEntityAt(currentLine, currentColumn - treeAt - 1));
+            this.attack(getMap().getEntityAt(currentLine, currentColumn - treeAt - 1));
         }
 
         //Moves as far as possible if not frozen
@@ -125,23 +125,23 @@ public class Skeleton extends Entity {
         //If we are at the end of the map
         if(this.getColumn() == 0){
             //If there is no chainsaw, lose
-            if(!this.getMap().getChainsaws()[this.getLine()]){
+            if(!getMap().getChainsaws()[this.getLine()]){
                 this.skeletonsWin();
             }
             //Else activate chainsaw
             else{
-                this.getMap().killEverythingOnLine(this.getLine());
-                this.getMap().getChainsaws()[this.getLine()] = false;
+                getMap().killEverythingOnLine(this.getLine());
+                getMap().getChainsaws()[this.getLine()] = false;
                 return;
             }
         }
 
         //Else check for entity next to us
         //If there is none, move
-        if(this.getMap().getEntityAt(this.getLine(), this.getColumn() - 1) == null){
-            this.getMap().removeEntity(this.getLine(), this.getColumn());
+        if(getMap().getEntityAt(this.getLine(), this.getColumn() - 1) == null){
+            getMap().removeEntity(this.getLine(), this.getColumn());
             this.setColumn(this.getColumn() - 1);
-            this.getMap().addEntity(this);
+            getMap().addEntity(this);
             this.moveOne(leftToMove - 1);
         }
     }
@@ -162,7 +162,7 @@ public class Skeleton extends Entity {
         int column =(Game.graphicMode)? (int)Math.ceil(this.realColumn) : this.getColumn();
         int actualRange = 0;
         while(actualRange <= this.range && column - actualRange - 1 >= 0) {
-            if (this.getMap().getEntityAt(this.getLine(), column - actualRange - 1) instanceof Tree) {
+            if (getMap().getEntityAt(this.getLine(), column - actualRange - 1) instanceof Tree) {
                 return actualRange;
             }
             actualRange++;
@@ -203,5 +203,9 @@ public class Skeleton extends Entity {
         if(Game.graphicMode){
             this.freezeDuration = 3;
         }
+    }
+
+    public double getRealSpeed() {
+        return realSpeed;
     }
 }

@@ -2,25 +2,28 @@ package view;
 
 import controller.Game;
 import controller.Updatable;
+import model.config.Wave;
 import model.entities.Skeleton;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GameScreen extends JFrame implements Updatable {
     private JPanel mainContainer;
-    private Game game;
+    private final Game game;
+    private final Wave wave;
     private Timer gameUpdateTimer;
     private int currentTurn = 0;
+    private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
+    private static final ArrayList<JLabel> modelsOnMap = new ArrayList<>();
 
-    private static ArrayList<Skeleton> ennemiesOnMap = new ArrayList<>();
-
-    public GameScreen(Game game){
+    public GameScreen(Game game)throws IOException {
         this.game = game;
+        this.wave = game.getWave();
+        game.setView(this);
         mainContainer = new JPanel(null);
         mainContainer.setPreferredSize(new Dimension(1776,1000));
 
@@ -31,51 +34,40 @@ public class GameScreen extends JFrame implements Updatable {
         this.initializeTimer();
         this.gameUpdateTimer.start();
 
-//        for(int i = 0; i < 5; i++){
-//            Skeleton testSkel = new Skeleton(10,i,new Map());
-//            mainContainer.add(testSkel.getAttachedImage());
-//            System.out.printf("%d caca %d pipi\n",testSkel.getAttachedImage().getX(),testSkel.getAttachedImage().getY());
-//        }
-//
-//        animate(testSkel.getAttachedImage(), new Point(500,500),1000,5);
-
     }
 
-    public void display1Round(int k){
-        Skeleton[] roundToDisplay = game.getWave().getEnemies()[0][k];
-        System.out.println(Arrays.toString(roundToDisplay));
-        for (int i = 0; i < 5; i++){
-            Skeleton model = roundToDisplay[i];
-            if (model != null){
-                ennemiesOnMap.add(model);
-                mainContainer.add(model.getAttachedImage());
-                mainContainer.repaint();
+    public void spawnSkeletons(){
+        int currentSubWave = this.wave.getCurrentSubWave();
+        int currentRound = this.wave.getCurrentRound();
+        System.out.printf("%d subwave %d round\n",currentSubWave,currentRound);
+        if(currentRound < 20 && currentSubWave < 7){
+            for(int i = 0; i < 5 ; i++){
+                Skeleton skeleton = wave.getEnemies()[currentSubWave][currentRound][i];
+                if(skeleton != null){
+                    mainContainer.add(skeleton.getAttachedImage());
+                    modelsOnMap.add(skeleton.getAttachedImage());
+                }
             }
+            mainContainer.repaint();
         }
     }
 
     private void initializeTimer(){
-        this.gameUpdateTimer = new Timer(1500, e -> this.update());
+        this.gameUpdateTimer = new Timer(500, e -> this.update());//1750
         gameUpdateTimer.setRepeats(true);
 
     }
 
     @Override
     public void update() {
-        advanceAllSkeletons();
-        display1Round(currentTurn);
+        game.update();
+        mainContainer.repaint();
+        for(Skeleton s : enemiesOnMap){
+            System.out.print("Line " + s.getLine() + " Column " + s.getRealColumn() + "\n");
+        }
         currentTurn++;
     }
 
-    private void advanceAllSkeletons(){
-        for(Skeleton s : ennemiesOnMap){
-            JLabel sAttachedImage = s.getAttachedImage();
-            int oldX = sAttachedImage.getX();
-            animate(sAttachedImage,new Point(oldX - 111,sAttachedImage.getY()),111,3);
-//            sAttachedImage.setBounds(oldX - 111,sAttachedImage.getY(),sAttachedImage.getWidth(),sAttachedImage.getHeight());
-            this.repaint();
-        }
-    }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
         //Frame est le nombre de frames totales de l'animation ATTENTION LE NOMBRE DE FRAMES NE PEUT PAS ETRE SUPERIEUR AU NOMBRE DE PIXELS DE LIMAGE ANIMEE

@@ -1,10 +1,14 @@
 package model.config;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import controller.Updatable;
 import model.entities.Skeleton;
 import controller.Game;
+import view.GameScreen;
+
+import javax.imageio.IIOException;
 
 public class Wave implements Updatable {
     private Skeleton[][][]enemies;
@@ -13,16 +17,21 @@ public class Wave implements Updatable {
     private static Map map;
     private int currentRound;
     private int currentSubWave;
-    private static int cooldown;
+
 
     public Wave(Skeleton[][][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
         this.isFinished = false;
         Wave.enemiesOnMap = enemiesOnMap;
         Wave.map = map;
-        this.currentRound = -5;
+        this.currentRound = 0;
         this.currentSubWave = 0;
 
+        try{
+            tools.IOTools.writeToFile(this.enemiesToString(),"/cacaDeWave.txt");
+        }catch (IOException e){
+            System.out.println("oh non error io");
+        }
     }
 
     /**
@@ -39,37 +48,26 @@ public class Wave implements Updatable {
         this.updateEnemies();
         if (this.currentSubWave < this.enemies.length) {
             if(this.currentRound < this.enemies[this.currentSubWave].length){
-                    if(!map.isEnemyOnLastColumn()){
+                if(!map.isEnemyOnLastColumn() || Game.graphicMode){
                         if(!Game.graphicMode){
                             if(this.currentRound>=0)
                                 this.spawnEnemies();
                             this.currentRound++;
                         }else{
-                            System.out.println("NextRoundIsEmpty : "+nextRoundIsEmpty()+"\nCurrentRound: "+this.currentRound);
-                            if(cooldown==0){
-                                if(this.currentRound>=0&&this.currentRound<this.enemies[this.currentSubWave].length){
-                                    this.spawnEnemies();
-                                    System.out.println("Spawned enemies");
-                                }
-                                this.currentRound++;
-                                if(nextRoundIsEmpty()){
-                                    cooldown = 25;
-                                }
-                            }else{
-                                cooldown--;
-                                System.out.println("Cooldown : "+cooldown);
-                            }
+                            System.out.println("CurrentRound: "+this.currentRound+"\nNextRoundIsEmpty : "+nextRoundIsEmpty());
+                            this.spawnEnemies();
+                            System.out.println("Spawned enemies");
+                            this.currentRound++;
                         }
                     }
-                
+
             }
             else{
                 if(noEnemiesOnMap()){
-                    this.currentRound = -5;
+                    this.currentRound = 0;
                     this.currentSubWave++;
                     System.out.println("Subwave Finished");
                 }
-                
             }
         }
         else{
@@ -84,7 +82,6 @@ public class Wave implements Updatable {
             return true;
         }
         for(int i=0;i<5;i++){
-            
             if(this.enemies[this.currentSubWave][this.currentRound+1][i]!=null){
                 return false;
             }
@@ -590,6 +587,21 @@ public class Wave implements Updatable {
         }
         return s;
     }
+    public String enemiesToString(){
+        StringBuilder retStr = new StringBuilder();
+        for(int i =0; i < enemies.length;i++){
+            retStr.append("[ " + enemies.length + "\n");
+            for (int j =0;j < enemies[i].length;j++){
+                retStr.append("    [ " + enemies[i].length + "\n       ");
+                for(int k = 0; k < enemies[i][j].length; k++){
+                    retStr.append(""+enemies[i][j][k] + " ");
+                }
+                retStr.append("\n    ]\n\n");
+            }
+            retStr.append("]\n\n");
+        }
+        return retStr.toString();
+    }
 
     public static ArrayList<Skeleton> getEnemiesOnMap() {
         return Wave.enemiesOnMap;
@@ -603,4 +615,11 @@ public class Wave implements Updatable {
         return this.enemies;
     }
 
+    public int getCurrentRound() {
+        return currentRound;
+    }
+
+    public int getCurrentSubWave() {
+        return currentSubWave;
+    }
 }

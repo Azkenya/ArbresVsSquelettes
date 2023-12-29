@@ -5,6 +5,8 @@ import java.util.Scanner;
 import java.lang.Math;
 import model.config.*;
 import model.entities.*;
+import view.GameScreen;
+
 public class Game implements Updatable {
     private static Money playerMoney;
     private Map map;
@@ -12,6 +14,7 @@ public class Game implements Updatable {
     private int currentTurn;
     public static ArrayList<Tree> trees;
     private Wave wave;
+    private GameScreen view;
     public static boolean graphicMode=true;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
@@ -55,6 +58,7 @@ public class Game implements Updatable {
         if(this.wave.isFinished() && Wave.noEnemiesOnMap()){
             this.win();
         }
+        view.spawnSkeletons();
         this.wave.update();
         this.updateTrees();
         randMoney();
@@ -107,5 +111,9 @@ public class Game implements Updatable {
 
     public Wave getWave() {
         return wave;
+    }
+
+    public void setView(GameScreen view) {
+        this.view = view;
     }
 }
