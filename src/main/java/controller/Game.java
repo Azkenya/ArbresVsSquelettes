@@ -16,7 +16,7 @@ public class Game implements Updatable {
     public static ArrayList<Tree> trees;
     private Wave wave;
     private GameScreen view;
-    public static boolean graphicMode=true;
+    public static boolean graphicMode=false;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
         Game.playerMoney = playerMoney;
@@ -79,6 +79,7 @@ public class Game implements Updatable {
         for (Tree tree : tempTrees) {
             if (tree.getHp() <= 0) {
                 System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has been destroyed");
+                if(graphicMode)tree.removeVisibility();
                 trees.remove(tree);
             }else{
                 System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has " + tree.getHp() + " hp");

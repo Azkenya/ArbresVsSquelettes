@@ -34,8 +34,8 @@ public class GameScreen extends JFrame implements Updatable {
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        Oak testOak = new Oak(0,0,game.getMap());
-        Oak testOak2 = new Oak(2,1,game.getMap());
+        Oak testOak = new Oak(0,4,game.getMap());
+        Oak testOak2 = new Oak(2,4,game.getMap());
         this.game.addTree(testOak);
         this.game.addTree(testOak2);
 

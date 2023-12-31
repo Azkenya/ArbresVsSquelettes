@@ -30,6 +30,10 @@ public abstract class Entity implements Updatable {
         }
     }
 
+    public void removeVisibility(){
+        this.getAttachedImage().setVisible(false);
+    }
+
     public int getHp() {
         return this.hp;
     }

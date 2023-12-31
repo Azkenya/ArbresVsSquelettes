@@ -18,7 +18,7 @@ public class Skeleton extends Entity {
     // il apparaitra toujours sur la colonne 15
     public Skeleton(int hp, int lane, Map map) {
         super(hp, lane, 14, 1, map);
-        this.range = 1;
+        this.range = (Game.graphicMode)? 0 : 1; //Nous avons différentes gestions de la range en fonction du mode de jeu choisi
         this.speed = 1;
         this.realSpeed = 1;
         this.realColumn = 14;
@@ -168,14 +168,13 @@ public class Skeleton extends Entity {
         }else{
             int curLine = this.getLine();
             double curColumn=this.realColumn;
-            int [] closestTreeDistance=this.firstTreeInLine(curLine,curColumn);
+            int[] closestTreeDistance=this.firstTreeInLine(curLine,curColumn);
             System.out.println("Closest tree distance : "+closestTreeDistance[0]);
             if(!(closestTreeDistance[0]>this.range||closestTreeDistance[0]==-1)){
                 return closestTreeDistance[1];
             }
             return -1;
         }
-        
     }
 
 
