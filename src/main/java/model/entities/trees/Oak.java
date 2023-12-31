@@ -49,7 +49,7 @@ public class Oak extends Tree {
     }
 
     public void updateGraphic() {
-        //this.shoot();
+        this.shoot();
     }
 
     public void shoot() {

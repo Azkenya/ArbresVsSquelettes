@@ -137,10 +137,13 @@ public class Wave implements Updatable {
      */
     public static Skeleton[][][] makeWave(int lvl, Map map) {
         if (lvl == 1) {
+            System.out.println("Easy wave created");
             return makeEasy(map);
         } else if (lvl == 2) {
+            System.out.println("Medium wave created");
             return makeMedium(map);
         } else {
+            System.out.println("Hard wave created");
             return makeHard(map);
         }
     }

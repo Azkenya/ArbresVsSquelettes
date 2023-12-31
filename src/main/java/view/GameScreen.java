@@ -43,7 +43,6 @@ public class GameScreen extends JFrame implements Updatable {
         
         this.initializeTimer();
         this.gameUpdateTimer.start();
-
     }
 
     public void spawnSkeletons(){
