@@ -4,14 +4,6 @@
     ]
 
     [ 20
-       null null S null null 
-    ]
-
-    [ 20
-       null null null null null 
-    ]
-
-    [ 20
        null null null null S 
     ]
 
@@ -20,47 +12,7 @@
     ]
 
     [ 20
-       null null null S S 
-    ]
-
-    [ 20
-       null null null null null 
-    ]
-
-    [ 20
-       null null S null null 
-    ]
-
-    [ 20
-       null null null null null 
-    ]
-
-    [ 20
-       null null null null S 
-    ]
-
-    [ 20
-       null null null null null 
-    ]
-
-    [ 20
-       null null null null S 
-    ]
-
-    [ 20
-       null null null null null 
-    ]
-
-    [ 20
-       null null S null S 
-    ]
-
-    [ 20
-       null null null null null 
-    ]
-
-    [ 20
-       null S null null null 
+       S null null null null 
     ]
 
     [ 20
@@ -79,139 +31,95 @@
        null null null null null 
     ]
 
-]
+    [ 20
+       S null null null null 
+    ]
 
-[ 9
-    [ 40
+    [ 20
+       null null null null null 
+    ]
+
+    [ 20
+       null null null S null 
+    ]
+
+    [ 20
+       null null null null null 
+    ]
+
+    [ 20
        null S null null S 
     ]
 
-    [ 40
+    [ 20
        null null null null null 
     ]
 
-    [ 40
-       S null S S S 
+    [ 20
+       null null S null null 
     ]
 
-    [ 40
+    [ 20
        null null null null null 
     ]
 
-    [ 40
+    [ 20
+       null null S null null 
+    ]
+
+    [ 20
        null null null null null 
     ]
 
-    [ 40
-       null null null S null 
-    ]
-
-    [ 40
-       null null null null S 
-    ]
-
-    [ 40
-       null S null S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null S 
-    ]
-
-    [ 40
-       null null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null S null 
-    ]
-
-    [ 40
-       null null null S null 
-    ]
-
-    [ 40
-       null S S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
+    [ 20
        S null null null null 
     ]
 
+    [ 20
+       null null null null null 
+    ]
+
+]
+
+[ 9
     [ 40
-       null null null S null 
+       null null S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null S null null 
+    ]
+
+    [ 40
+       null null S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null S null null 
+    ]
+
+    [ 40
+       S null null S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
     ]
 
     [ 40
@@ -227,496 +135,43 @@
     ]
 
     [ 40
-       S S S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null null null null 
-    ]
-
-]
-
-[ 9
-    [ 40
-       null null null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null S null 
-    ]
-
-    [ 40
-       S S null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null null null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null S null 
-    ]
-
-    [ 40
-       null S S null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null null null 
-    ]
-
-    [ 40
-       null S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null S null 
-    ]
-
-    [ 40
-       S S S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S null null 
-    ]
-
-    [ 40
-       null null S null null 
-    ]
-
-    [ 40
-       null null S null null 
-    ]
-
-]
-
-[ 9
-    [ 50
-       S null null null null 
-    ]
-
-    [ 50
-       null null null null S 
-    ]
-
-    [ 50
-       S S S S S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S S null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null S null S null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
        null S S S S 
     ]
 
-    [ 50
+    [ 40
        null null null null null 
     ]
 
-    [ 50
+    [ 40
        null null null null null 
     ]
 
-    [ 50
-       S S S S S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null S S null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S S null S S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null S null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       S S null null S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null S null S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       null S S S null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null S null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       null S null S null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null S 
-    ]
-
-    [ 50
-       S S null S S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S null S S null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
+    [ 40
        S S S null S 
     ]
 
-    [ 50
+    [ 40
        null null null null null 
     ]
 
-    [ 50
+    [ 40
        null null null null null 
     ]
 
-    [ 50
-       S S null null S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
+    [ 40
        S null null S null 
     ]
 
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null S S null null 
-    ]
-
-]
-
-[ 9
-    [ 40
-       S S S S null 
-    ]
-
     [ 40
        null null null null null 
     ]
 
     [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null S S 
+       S null S S S 
     ]
 
     [ 40
        null null null null null 
-    ]
-
-    [ 40
-       null S S null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null S null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S null null 
-    ]
-
-    [ 40
-       S null null null null 
-    ]
-
-    [ 40
-       S S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null null null null 
-    ]
-
-    [ 40
-       null null S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S S null 
     ]
 
     [ 40
@@ -732,305 +187,23 @@
     ]
 
     [ 40
-       null S S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null null null 
-    ]
-
-    [ 40
-       S S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-]
-
-[ 9
-    [ 40
-       S S S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null null null 
-    ]
-
-    [ 40
-       S S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
        null null S null null 
     ]
 
     [ 40
-       null null null null S 
-    ]
-
-    [ 40
        null S null null null 
     ]
 
     [ 40
-       null null null null S 
-    ]
-
-    [ 40
-       null null null null S 
-    ]
-
-    [ 40
-       null null S S null 
+       S null null S null 
     ]
 
     [ 40
        null null null null null 
-    ]
-
-    [ 40
-       null S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S S S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S S S null S 
-    ]
-
-]
-
-[ 9
-    [ 40
-       null null null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null S 
     ]
 
     [ 40
        null S null null null 
-    ]
-
-    [ 40
-       null null null S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null null null null 
-    ]
-
-    [ 40
-       null null S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null S null S null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null S S S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
-       S null null null null 
-    ]
-
-    [ 40
-       null null null null S 
-    ]
-
-    [ 40
-       null null S null S 
-    ]
-
-    [ 40
-       null null null null null 
     ]
 
     [ 40
@@ -1042,15 +215,11 @@
     ]
 
     [ 40
-       null null S null S 
-    ]
-
-    [ 40
-       null null null null null 
-    ]
-
-    [ 40
        S null null null null 
+    ]
+
+    [ 40
+       null null null null S 
     ]
 
     [ 40
@@ -1062,15 +231,7 @@
     ]
 
     [ 40
-       null null S null null 
-    ]
-
-    [ 40
-       S null S S S 
-    ]
-
-    [ 40
-       null null null null null 
+       null null S S null 
     ]
 
     [ 40
@@ -1081,12 +242,143 @@
        null null null S S 
     ]
 
+]
+
+[ 9
+    [ 40
+       S S S null S 
+    ]
+
     [ 40
        null null null null null 
     ]
 
     [ 40
-       null null S S S 
+       null null null null null 
+    ]
+
+    [ 40
+       null S S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       S null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       null S null null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S null null null null 
+    ]
+
+    [ 40
+       S null null null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       S null null S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S null S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
     ]
 
     [ 40
@@ -1095,17 +387,73 @@
 
     [ 40
        null null null S null 
+    ]
+
+    [ 40
+       null S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S null S S 
     ]
 
 ]
 
 [ 9
     [ 50
-       null null null S null 
+       S null null null null 
     ]
 
     [ 50
-       S null null null null 
+       null null S null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null S 
+    ]
+
+    [ 50
+       null null null S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null S S null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
     ]
 
     [ 50
@@ -1125,103 +473,11 @@
     ]
 
     [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       S S null null S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       null null S null null 
-    ]
-
-    [ 50
-       S S S null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       S null S S null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
        S S S S S 
     ]
 
     [ 50
        null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       null S null S null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S null S null null 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S null null null null 
-    ]
-
-    [ 50
-       null null null S null 
-    ]
-
-    [ 50
-       S null null null S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S null null null null 
-    ]
-
-    [ 50
-       null S null null null 
-    ]
-
-    [ 50
-       S S S null S 
     ]
 
     [ 50
@@ -1245,7 +501,11 @@
     ]
 
     [ 50
-       null S null S null 
+       null null null null S 
+    ]
+
+    [ 50
+       S S S S S 
     ]
 
     [ 50
@@ -1253,7 +513,39 @@
     ]
 
     [ 50
-       null S null S null 
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S null null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
     ]
 
     [ 50
@@ -1265,7 +557,731 @@
     ]
 
     [ 50
-       S S null S null 
+       null S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S null S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S S null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+]
+
+[ 9
+    [ 40
+       S null S null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S null null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S null null null 
+    ]
+
+    [ 40
+       S null S null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S null null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null S null 
+    ]
+
+    [ 40
+       null null null S null 
+    ]
+
+    [ 40
+       null null S null null 
+    ]
+
+    [ 40
+       S S null S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S null S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S null S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S null null null 
+    ]
+
+    [ 40
+       null S null null null 
+    ]
+
+    [ 40
+       S null S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+]
+
+[ 9
+    [ 40
+       S null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       null null S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S S null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       null null null S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S null S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S null null null null 
+    ]
+
+    [ 40
+       S S null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+]
+
+[ 9
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S null S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       null null null S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       S S S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       S S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null S null 
+    ]
+
+    [ 40
+       null S S S null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null null S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+    [ 40
+       null S null null null 
+    ]
+
+    [ 40
+       null null null null S 
+    ]
+
+    [ 40
+       null null null S null 
+    ]
+
+    [ 40
+       null null S S S 
+    ]
+
+    [ 40
+       null null null null null 
+    ]
+
+]
+
+[ 9
+    [ 50
+       S null null null null 
+    ]
+
+    [ 50
+       null S null null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null S null null null 
+    ]
+
+    [ 50
+       null S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S null S null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null S 
+    ]
+
+    [ 50
+       null S null null null 
+    ]
+
+    [ 50
+       S S null null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S null null null null 
+    ]
+
+    [ 50
+       S S null S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null S 
+    ]
+
+    [ 50
+       null null S S null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null S null 
+    ]
+
+    [ 50
+       S null S null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null S null null S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null S null null 
+    ]
+
+    [ 50
+       null S null S null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S S S S S 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       null null null null null 
+    ]
+
+    [ 50
+       S null null S S 
     ]
 
     [ 50
@@ -1281,38 +1297,42 @@
     ]
 
     [ 50
-       S null null null S 
-    ]
-
-    [ 50
-       null null null null null 
-    ]
-
-    [ 50
-       S null null null null 
-    ]
-
-    [ 50
-       null S null S null 
-    ]
-
-    [ 50
-       null null null null null 
+       S S S S null 
     ]
 
 ]
 
 [ 9
     [ 60
-       null S null null null 
+       null null null null S 
     ]
 
     [ 60
-       null S null null null 
+       null null null null S 
     ]
 
     [ 60
-       null S S S null 
+       null null null S null 
+    ]
+
+    [ 60
+       null null S S S 
+    ]
+
+    [ 60
+       null null null null null 
+    ]
+
+    [ 60
+       null null null S null 
+    ]
+
+    [ 60
+       null S null S null 
+    ]
+
+    [ 60
+       null S S S S 
     ]
 
     [ 60
@@ -1320,19 +1340,7 @@
     ]
 
     [ 60
-       null null null S S 
-    ]
-
-    [ 60
-       S null null null S 
-    ]
-
-    [ 60
-       S null S null S 
-    ]
-
-    [ 60
-       null null null null null 
+       null null S null null 
     ]
 
     [ 60
@@ -1348,23 +1356,23 @@
     ]
 
     [ 60
+       S null null null null 
+    ]
+
+    [ 60
+       null S null null S 
+    ]
+
+    [ 60
        null S S null null 
     ]
 
     [ 60
-       null S null null null 
+       S null S null null 
     ]
 
     [ 60
-       S S null S null 
-    ]
-
-    [ 60
-       null null null null null 
-    ]
-
-    [ 60
-       S null S null S 
+       S S S null S 
     ]
 
     [ 60
@@ -1380,19 +1388,15 @@
     ]
 
     [ 60
-       S null null S S 
+       null null null null S 
     ]
 
     [ 60
-       null null null null null 
+       null null null S null 
     ]
 
     [ 60
-       S S S null S 
-    ]
-
-    [ 60
-       null null null null null 
+       null null null null S 
     ]
 
     [ 60
@@ -1408,15 +1412,15 @@
     ]
 
     [ 60
+       null S null S null 
+    ]
+
+    [ 60
        null null S S null 
     ]
 
     [ 60
-       null S null S S 
-    ]
-
-    [ 60
-       null null null null null 
+       null null null null S 
     ]
 
     [ 60
@@ -1424,7 +1428,7 @@
     ]
 
     [ 60
-       S null null S S 
+       S S null null S 
     ]
 
     [ 60
@@ -1432,7 +1436,11 @@
     ]
 
     [ 60
-       S S null S null 
+       S null S null null 
+    ]
+
+    [ 60
+       null S S null S 
     ]
 
     [ 60
@@ -1440,47 +1448,7 @@
     ]
 
     [ 60
-       S null S S S 
-    ]
-
-    [ 60
-       null null null null null 
-    ]
-
-    [ 60
-       S null null S S 
-    ]
-
-    [ 60
-       null null null null null 
-    ]
-
-    [ 60
-       S null S null S 
-    ]
-
-    [ 60
-       null null null null null 
-    ]
-
-    [ 60
-       null null null S null 
-    ]
-
-    [ 60
-       null S S null null 
-    ]
-
-    [ 60
-       null S null null S 
-    ]
-
-    [ 60
-       null S null null S 
-    ]
-
-    [ 60
-       S null null null null 
+       S null S null null 
     ]
 
     [ 60
@@ -1492,6 +1460,14 @@
     ]
 
     [ 60
+       null S null null S 
+    ]
+
+    [ 60
+       null S null null S 
+    ]
+
+    [ 60
        S S S S S 
     ]
 
@@ -1504,7 +1480,11 @@
     ]
 
     [ 60
-       S null S null S 
+       null null S null S 
+    ]
+
+    [ 60
+       S S S S null 
     ]
 
     [ 60
@@ -1520,7 +1500,7 @@
     ]
 
     [ 60
-       S S S S S 
+       S null null S S 
     ]
 
     [ 60
@@ -1528,11 +1508,19 @@
     ]
 
     [ 60
+       S null null null null 
+    ]
+
+    [ 60
+       S S null S S 
+    ]
+
+    [ 60
        null null null null null 
     ]
 
     [ 60
-       null null S S S 
+       S S null S null 
     ]
 
     [ 60
@@ -1540,7 +1528,19 @@
     ]
 
     [ 60
-       S S S S S 
+       null null null null S 
+    ]
+
+    [ 60
+       null null null null S 
+    ]
+
+    [ 60
+       null null S S null 
+    ]
+
+    [ 60
+       S S null S S 
     ]
 
 ]
