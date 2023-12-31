@@ -49,12 +49,7 @@ public class Oak extends Tree {
     }
 
     public void updateGraphic() {
-        if (this.ProjectileCooldown == 0) {
-            this.shoot();
-            this.ProjectileCooldown = 10;
-        } else {
-            this.ProjectileCooldown--;
-        }
+        //this.shoot();
     }
 
     public void shoot() {
