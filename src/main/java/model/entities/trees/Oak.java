@@ -58,7 +58,7 @@ public class Oak extends Tree {
     }
 
     public void shoot() {
-        Projectile projectile = new Projectile(this.getLine(), this.getColumn(), this.getDamage(), this.getMap());
+        Projectile projectile = new Projectile(this.getLine(), this.getColumn(), 35, this.getMap());
         super.addProjectile(projectile);
     }
 

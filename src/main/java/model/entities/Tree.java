@@ -24,14 +24,9 @@ public abstract class Tree extends Entity {
                 this.attack(enemy);
             }
         }else{
-            Iterator<Projectile> iterator = projectiles.iterator();
-            while (iterator.hasNext()) {
-                Projectile projectile = iterator.next();
-                if (projectile.getHp() <= 0) {
-                    iterator.remove();
-                } else {
-                    projectile.update();
-                }
+            for(Projectile proj : projectiles){
+                proj.update();
+
             }
         }
     }

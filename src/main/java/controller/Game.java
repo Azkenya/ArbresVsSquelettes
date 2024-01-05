@@ -16,7 +16,7 @@ public class Game implements Updatable {
     public static ArrayList<Tree> trees;
     private Wave wave;
     private GameScreen view;
-    public static boolean graphicMode=false;
+    public static boolean graphicMode=true;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
         Game.playerMoney = playerMoney;

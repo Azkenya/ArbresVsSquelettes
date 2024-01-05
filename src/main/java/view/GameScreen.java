@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameScreen extends JFrame implements Updatable {
-    private JPanel mainContainer;
+    private static JPanel mainContainer;
     private final Game game;
     private final Wave wave;
     private Timer gameUpdateTimer;
@@ -78,7 +78,7 @@ public class GameScreen extends JFrame implements Updatable {
         currentTurn++;
     }
 
-    public JPanel getMainContainer() {
+    public static JPanel getMainContainer() {
         return mainContainer;
     }
 

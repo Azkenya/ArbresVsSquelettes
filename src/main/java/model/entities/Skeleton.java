@@ -33,6 +33,7 @@ public class Skeleton extends Entity {
     @Override
     public void update() {
         if(this.getHp() <= 0){
+            this.getAttachedImage().setVisible(false);
             return;
         }
         if(Game.graphicMode){
