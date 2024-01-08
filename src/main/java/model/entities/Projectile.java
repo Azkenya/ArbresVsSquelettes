@@ -8,7 +8,8 @@ import view.GameScreen;
 
 import javax.swing.*;
 import java.util.ArrayList;
-public class Projectile extends Entity{
+
+public class Projectile extends Entity {
     protected Double speed;
     protected Double realColumn;
     protected int damage;
@@ -19,8 +20,8 @@ public class Projectile extends Entity{
         this.realColumn = Double.valueOf(column);
         this.damage = damage;
         JLabel projImg = new JLabel(new ImageIcon("src/main/resources/projdef.png"));
-        projImg.setBounds(column*111,line*200+100,43,19);
-        //oakImg.setBounds(column*55,line*100,55, 100);
+        projImg.setBounds(column * 111, line * 200 + 100, 43, 19);
+        // oakImg.setBounds(column*55,line*100,55, 100);
         projImg.setVisible(true);
         GameScreen.getMainContainer().add(projImg);
         this.setAttachedImage(projImg);
@@ -28,46 +29,44 @@ public class Projectile extends Entity{
 
     @Override
     public void update() {
-        if(this.getHp() <= 0){
+        if (this.getHp() <= 0) {
             this.getAttachedImage().setVisible(false);
             return;
         }
-        if(Game.graphicMode){
+        if (Game.graphicMode) {
             this.updateGraphic();
         }
     }
 
-    //Updates the projectile in graphic mode
-    public void updateGraphic(){
+    // Updates the projectile in graphic mode
+    public void updateGraphic() {
         Skeleton target = this.findTarget();
 
-        if(target != null){
-            if(Math.abs(realColumn - target.getRealColumn()) <= 0.5){
+        if (target != null) {
+            if (Math.abs(realColumn - target.getRealColumn()) <= 0.5) {
                 target.kill(this.damage);
                 this.kill(1);
-            }
-            else{
+            } else {
                 this.realColumn += this.speed;
             }
-        }
-        else{
+        } else {
             this.realColumn += this.speed;
-            if(realColumn >= 15){
+            if (realColumn >= 15) {
                 this.kill(1);
             }
         }
-        this.getAttachedImage().setBounds((int) Math.floor(this.realColumn*111),this.getLine()*200+100,43,19);
+        this.getAttachedImage().setBounds((int) Math.floor(this.realColumn * 111), this.getLine() * 200 + 100, 43, 19);
     }
 
-    //Finds the closest target in the same line
-    public Skeleton findTarget(){
+    // Finds the closest target in the same line
+    public Skeleton findTarget() {
         ArrayList<Skeleton> skeletons = Wave.getEnemiesOnMap();
         Skeleton closest = null;
         double closestDistance = 100;
-        for(Skeleton skeleton : skeletons){
-            if(skeleton.getLine() == this.getLine()){
+        for (Skeleton skeleton : skeletons) {
+            if (skeleton.getLine() == this.getLine()) {
                 double distance = Math.abs(skeleton.getRealColumn() - this.realColumn);
-                if(distance < closestDistance){
+                if (distance < closestDistance) {
                     closest = skeleton;
                     closestDistance = distance;
                 }

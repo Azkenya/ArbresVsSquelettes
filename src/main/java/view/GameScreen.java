@@ -21,39 +21,38 @@ public class GameScreen extends JFrame implements Updatable {
     private int currentTurn = 0;
     private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
 
-    public GameScreen(Game game)throws IOException {
+    public GameScreen(Game game) throws IOException {
         this.game = game;
         this.wave = game.getWave();
         game.setView(this);
 
-
         mainContainer = new JPanel(null);
-        mainContainer.setPreferredSize(new Dimension(1776,1000));
-        //mainContainer.setPreferredSize(new Dimension(888,500));
+        mainContainer.setPreferredSize(new Dimension(1776, 1000));
+        // mainContainer.setPreferredSize(new Dimension(888,500));
         this.setContentPane(mainContainer);
         this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        Oak testOak = new Oak(0,4,game.getMap());
-        Oak testOak2 = new Oak(2,4,game.getMap());
+        Oak testOak = new Oak(0, 4, game.getMap());
+        Oak testOak2 = new Oak(2, 4, game.getMap());
         this.game.addTree(testOak);
         this.game.addTree(testOak2);
 
-        System.out.println(game.getMap().getEntityAt(0,0));
-        
+        System.out.println(game.getMap().getEntityAt(0, 0));
+
         this.initializeTimer();
         this.gameUpdateTimer.start();
 
     }
 
-    public void spawnSkeletons(){
+    public void spawnSkeletons() {
         int currentSubWave = this.wave.getCurrentSubWave();
         int currentRound = this.wave.getCurrentRound();
-        System.out.printf("%d subwave %d round\n",currentSubWave,currentRound);
-        if(currentRound < 20 && currentSubWave < 7){
-            for(int i = 0; i < 5 ; i++){
+        System.out.printf("%d subwave %d round\n", currentSubWave, currentRound);
+        if (currentRound < 20 && currentSubWave < 7) {
+            for (int i = 0; i < 5; i++) {
                 Skeleton skeleton = wave.getEnemies()[currentSubWave][currentRound][i];
-                if(skeleton != null){
+                if (skeleton != null) {
                     mainContainer.add(skeleton.getAttachedImage());
                 }
             }
@@ -61,8 +60,8 @@ public class GameScreen extends JFrame implements Updatable {
         }
     }
 
-    private void initializeTimer(){
-        this.gameUpdateTimer = new Timer(500, e -> this.update());//1750
+    private void initializeTimer() {
+        this.gameUpdateTimer = new Timer(50, e -> this.update());// 1750
         gameUpdateTimer.setRepeats(true);
 
     }
@@ -71,7 +70,7 @@ public class GameScreen extends JFrame implements Updatable {
     public void update() {
         game.update();
         mainContainer.repaint();
-        for(Skeleton s : enemiesOnMap){
+        for (Skeleton s : enemiesOnMap) {
             System.out.print("Line " + s.getLine() + " Column " + s.getRealColumn() + "\n");
         }
         System.out.println();
@@ -83,8 +82,9 @@ public class GameScreen extends JFrame implements Updatable {
     }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
-        //Frame est le nombre de frames totales de l'animation ATTENTION LE NOMBRE DE FRAMES NE PEUT PAS ETRE SUPERIEUR AU NOMBRE DE PIXELS DE LIMAGE ANIMEE
-        //Interval est le nombre de millisecondes entre chaque refresh de l'animation
+        // Frame est le nombre de frames totales de l'animation ATTENTION LE NOMBRE DE
+        // FRAMES NE PEUT PAS ETRE SUPERIEUR AU NOMBRE DE PIXELS DE LIMAGE ANIMEE
+        // Interval est le nombre de millisecondes entre chaque refresh de l'animation
         Rectangle compBounds = component.getBounds();
 
         Point oldPoint = new Point(compBounds.x, compBounds.y),
@@ -93,6 +93,7 @@ public class GameScreen extends JFrame implements Updatable {
 
         new Timer(interval, new ActionListener() {
             int currentFrame = 0;
+
             public void actionPerformed(ActionEvent e) {
                 component.setBounds(oldPoint.x + (animFrame.x * currentFrame),
                         oldPoint.y + (animFrame.y * currentFrame),
@@ -102,7 +103,7 @@ public class GameScreen extends JFrame implements Updatable {
                 if (currentFrame != frames)
                     currentFrame++;
                 else
-                    ((Timer)e.getSource()).stop();
+                    ((Timer) e.getSource()).stop();
             }
         }).start();
     }
