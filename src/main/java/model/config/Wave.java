@@ -145,9 +145,9 @@ public class Wave implements Updatable {
     public static Skeleton[][][] makeWave(int lvl, Map map) {
         if (lvl == 1 || lvl == 4) {
             return makeEasy(map);
-        } else if (lvl == 2) {
+        } else if (lvl == 2 || lvl == 5) {
             return makeMedium(map);
-        } else if (lvl == 3) {
+        } else if (lvl == 3 || lvl == 6) {
             return makeHard(map);
         } else {
             return makeEndless(map);
