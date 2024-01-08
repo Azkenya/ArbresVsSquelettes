@@ -18,6 +18,7 @@ public class Wave implements Updatable {
     private int currentRound;
     private int currentSubWave;
     private boolean isEndless;
+    private int endlessLevel = 0;
 
     public Wave(Skeleton[][][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
@@ -41,6 +42,9 @@ public class Wave implements Updatable {
      */
     public Wave(int n, Map map) {
         this(makeWave(n, map), new ArrayList<Skeleton>(), map);
+        if (n == 4) {
+            this.isEndless = true;
+        }
     }
 
     @Override
@@ -71,11 +75,13 @@ public class Wave implements Updatable {
             }
         } else {
             if (this.isEndless) {
-                this.enemies = makeEndless(map);
+                this.endlessLevel++;
+                this.enemies = makeWave(this.endlessLevel, map);
                 this.currentSubWave = 0;
                 this.currentRound = 0;
+            } else {
+                this.isFinished = true;
             }
-            this.isFinished = true;
         }
     }
 

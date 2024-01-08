@@ -35,8 +35,14 @@ public class GameScreen extends JFrame implements Updatable {
 
         Oak testOak = new Oak(0, 4, game.getMap());
         Oak testOak2 = new Oak(2, 4, game.getMap());
+        Oak testOak3 = new Oak(4, 4, game.getMap());
+        Oak testOak4 = new Oak(1, 4, game.getMap());
+        Oak testOak5 = new Oak(3, 4, game.getMap());
         this.game.addTree(testOak);
         this.game.addTree(testOak2);
+        this.game.addTree(testOak3);
+        this.game.addTree(testOak4);
+        this.game.addTree(testOak5);
 
         System.out.println(game.getMap().getEntityAt(0, 0));
 
@@ -48,7 +54,8 @@ public class GameScreen extends JFrame implements Updatable {
         int currentSubWave = this.wave.getCurrentSubWave();
         int currentRound = this.wave.getCurrentRound();
         System.out.printf("%d subwave %d round\n", currentSubWave, currentRound);
-        if (currentRound < 20 && currentSubWave < 7) {
+        if (currentRound < wave.getEnemies()[0].length - 1
+                && currentSubWave < wave.getEnemies().length - 1) {
             for (int i = 0; i < 5; i++) {
                 Skeleton skeleton = wave.getEnemies()[currentSubWave][currentRound][i];
                 if (skeleton != null) {
@@ -60,7 +67,7 @@ public class GameScreen extends JFrame implements Updatable {
     }
 
     private void initializeTimer() {
-        this.gameUpdateTimer = new Timer(50, e -> this.update());// 1750
+        this.gameUpdateTimer = new Timer(25, e -> this.update());// 1750
         gameUpdateTimer.setRepeats(true);
 
     }

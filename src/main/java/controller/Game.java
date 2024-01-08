@@ -16,7 +16,7 @@ public class Game implements Updatable {
     public static ArrayList<Tree> trees;
     private Wave wave;
     private GameScreen view;
-    public static boolean graphicMode=true;
+    public static boolean graphicMode = true;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
         Game.playerMoney = playerMoney;
@@ -38,8 +38,9 @@ public class Game implements Updatable {
             }
 
             else {
-                switch (answer){
-                    case "S": case "s":
+                switch (answer) {
+                    case "S":
+                    case "s":
                         shop.openShop();
                         break;
                     case "Q":
@@ -54,12 +55,12 @@ public class Game implements Updatable {
         }
     }
 
-
     public void update() {
-        if(this.wave.isFinished() && Wave.noEnemiesOnMap()){
+        if (this.wave.isFinished() && Wave.noEnemiesOnMap()) {
             this.win();
         }
-        if(graphicMode)view.spawnSkeletons();
+        if (graphicMode)
+            view.spawnSkeletons();
         this.wave.update();
         this.updateTrees();
         randMoney();
@@ -71,20 +72,21 @@ public class Game implements Updatable {
             playerMoney.add(new Money(25));
         }
     }
-    public static void addMoney(){
+
+    public static void addMoney() {
         playerMoney.add(new Money(25));
     }
+
     public void updateTrees() {
         ArrayList<Tree> tempTrees = new ArrayList<>(trees);
         for (Tree tree : tempTrees) {
             if (tree.getHp() <= 0) {
-                System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has been destroyed");
-                if(graphicMode)tree.removeVisibility();
+                if (graphicMode)
+                    tree.removeVisibility();
                 trees.remove(tree);
-            }else{
-                System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has " + tree.getHp() + " hp");
+            } else {
                 tree.update();
-         }
+            }
         }
     }
 
@@ -110,9 +112,9 @@ public class Game implements Updatable {
         this.shop = shop;
     }
 
-    public void addTree(Tree t){
+    public void addTree(Tree t) {
         trees.add(t);
-        if(graphicMode){
+        if (graphicMode) {
             this.map.addEntity(t);
             view.getMainContainer().add(t.getAttachedImage());
             t.getAttachedImage().setVisible(true);
