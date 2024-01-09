@@ -6,6 +6,6 @@ import model.entities.Skeleton;
 public class HardSkeleton extends Skeleton {
 
     public HardSkeleton(int lane, Map map) {
-        super(20, lane, 1, 0.04, map, "src/main/resources/skelHard.png");
+        super(20, lane, 1, 0.005, map, "src/main/resources/skelHard.png");
     }
 }

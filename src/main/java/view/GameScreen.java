@@ -27,7 +27,7 @@ public class GameScreen extends JFrame implements Updatable {
         game.setView(this);
 
         mainContainer = new JPanel(null);
-        mainContainer.setPreferredSize(new Dimension(1776, 1000));
+        mainContainer.setPreferredSize(new Dimension(111 * 15, 200 * 5));
         // mainContainer.setPreferredSize(new Dimension(888,500));
         this.setContentPane(mainContainer);
         this.pack();
@@ -48,6 +48,7 @@ public class GameScreen extends JFrame implements Updatable {
 
         this.initializeTimer();
         this.gameUpdateTimer.start();
+
     }
 
     public void spawnSkeletons() {
@@ -67,7 +68,7 @@ public class GameScreen extends JFrame implements Updatable {
     }
 
     private void initializeTimer() {
-        this.gameUpdateTimer = new Timer(25, e -> this.update());// 1750
+        this.gameUpdateTimer = new Timer(10, e -> this.update());// 1750
         gameUpdateTimer.setRepeats(true);
 
     }

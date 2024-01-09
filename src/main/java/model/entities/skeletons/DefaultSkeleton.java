@@ -6,11 +6,11 @@ import model.entities.Skeleton;
 public class DefaultSkeleton extends Skeleton {
 
     public DefaultSkeleton(int lane, Map map) {
-        super(10, lane, 1, 0.04, map, "src/main/resources/skeldef.png");
+        super(10, lane, 1, 0.005, map, "src/main/resources/skeldef.png");
     }
 
     public DefaultSkeleton(int lane, Map map, String skelPath) {
-        super(10, lane, 1, 0.04, map, skelPath);
+        super(10, lane, 1, 0.005, map, skelPath);
     }
 
 }

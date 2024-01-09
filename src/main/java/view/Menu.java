@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.File;
+import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.border.*;
@@ -87,6 +88,7 @@ public class Menu extends JFrame {
                         new Wave(1, map), map);
                 GameScreen screen;
                 try {
+
                     screen = new GameScreen(game);
                     setVisible(false);
                     screen.setVisible(true);
