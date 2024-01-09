@@ -13,6 +13,7 @@ public class Oak extends Tree {
     public static final int cost = 100;
     public static final int hp = 15;
     public static final int damage = 2;
+    private int cd = 0;
 
     public Oak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
@@ -49,7 +50,13 @@ public class Oak extends Tree {
     }
 
     public void updateGraphic() {
-        this.shoot();
+        if(cd == 50){
+            this.shoot();
+            cd =0;
+        }
+        else{
+            cd++;
+        }
     }
 
     public void shoot() {
