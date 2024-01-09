@@ -6,7 +6,7 @@ import controller.Game;
 
 import javax.swing.*;
 
-public class Skeleton extends Entity {
+public abstract class Skeleton extends Entity {
     private int range;
     private int speed;
     private boolean isFrozen;
@@ -16,18 +16,17 @@ public class Skeleton extends Entity {
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
-    public Skeleton(int hp, int lane, Map map) {
+    public Skeleton(int hp, int lane, int speed, Double realSpeed, Map map, String skelPath) {
         super(hp, lane, 14, 1, map);
         this.range = (Game.graphicMode) ? 0 : 1; // Nous avons différentes gestions de la range en fonction du mode de
                                                  // jeu choisi
-        this.speed = 1;
-        this.realSpeed = 0.04;
+        this.speed = speed;
+        this.realSpeed = realSpeed;
         this.realColumn = 14;
         this.isFrozen = false;
-
-        JLabel skelImg = new JLabel(new ImageIcon("src/main/resources/skeldef.png"));
-        skelImg.setBounds(15 * 111, lane * 200, 111, 200);
         // skelImg.setBounds(15*55,lane*100,55, 100);
+        JLabel skelImg = new JLabel(new ImageIcon(skelPath));
+        skelImg.setBounds(15 * 111, lane * 200, 111, 200);
         this.setAttachedImage(skelImg);
     }
 

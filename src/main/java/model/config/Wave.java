@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import controller.Updatable;
+import model.entities.skeletons.*;
 import model.entities.Skeleton;
 import controller.Game;
 import view.GameScreen;
@@ -306,7 +307,7 @@ public class Wave implements Updatable {
     public static Skeleton[][] makeFinalWaveEasy(Map map) {
         Skeleton[][] enemies = new Skeleton[30][5];
         int canPlace = 0;
-        place(enemies, 0, 1, map);// make this a Wave Leader Skeleton
+        place(enemies, 0, 1, map, 0);// make this a Wave Leader Skeleton
         for (int i = 1; i < 30; i++) {
             int prob = random(100);
             if (canPlace != 0) {
@@ -444,7 +445,7 @@ public class Wave implements Updatable {
     public static Skeleton[][] makeFinalWaveMedium(Map map) {
         Skeleton[][] enemies = new Skeleton[50][5];
         int canPlace = 0;
-        place(enemies, 0, 1, map);// make this a Wave Leader Skeleton
+        place(enemies, 0, 1, map, 0);// make this a Wave Leader Skeleton
         for (int i = 1; i < 50; i++) {
             int prob = random(100);
             if (canPlace != 0) {
@@ -535,10 +536,18 @@ public class Wave implements Updatable {
             if (canPlace != 0)
                 canPlace--;
             else if (canPlace == 0 && prob <= 35) {
-                place(enemies, i, 1, map);
+                int type = random(70);
+                if (type <= 30) {
+                    place(enemies, i, 1, map, 1);
+                } else if (type <= 60) {
+                    place(enemies, i, 1, map, 2);
+                } else {
+                    place(enemies, i, 1, map, 3);
+                }
             } else if (canPlace == 0 && prob <= 60) {
                 canPlace++;
-                place(enemies, i, 2, map);
+                int type = random(100);
+
             } else if (canPlace == 0 && prob <= 75) {
                 canPlace++;
                 place(enemies, i, 3, map);
@@ -582,24 +591,69 @@ public class Wave implements Updatable {
     public static Skeleton[][] makeFinalWaveHard(Map map) {
         Skeleton[][] enemies = new Skeleton[60][5];
         int canPlace = 0;
-        place(enemies, 0, 1, map);// make this a Wave Leader Skeleton
+        place(enemies, 0, 1, map, 0);// make this a Wave Leader Skeleton
         for (int i = 1; i < 60; i++) {
             int prob = random(100);
             if (canPlace != 0) {
                 canPlace--;
             } else if (canPlace == 0 && prob <= 25) {
-                place(enemies, i, 1, map);
+                int type = random(70);
+                if (type <= 10) {
+                    place(enemies, i, 1, map, 1);
+                } else if (type <= 40) {
+                    place(enemies, i, 1, map, 2);
+                } else if (type <= 65) {
+                    place(enemies, i, 1, map, 3);
+                } else {
+                    place(enemies, i, 1, map, 4);
+                }
             } else if (canPlace == 0 && prob <= 50) {
-                place(enemies, i, 2, map);
+                int type = random(70);
+                if (type <= 10) {
+                    place(enemies, i, 1, map, 1);
+                } else if (type <= 40) {
+                    place(enemies, i, 1, map, 2);
+                } else if (type <= 65) {
+                    place(enemies, i, 1, map, 3);
+                } else {
+                    place(enemies, i, 1, map, 4);
+                }
             } else if (canPlace == 0 && prob <= 70) {
                 canPlace++;
-                place(enemies, i, 3, map);
+                int type = random(70);
+                if (type <= 10) {
+                    place(enemies, i, 1, map, 1);
+                } else if (type <= 40) {
+                    place(enemies, i, 1, map, 2);
+                } else if (type <= 65) {
+                    place(enemies, i, 1, map, 3);
+                } else {
+                    place(enemies, i, 1, map, 4);
+                }
             } else if (canPlace == 0 && prob <= 90) {
                 canPlace++;
-                place(enemies, i, 4, map);
+                int type = random(70);
+                if (type <= 10) {
+                    place(enemies, i, 1, map, 1);
+                } else if (type <= 40) {
+                    place(enemies, i, 1, map, 2);
+                } else if (type <= 65) {
+                    place(enemies, i, 1, map, 3);
+                } else {
+                    place(enemies, i, 1, map, 4);
+                }
             } else if (canPlace == 0 && prob <= 100) {
                 canPlace += 2;
-                place(enemies, i, 5, map);
+                int type = random(70);
+                if (type <= 10) {
+                    place(enemies, i, 1, map, 1);
+                } else if (type <= 40) {
+                    place(enemies, i, 1, map, 2);
+                } else if (type <= 65) {
+                    place(enemies, i, 1, map, 3);
+                } else {
+                    place(enemies, i, 1, map, 4);
+                }
             }
         }
         return enemies;
@@ -629,13 +683,29 @@ public class Wave implements Updatable {
      * 
      * @param n       the number of enemies to place at the i-th position
      */
-    public static void place(Skeleton[][] enemies, int i, int n, Map map) {
+    public static void place(Skeleton[][] enemies, int i, int n, Map map, int type) {
         for (int j = 0; j < n; j++) {
             boolean placeBool = false;
             while (!placeBool) {
                 int place = random(4);
                 if (enemies[i][place] == null) {
-                    enemies[i][place] = new Skeleton(10, place, map);
+                    switch (type) {
+                        case 0:
+                            enemies[i][place] = new WaveLeaderSkeleton(place, map);
+                            break;
+                        case 1:
+                            enemies[i][place] = new FastSkeleton(place, map);
+                            break;
+                        case 2:
+                            enemies[i][place] = new GlassesSkeleton(place, map);
+                            break;
+                        case 3:
+                            enemies[i][place] = new HardSkeleton(place, map);
+                            break;
+                        default:
+                            enemies[i][place] = new DefaultSkeleton(place, map);
+                            break;
+                    }
                     placeBool = true;
                 }
             }

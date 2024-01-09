@@ -17,10 +17,10 @@ public class Projectile extends Entity {
     public Projectile(int line, int column, int damage, Map map) {
         super(1, line, column, damage, map);
         this.speed = 0.2;
-        this.realColumn = Double.valueOf(column);
+        this.realColumn = Double.valueOf(column) + 0.5;
         this.damage = damage;
         JLabel projImg = new JLabel(new ImageIcon("src/main/resources/projdef.png"));
-        projImg.setBounds(column * 111, line * 200 + 100, 43, 19);
+        projImg.setBounds((column + 1) * 111, line * 200 + 100, 43, 19);
         // oakImg.setBounds(column*55,line*100,55, 100);
         projImg.setVisible(true);
         GameScreen.getMainContainer().add(projImg);

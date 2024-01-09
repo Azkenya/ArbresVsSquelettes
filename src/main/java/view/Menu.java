@@ -28,14 +28,14 @@ public class Menu extends JFrame {
         Dimension dim = toolkit.getScreenSize();
         File imageFile = new File("src/main/resources/Menu.jpg");
         setLayout(new BorderLayout());
-        setContentPane(new JLabel(new ImageIcon(imageFile.getAbsolutePath())));
+        setContentPane(new BackGround(imageFile.getAbsolutePath()));
+
         setLayout(new FlowLayout());
         File logoFile = new File("src/main/resources/Titlelogo.png");
         l1 = new JLabel(new ImageIcon(logoFile.getAbsolutePath()));
         // new ImageIcon(new
         // ImageIcon(imageFile.getAbsolutePath()).getImage().getScaledInstance(dim.width,
         // dim.height, Image.SCALE_DEFAULT));
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 5);
         File label2File = new File("src/main/resources/Tombe.png");
         l2 = new JLabel(new ImageIcon(label2File.getAbsolutePath()));
         l2.setBorder(new MatteBorder(0, 0, 5, 0, Color.BLACK));
@@ -51,18 +51,6 @@ public class Menu extends JFrame {
         File label5File = new File("src/main/resources/Endless.png");
         JLabel l5 = new JLabel(new ImageIcon(label5File.getAbsolutePath()));
         l5.setBorder(new MatteBorder(0, 0, 5, 0, Color.BLACK));
-
-        // add l2, l3, l4 to a horizontal box and add the box to the frame
-        // how do we make a horizontal box?
-        // this is a horizontal box:
-
-        // you can make the labels clickable by adding an action listener to them
-        // you can make them change color when you hover over them by adding a mouse
-        // listener to them
-        // you can draw a line under the labels by adding a border to them
-        // you can make the labels clickable and then make them change color when i
-        // hover over them by adding both a mouse listener and an action listener to
-        // them
 
         Box box = Box.createHorizontalBox();
         box.add(l2);
@@ -196,6 +184,37 @@ public class Menu extends JFrame {
 
         setSize(dim.width, dim.height);
         setLocationRelativeTo(null);
+
+    }
+
+    public class BackGround extends JPanel {
+
+        private ImageIcon icon;
+
+        public BackGround(String img) {
+            this(new ImageIcon(img).getImage(), Toolkit.getDefaultToolkit().getScreenSize());
+        }
+
+        public BackGround(Image img, Dimension dim) {
+            this.icon = new ImageIcon(img);
+            icon = resizeImageIcon(icon, dim);
+            Dimension size = dim;
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setSize(size);
+            setLayout(null);
+        }
+
+        public void paintComponent(Graphics g) {
+            g.drawImage(icon.getImage(), 0, 0, null);
+        }
+
+        public ImageIcon resizeImageIcon(ImageIcon icon, Dimension dim) {
+            Image img = icon.getImage();
+            Image newimg = img.getScaledInstance(dim.width, dim.height, java.awt.Image.SCALE_SMOOTH);
+            return new ImageIcon(newimg);
+        }
     }
 
 }
