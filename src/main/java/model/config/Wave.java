@@ -221,10 +221,13 @@ public class Wave implements Updatable {
         for (int i = 0; i < 20; i++) {
             int prob = random(100);
             if (prob <= 55 && canPlace) {
-                place(enemies, i, 1, map);
+                if (i >= 15) {
+                    place(enemies, i, 1, map, 3);
+                } else
+                    place(enemies, i, 1, map, 1);
                 canPlace = false;
             } else if (prob <= 70 && canPlace) {
-                place(enemies, i, 2, map);
+                place(enemies, i, 2, map, 2);
                 canPlace = false;
             } else if (!canPlace) {
                 canPlace = true;
@@ -266,13 +269,13 @@ public class Wave implements Updatable {
                 canPlace--;
             else if (canPlace == 0 && prob <= 55) {
                 canPlace++;
-                place(enemies, i, 1, map);
+                place(enemies, i, 1, map, 3);
             } else if (canPlace == 0 && prob <= 80) {
                 canPlace++;
-                place(enemies, i, 2, map);
+                place(enemies, i, 2, map, 2);
             } else if (canPlace == 0 && prob <= 90) {
                 canPlace += 2;
-                place(enemies, i, 3, map);
+                place(enemies, i, 3, map, 2);
             }
         }
         return enemies;
@@ -314,19 +317,19 @@ public class Wave implements Updatable {
                 canPlace--;
             } else if (canPlace == 0 && prob <= 30) {
                 canPlace++;
-                place(enemies, i, 1, map);
+                place(enemies, i, 1, map, 4);
             } else if (canPlace == 0 && prob <= 60) {
                 canPlace++;
-                place(enemies, i, 2, map);
+                place(enemies, i, 2, map, 3);
             } else if (canPlace == 0 && prob <= 75) {
                 canPlace++;
-                place(enemies, i, 3, map);
+                place(enemies, i, 3, map, 3);
             } else if (canPlace == 0 && prob <= 85) {
                 canPlace += 2;
-                place(enemies, i, 4, map);
+                place(enemies, i, 4, map, 2);
             } else if (canPlace == 0 && prob <= 92) {
                 canPlace += 2;
-                place(enemies, i, 5, map);
+                place(enemies, i, 5, map, 2);
             }
         }
         return enemies;
@@ -396,19 +399,19 @@ public class Wave implements Updatable {
             if (canPlace != 0)
                 canPlace--;
             else if (canPlace == 0 && prob <= 40) {
-                place(enemies, i, 1, map);
+                place(enemies, i, 1, map, 4);
             } else if (canPlace == 0 && prob <= 60) {
                 canPlace++;
-                place(enemies, i, 2, map);
+                place(enemies, i, 2, map, 4);
             } else if (canPlace == 0 && prob <= 73) {
                 canPlace++;
-                place(enemies, i, 3, map);
+                place(enemies, i, 3, map, 3);
             } else if (canPlace == 0 && prob <= 80) {
                 canPlace += 2;
-                place(enemies, i, 4, map);
+                place(enemies, i, 4, map, 3);
             } else if (canPlace == 0 && prob <= 85) {
                 canPlace += 3;
-                place(enemies, i, 5, map);
+                place(enemies, i, 5, map, 2);
             }
         }
         return enemies;
@@ -451,19 +454,19 @@ public class Wave implements Updatable {
             if (canPlace != 0) {
                 canPlace--;
             } else if (canPlace == 0 && prob <= 30) {
-                place(enemies, i, 1, map);
+                place(enemies, i, 1, map, 4);
             } else if (canPlace == 0 && prob <= 50) {
                 canPlace++;
-                place(enemies, i, 2, map);
+                place(enemies, i, 2, map, 4);
             } else if (canPlace == 0 && prob <= 70) {
                 canPlace++;
-                place(enemies, i, 3, map);
+                place(enemies, i, 3, map, 3);
             } else if (canPlace == 0 && prob <= 85) {
                 canPlace += 2;
-                place(enemies, i, 4, map);
+                place(enemies, i, 4, map, 3);
             } else if (canPlace == 0 && prob <= 95) {
                 canPlace += 3;
-                place(enemies, i, 5, map);
+                place(enemies, i, 5, map, 3);
             }
         }
         return enemies;
@@ -536,27 +539,19 @@ public class Wave implements Updatable {
             if (canPlace != 0)
                 canPlace--;
             else if (canPlace == 0 && prob <= 35) {
-                int type = random(70);
-                if (type <= 30) {
-                    place(enemies, i, 1, map, 1);
-                } else if (type <= 60) {
-                    place(enemies, i, 1, map, 2);
-                } else {
-                    place(enemies, i, 1, map, 3);
-                }
+                place(enemies, i, 1, map, 6);
             } else if (canPlace == 0 && prob <= 60) {
                 canPlace++;
-                int type = random(100);
-
+                place(enemies, i, 2, map, 6);
             } else if (canPlace == 0 && prob <= 75) {
                 canPlace++;
-                place(enemies, i, 3, map);
+                place(enemies, i, 3, map, 5);
             } else if (canPlace == 0 && prob <= 90) {
                 canPlace += 2;
-                place(enemies, i, 4, map);
+                place(enemies, i, 4, map, 4);
             } else if (canPlace == 0 && prob <= 97) {
                 canPlace += 3;
-                place(enemies, i, 5, map);
+                place(enemies, i, 5, map, 4);
             }
         }
         return enemies;
@@ -597,63 +592,18 @@ public class Wave implements Updatable {
             if (canPlace != 0) {
                 canPlace--;
             } else if (canPlace == 0 && prob <= 25) {
-                int type = random(70);
-                if (type <= 10) {
-                    place(enemies, i, 1, map, 1);
-                } else if (type <= 40) {
-                    place(enemies, i, 1, map, 2);
-                } else if (type <= 65) {
-                    place(enemies, i, 1, map, 3);
-                } else {
-                    place(enemies, i, 1, map, 4);
-                }
+                place(enemies, i, 1, map, 7);
             } else if (canPlace == 0 && prob <= 50) {
-                int type = random(70);
-                if (type <= 10) {
-                    place(enemies, i, 1, map, 1);
-                } else if (type <= 40) {
-                    place(enemies, i, 1, map, 2);
-                } else if (type <= 65) {
-                    place(enemies, i, 1, map, 3);
-                } else {
-                    place(enemies, i, 1, map, 4);
-                }
+                place(enemies, i, 2, map, 7);
             } else if (canPlace == 0 && prob <= 70) {
                 canPlace++;
-                int type = random(70);
-                if (type <= 10) {
-                    place(enemies, i, 1, map, 1);
-                } else if (type <= 40) {
-                    place(enemies, i, 1, map, 2);
-                } else if (type <= 65) {
-                    place(enemies, i, 1, map, 3);
-                } else {
-                    place(enemies, i, 1, map, 4);
-                }
+                place(enemies, i, 3, map, 6);
             } else if (canPlace == 0 && prob <= 90) {
                 canPlace++;
-                int type = random(70);
-                if (type <= 10) {
-                    place(enemies, i, 1, map, 1);
-                } else if (type <= 40) {
-                    place(enemies, i, 1, map, 2);
-                } else if (type <= 65) {
-                    place(enemies, i, 1, map, 3);
-                } else {
-                    place(enemies, i, 1, map, 4);
-                }
+                place(enemies, i, 4, map, 5);
             } else if (canPlace == 0 && prob <= 100) {
                 canPlace += 2;
-                int type = random(70);
-                if (type <= 10) {
-                    place(enemies, i, 1, map, 1);
-                } else if (type <= 40) {
-                    place(enemies, i, 1, map, 2);
-                } else if (type <= 65) {
-                    place(enemies, i, 1, map, 3);
-                } else {
-                    place(enemies, i, 1, map, 4);
-                }
+                place(enemies, i, 5, map, 5);
             }
         }
         return enemies;
@@ -683,32 +633,100 @@ public class Wave implements Updatable {
      * 
      * @param n       the number of enemies to place at the i-th position
      */
-    public static void place(Skeleton[][] enemies, int i, int n, Map map, int type) {
+    public static void place(Skeleton[][] enemies, int i, int n, Map map, int roundLevel) {
         for (int j = 0; j < n; j++) {
             boolean placeBool = false;
             while (!placeBool) {
                 int place = random(4);
                 if (enemies[i][place] == null) {
-                    switch (type) {
-                        case 0:
-                            enemies[i][place] = new WaveLeaderSkeleton(place, map);
-                            break;
-                        case 1:
-                            enemies[i][place] = new FastSkeleton(place, map);
-                            break;
-                        case 2:
-                            enemies[i][place] = new GlassesSkeleton(place, map);
-                            break;
-                        case 3:
-                            enemies[i][place] = new HardSkeleton(place, map);
-                            break;
-                        default:
-                            enemies[i][place] = new DefaultSkeleton(place, map);
-                            break;
-                    }
+                    enemies[i][place] = createSkeleton(roundLevel, place, map);
                     placeBool = true;
                 }
             }
+        }
+    }
+
+    /**
+     * create a skeleton depending on the round level and the place
+     * 
+     * @param roundLevel
+     *                   the round level decides which type of skeleton will be
+     *                   created
+     *                   it goes from 1 to 7
+     *                   level 1 can only be default skeleton
+     *                   level 2 can be default skeleton or fast skeleton
+     *                   level 3 can be default skeleton, fast skeleton or glasses
+     *                   skeleton
+     *                   level 4 can be default skeleton, fast skeleton, hard
+     *                   skeleton or glasses skeleton
+     *                   level 5 can be fast skeleton, hard skeleton or glasses
+     *                   skeleton
+     *                   level 6 can be fast skeleton or glasses skeleton
+     *                   level 7 can only be hard skeleton or fast skeleton
+     * @param place
+     * @param map
+     * @return
+     */
+    public static Skeleton createSkeleton(int roundLevel, int place, Map map) {
+        switch (roundLevel) {
+            case 0:
+                return new WaveLeaderSkeleton(place, map);
+            case 1:
+                return new DefaultSkeleton(place, map);
+            case 2:
+                int type = random(10);
+                if (type <= 8) {
+                    return new DefaultSkeleton(place, map);
+                } else {
+                    return new FastSkeleton(place, map);
+                }
+            case 3:
+                type = random(10);
+                if (type <= 6) {
+                    return new DefaultSkeleton(place, map);
+                } else if (type <= 8) {
+                    return new FastSkeleton(place, map);
+                } else {
+                    return new GlassesSkeleton(place, map);
+                }
+            case 4:
+                type = random(10);
+                if (type <= 4) {
+                    return new DefaultSkeleton(place, map);
+                } else if (type <= 6) {
+                    return new FastSkeleton(place, map);
+                } else if (type <= 8) {
+                    return new GlassesSkeleton(place, map);
+                } else {
+                    return new HardSkeleton(place, map);
+                }
+            case 5:
+                type = random(10);
+                if (type <= 4) {
+                    return new FastSkeleton(place, map);
+                } else if (type <= 8) {
+                    return new GlassesSkeleton(place, map);
+                } else {
+                    return new HardSkeleton(place, map);
+                }
+            case 6:
+                type = random(10);
+                if (type <= 5) {
+                    return new GlassesSkeleton(place, map);
+                } else {
+                    return new FastSkeleton(place, map);
+                }
+            case 7:
+                type = random(10);
+                if (type <= 1) {
+                    return new DefaultSkeleton(place, map);
+                } else if (type <= 5) {
+                    return new HardSkeleton(place, map);
+                } else {
+                    return new GlassesSkeleton(place, map);
+                }
+            default:
+                return new DefaultSkeleton(place, map);
         }
     }
 
