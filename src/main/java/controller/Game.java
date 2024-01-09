@@ -7,6 +7,7 @@ import java.lang.Math;
 import model.config.*;
 import model.entities.*;
 import view.GameScreen;
+import javax.swing.Timer;
 
 public class Game implements Updatable {
     private static Money playerMoney;
@@ -17,6 +18,8 @@ public class Game implements Updatable {
     private Wave wave;
     private GameScreen view;
     public static boolean graphicMode = true;
+    public Timer gameMoneyTimer;
+    public int moneyTimerNonGraphic = 0;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
         Game.playerMoney = playerMoney;
@@ -63,8 +66,28 @@ public class Game implements Updatable {
             view.spawnSkeletons();
         this.wave.update();
         this.updateTrees();
-        randMoney();
+        this.updateMoney();
         this.currentTurn++;
+    }
+
+    public void updateMoney() {
+        if (graphicMode) {
+            if (gameMoneyTimer == null) {
+                initializeMoneyTimer();
+                gameMoneyTimer.start();
+            }
+        } else {
+            moneyTimerNonGraphic++;
+            if (moneyTimerNonGraphic == 1) {
+                moneyTimerNonGraphic = 0;
+                addMoney();
+            }
+        }
+    }
+
+    private void initializeMoneyTimer() {
+        gameMoneyTimer = new Timer(5000, e -> addMoney());
+        gameMoneyTimer.setRepeats(true);
     }
 
     public static void randMoney() {

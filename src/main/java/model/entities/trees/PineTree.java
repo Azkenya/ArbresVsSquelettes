@@ -14,48 +14,8 @@ public class PineTree extends Tree {
         super(cost, hp, line, column, damage, map);
     }
 
-    @Override
-    public void attack(Entity e) {
-        e.kill(this.getDamage());
-    }
-
-    @Override
-    public int getPrice() {
-        return 10;
-    }
-
-    public int getHp() {
-        return super.getHp();
-    }
-
-    public void setHp(int hp) {
-        super.setHp(hp);
-    }
-
-    public int getDamage() {
-        return super.getDamage();
-    }
-
-    public void setDamage(int damage) {
-        super.setDamage(damage);
-    }
-
     public void update() {
         super.update();
-        this.updateGraphic();
-    }
-
-    public void updateGraphic() {
-        this.shoot();
-    }
-
-    public void shoot() {
-        Projectile projectile = new Projectile(this.getLine(), this.getColumn(), this.getDamage(), this.getMap());
-        super.addProjectile(projectile);
-    }
-
-    public void kill(int damageDealt) {
-        super.kill(damageDealt);
     }
 
     public String toString() {

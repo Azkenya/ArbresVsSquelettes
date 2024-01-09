@@ -25,9 +25,11 @@ public class GameScreen extends JFrame implements Updatable {
         this.game = game;
         this.wave = game.getWave();
         game.setView(this);
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Dimension dim = toolkit.getScreenSize();
 
         mainContainer = new JPanel(null);
-        mainContainer.setPreferredSize(new Dimension(111 * 15, 200 * 5));
+        mainContainer.setPreferredSize(dim);
         // mainContainer.setPreferredSize(new Dimension(888,500));
         this.setContentPane(mainContainer);
         this.pack();

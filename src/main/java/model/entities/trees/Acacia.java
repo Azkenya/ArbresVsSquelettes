@@ -1,54 +1,47 @@
 package model.entities.trees;
 
-import model.Entity;
 import model.config.Map;
 import model.entities.Tree;
 import controller.Game;
+import javax.swing.Timer;
 
 public class Acacia extends Tree {
 
     public static final int cost = 50;
     public static final int hp = 20;
     public static final int damage = 0;
-    private int MoneyCooldown = 0;
+    private Timer MoneyCooldown;
+    private int TerminalCooldown = 0;
 
     public Acacia(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
-    }
-
-    @Override
-    public void attack(Entity e) {
-        e.kill(this.getDamage());
+        initializeTimer();
+        MoneyCooldown.start();
     }
 
     // TODO make getters and setters in the parent class
-
-    public void setHp(int hp) {
-        super.setHp(hp);
-    }
-
-    public void setDamage(int damage) {
-        super.setDamage(damage);
-    }
-
     public void update() {
-        this.updateGraphic();
-    }
-
-    public void updateGraphic() {
-        if (this.MoneyCooldown == 0) {
-            Game.addMoney();
-            this.MoneyCooldown = 10;
-        } else {
-            this.MoneyCooldown--;
+        super.update();
+        if (!Game.graphicMode) {
+            if (TerminalCooldown == 2) {
+                Game.addMoney();
+                TerminalCooldown = 0;
+            } else {
+                TerminalCooldown++;
+            }
         }
     }
 
-    public void kill(int damageDealt) {
-        super.kill(damageDealt);
+    public void updateGraphic() {
+        Game.addMoney();
     }
 
     public String toString() {
         return "A";
+    }
+
+    public void initializeTimer() {
+        this.MoneyCooldown = new Timer(10000, e -> this.updateGraphic());
+        MoneyCooldown.setRepeats(true);
     }
 }

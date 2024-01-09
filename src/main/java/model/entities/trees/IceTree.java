@@ -6,6 +6,7 @@ import model.entities.Tree;
 import model.entities.Skeleton;
 import model.entities.Projectile;
 import model.entities.projectiles.IceProjectile;
+
 public class IceTree extends Tree {
     public static final int cost = 175;
     public static final int hp = 15;
@@ -18,7 +19,7 @@ public class IceTree extends Tree {
 
     @Override
     public void attack(Entity e) {
-        e.kill(this.getDamage());
+        super.attack(e);
         if (freezingMode == 0) {
             ((Skeleton) e).freeze();
             freezingMode = 3;
@@ -52,7 +53,7 @@ public class IceTree extends Tree {
         if (freezingMode > 0) {
             freezingMode--;
         }
-        
+
     }
 
     public void updateGraphic() {
