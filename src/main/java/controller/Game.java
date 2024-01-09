@@ -114,7 +114,7 @@ public class Game implements Updatable {
         trees.add(t);
         if(graphicMode){
             this.map.addEntity(t);
-            view.getMainContainer().add(t.getAttachedImage());
+            GameScreen.getMainContainer().add(t.getAttachedImage());
             t.getAttachedImage().setVisible(true);
         }
     }
@@ -129,5 +129,9 @@ public class Game implements Updatable {
 
     public void setView(GameScreen view) {
         this.view = view;
+    }
+
+    public static Money getPlayerMoney() {
+        return playerMoney;
     }
 }

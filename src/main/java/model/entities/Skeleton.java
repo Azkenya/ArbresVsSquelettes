@@ -21,7 +21,7 @@ public class Skeleton extends Entity {
         this.range = (Game.graphicMode)? 0 : 1; //Nous avons différentes gestions de la range en fonction du mode de jeu choisi
         this.speed = 1;
         this.realSpeed = 0.005;
-        this.realColumn = 14;
+        this.realColumn = 15;
         this.isFrozen = false;
 
         JLabel skelImg = new JLabel(new ImageIcon("src/main/resources/skeldef.png"));
