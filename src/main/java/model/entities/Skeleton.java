@@ -14,6 +14,7 @@ public abstract class Skeleton extends Entity {
     private int speed;
     private boolean isFrozen;
     private int freezeDuration;
+    private Timer freezeTimer;
     private double realColumn;
     private double realSpeed;
 
@@ -25,7 +26,7 @@ public abstract class Skeleton extends Entity {
                                                  // jeu choisi
         this.speed = speed;
         this.realSpeed = realSpeed;
-        this.realColumn = 14;
+        this.realColumn = 15;
         this.isFrozen = false;
         // skelImg.setBounds(15*55,lane*100,55, 100);
 
@@ -57,18 +58,10 @@ public abstract class Skeleton extends Entity {
         } else {
 
             // Moves as far as possible if not frozen
-            if (!isFrozen) {
-                this.realColumn -= this.realSpeed;
-                this.getAttachedImage().setBounds((int) (currentColumn * widthPerUnit), getAttachedImage().getY(),
-                        getAttachedImage().getWidth(), getAttachedImage().getHeight()); // Actualise l'affichage de la
-                                                                                        // vue
-            } else {
-                this.realColumn -= this.realSpeed / 2;
-                this.freezeDuration--;
-                if (this.freezeDuration == 0) {
-                    this.isFrozen = false;
-                }
-            }
+            this.realColumn -= this.realSpeed;
+            this.getAttachedImage().setBounds((int) (currentColumn * widthPerUnit), getAttachedImage().getY(),
+                    getAttachedImage().getWidth(), getAttachedImage().getHeight()); // Actualise l'affichage de la
+                                                                                    // vue
         }
         // If we are at the end of the map
         if (currentColumn <= 0) {
@@ -156,18 +149,15 @@ public abstract class Skeleton extends Entity {
             int actualRange = 0;
             while (actualRange <= this.range && curColumn - actualRange - 1 >= 0) {
                 if (getMap().getEntityAt(this.getLine(), curColumn - actualRange - 1) instanceof Tree) {
-                    System.out.println("Tree at " + (curColumn - actualRange - 1) + " and we are at " + curColumn);
                     return actualRange;
                 }
                 actualRange++;
             }
-            System.out.println("No tree in range");
             return -1;
         } else {
             int curLine = this.getLine();
             double curColumn = this.realColumn;
             int[] closestTreeDistance = this.firstTreeInLine(curLine, curColumn);
-            System.out.println("Closest tree distance : " + closestTreeDistance[0]);
             if (!(closestTreeDistance[0] > this.range || closestTreeDistance[0] == -1)) {
                 return closestTreeDistance[1];
             }
@@ -232,7 +222,13 @@ public abstract class Skeleton extends Entity {
     public void freeze() {
         this.isFrozen = true;
         if (Game.graphicMode) {
-            this.freezeDuration = 3;
+            this.realSpeed /= 2;
+            this.freezeTimer = new Timer(1000, e -> {
+                this.isFrozen = false;
+                this.realSpeed *= 2;
+            });
+            this.freezeTimer.setRepeats(false);
+            this.freezeTimer.start();
         }
     }
 

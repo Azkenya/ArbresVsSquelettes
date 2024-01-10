@@ -13,7 +13,7 @@ import java.awt.Graphics;
 public abstract class Entity implements Updatable {
     protected Toolkit toolkit = Toolkit.getDefaultToolkit();
     protected Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
-            (int) Math.floor(toolkit.getScreenSize().height * 0.90));
+            (int) Math.floor(toolkit.getScreenSize().height * 0.93));
     protected int widthPerUnit = dim.width / 15;
     protected int heightPerUnit = dim.height / 5;
     private int hp;
@@ -47,7 +47,6 @@ public abstract class Entity implements Updatable {
     public void kill(int damageDealt) {
         if (this.hp > damageDealt) {
             this.hp -= damageDealt;
-            System.out.println("hp : " + this.hp);
         } else {
             this.hp = 0;
             if (!(this instanceof Projectile))

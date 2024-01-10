@@ -14,7 +14,7 @@ public class IceTree extends Tree {
     public int freezingMode = 0;
 
     public IceTree(int line, int column, Map map) {
-        super(cost, hp, line, column, damage, map, "src/main/resources/treedef.png");
+        super(cost, hp, line, column, damage, map, "src/main/resources/IceTree.png");
     }
 
     @Override
@@ -36,7 +36,7 @@ public class IceTree extends Tree {
 
     @Override
     public void shoot() {
-        Projectile projectile = new IceProjectile(this.getLine(), this.getColumn(), this.getDamage(), this.getMap());
+        Projectile projectile = new IceProjectile(this.getLine(), this.getColumn(), getMap());
         super.addProjectile(projectile);
     }
 

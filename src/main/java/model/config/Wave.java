@@ -71,7 +71,6 @@ public class Wave implements Updatable {
                 if (noEnemiesOnMap()) {
                     this.currentRound = 0;
                     this.currentSubWave++;
-                    System.out.println("Subwave Finished");
                 }
             }
         } else {
@@ -122,11 +121,9 @@ public class Wave implements Updatable {
     }
 
     public void spawnEnemies() {
-        System.out.println("Spawning enemies");
         for (int i = 0; i < 5; i++) {
             if (this.enemies[this.currentSubWave][this.currentRound][i] != null) {
                 Wave.enemiesOnMap.add(this.enemies[this.currentSubWave][this.currentRound][i]);
-                System.out.println("Enemy added to arraylist");
                 this.enemies[this.currentSubWave][this.currentRound][i] = null;
             }
         }
@@ -250,33 +247,17 @@ public class Wave implements Updatable {
      *            - A 10% chance to have 3 enemies
      *            - A 10% chance to have no enemies
      * 
-     *            The canPlace int is used to make sure that there aren't two
-     *            consecutive rounds with enemies, so as not to make the game too
-     *            hard
-     *            How it works:
-     *            - If canPlace is 0, then we can place enemies
-     *            - If we place 1 or 2 enemies, then we can't place enemies for the
-     *            next round
-     *            - If we place 3 enemies, then we can't place enemies for the next
-     *            two rounds
-     * 
      * @return the wave of enemies
      */
     public static Skeleton[][] makeMidGameWaveEasy(Map map) {
         Skeleton[][] enemies = new Skeleton[30][5];
-        int canPlace = 0;
         for (int i = 0; i < 30; i++) {
             int prob = random(100);
-            if (canPlace != 0)
-                canPlace--;
-            else if (canPlace == 0 && prob <= 55) {
-                canPlace++;
+            if (prob <= 55) {
                 place(enemies, i, 1, map, 3);
-            } else if (canPlace == 0 && prob <= 80) {
-                canPlace++;
+            } else if (prob <= 80) {
                 place(enemies, i, 2, map, 2);
-            } else if (canPlace == 0 && prob <= 90) {
-                canPlace += 2;
+            } else if (prob <= 90) {
                 place(enemies, i, 3, map, 2);
             }
         }
@@ -297,40 +278,22 @@ public class Wave implements Updatable {
      *            - A 7% chance to have 5 enemies
      *            - A 8% chance to have no enemies
      * 
-     *            The canPlace int is used to make sure that there aren't two
-     *            consecutive rounds with enemies, so as not to make the game too
-     *            hard
-     *            How it works:
-     *            - If canPlace is 0, then we can place enemies
-     *            - If we place 1, 2 or 3 enemies, then we can't place enemies for
-     *            the next round
-     *            - If we place 4 or 5 enemies, then we can't place enemies for the
-     *            next two rounds
-     * 
      * @return the wave of enemies
      */
     public static Skeleton[][] makeFinalWaveEasy(Map map) {
         Skeleton[][] enemies = new Skeleton[30][5];
-        int canPlace = 0;
         place(enemies, 0, 1, map, 0);// make this a Wave Leader Skeleton
         for (int i = 1; i < 30; i++) {
             int prob = random(100);
-            if (canPlace != 0) {
-                canPlace--;
-            } else if (canPlace == 0 && prob <= 30) {
-                canPlace++;
+            if (prob <= 30) {
                 place(enemies, i, 1, map, 4);
-            } else if (canPlace == 0 && prob <= 60) {
-                canPlace++;
+            } else if (prob <= 60) {
                 place(enemies, i, 2, map, 3);
-            } else if (canPlace == 0 && prob <= 75) {
-                canPlace++;
+            } else if (prob <= 75) {
                 place(enemies, i, 3, map, 3);
-            } else if (canPlace == 0 && prob <= 85) {
-                canPlace += 2;
+            } else if (prob <= 85) {
                 place(enemies, i, 4, map, 2);
-            } else if (canPlace == 0 && prob <= 92) {
-                canPlace += 2;
+            } else if (prob <= 92) {
                 place(enemies, i, 5, map, 2);
             }
         }
@@ -379,40 +342,21 @@ public class Wave implements Updatable {
      *            - A 5% chance to have 5 enemies
      *            - A 15 % chance to have no enemies
      * 
-     *            The canPlace int is used to make sure that there aren't two
-     *            consecutive rounds with enemies, so as not to make the game too
-     *            hard
-     *            How it works:
-     *            - If canPlace is 0, then we can place enemies
-     *            - If we place 2 or 3 enemies, then we can't place enemies for the
-     *            next round
-     *            - If we place 4 enemies, then we can't place enemies for the next
-     *            two rounds
-     *            - If we place 5 enemies, then we can't place enemies for the next
-     *            three rounds
-     * 
      * @return the wave of enemies
      */
     public static Skeleton[][] makeMidGameWaveMedium(Map map) {
         Skeleton[][] enemies = new Skeleton[40][5];
-        int canPlace = 0;
         for (int i = 0; i < 40; i++) {
             int prob = random(100);
-            if (canPlace != 0)
-                canPlace--;
-            else if (canPlace == 0 && prob <= 40) {
+            if (prob <= 40) {
                 place(enemies, i, 1, map, 4);
-            } else if (canPlace == 0 && prob <= 60) {
-                canPlace++;
+            } else if (prob <= 60) {
                 place(enemies, i, 2, map, 4);
-            } else if (canPlace == 0 && prob <= 73) {
-                canPlace++;
+            } else if (prob <= 73) {
                 place(enemies, i, 3, map, 3);
-            } else if (canPlace == 0 && prob <= 80) {
-                canPlace += 2;
+            } else if (prob <= 80) {
                 place(enemies, i, 4, map, 3);
-            } else if (canPlace == 0 && prob <= 85) {
-                canPlace += 3;
+            } else if (prob <= 85) {
                 place(enemies, i, 5, map, 2);
             }
         }
@@ -433,41 +377,22 @@ public class Wave implements Updatable {
      *            - A 10% chance to have 5 enemies
      *            - A 5% chance to have no enemies
      * 
-     *            The canPlace int is used to make sure that there aren't two
-     *            consecutive rounds with enemies, so as not to make the game too
-     *            hard
-     *            How it works:
-     *            - If canPlace is 0, then we can place enemies
-     *            - If we place 2 or 3 enemies, then we can't place enemies for the
-     *            next round
-     *            - If we place 4 enemies, then we can't place enemies for the next
-     *            two rounds
-     *            - If we place 5 enemies, then we can't place enemies for the next
-     *            three rounds
-     * 
      * @return the wave of enemies
      */
     public static Skeleton[][] makeFinalWaveMedium(Map map) {
         Skeleton[][] enemies = new Skeleton[50][5];
-        int canPlace = 0;
         place(enemies, 0, 1, map, 0);// make this a Wave Leader Skeleton
         for (int i = 1; i < 50; i++) {
             int prob = random(100);
-            if (canPlace != 0) {
-                canPlace--;
-            } else if (canPlace == 0 && prob <= 30) {
+            if (prob <= 30) {
                 place(enemies, i, 1, map, 4);
-            } else if (canPlace == 0 && prob <= 50) {
-                canPlace++;
+            } else if (prob <= 50) {
                 place(enemies, i, 2, map, 4);
-            } else if (canPlace == 0 && prob <= 70) {
-                canPlace++;
+            } else if (prob <= 70) {
                 place(enemies, i, 3, map, 3);
-            } else if (canPlace == 0 && prob <= 85) {
-                canPlace += 2;
+            } else if (prob <= 85) {
                 place(enemies, i, 4, map, 3);
-            } else if (canPlace == 0 && prob <= 95) {
-                canPlace += 3;
+            } else if (prob <= 95) {
                 place(enemies, i, 5, map, 3);
             }
         }
@@ -519,40 +444,21 @@ public class Wave implements Updatable {
      *            - A 7% chance to have 5 enemies
      *            - A 3% chance to have no enemies
      * 
-     *            The canPlace int is used to make sure that there aren't two
-     *            consecutive rounds with enemies, so as not to make the game too
-     *            hard
-     *            How it works:
-     *            - If canPlace is 0, then we can place enemies
-     *            - If we place 2 or 3 enemies, then we can't place enemies for the
-     *            next round
-     *            - If we place 4 enemies, then we can't place enemies for the next
-     *            two rounds
-     *            - If we place 5 enemies, then we can't place enemies for the next
-     *            three rounds
-     * 
      * @return the wave of enemies
      */
     public static Skeleton[][] makeMidGameWaveHard(Map map) {
         Skeleton[][] enemies = new Skeleton[40][5];
-        int canPlace = 0;
         for (int i = 0; i < 40; i++) {
             int prob = random(100);
-            if (canPlace != 0)
-                canPlace--;
-            else if (canPlace == 0 && prob <= 35) {
+            if (prob <= 35) {
                 place(enemies, i, 1, map, 6);
-            } else if (canPlace == 0 && prob <= 60) {
-                canPlace++;
+            } else if (prob <= 60) {
                 place(enemies, i, 2, map, 6);
-            } else if (canPlace == 0 && prob <= 75) {
-                canPlace++;
+            } else if (prob <= 75) {
                 place(enemies, i, 3, map, 5);
-            } else if (canPlace == 0 && prob <= 90) {
-                canPlace += 2;
+            } else if (prob <= 90) {
                 place(enemies, i, 4, map, 4);
-            } else if (canPlace == 0 && prob <= 97) {
-                canPlace += 3;
+            } else if (prob <= 97) {
                 place(enemies, i, 5, map, 4);
             }
         }
@@ -573,38 +479,22 @@ public class Wave implements Updatable {
      *            - A 10% chance to have 5 enemies
      *            - A 0% chance to have no enemies
      * 
-     *            The canPlace int is used to make sure that there aren't two
-     *            consecutive rounds with enemies, so as not to make the game too
-     *            hard
-     *            How it works:
-     *            - If canPlace is 0, then we can place enemies
-     *            - If we place 3 or 4 enemies, then we can't place enemies for the
-     *            next round
-     *            - If we place 5 enemies, then we can't place enemies for the next
-     *            two rounds
-     * 
      * @return the wave of enemies
      */
     public static Skeleton[][] makeFinalWaveHard(Map map) {
         Skeleton[][] enemies = new Skeleton[60][5];
-        int canPlace = 0;
         place(enemies, 0, 1, map, 0);// make this a Wave Leader Skeleton
         for (int i = 1; i < 60; i++) {
             int prob = random(100);
-            if (canPlace != 0) {
-                canPlace--;
-            } else if (canPlace == 0 && prob <= 25) {
+            if (prob <= 25) {
                 place(enemies, i, 1, map, 7);
-            } else if (canPlace == 0 && prob <= 50) {
+            } else if (prob <= 50) {
                 place(enemies, i, 2, map, 7);
-            } else if (canPlace == 0 && prob <= 70) {
-                canPlace++;
+            } else if (prob <= 70) {
                 place(enemies, i, 3, map, 6);
-            } else if (canPlace == 0 && prob <= 90) {
-                canPlace++;
+            } else if (prob <= 90) {
                 place(enemies, i, 4, map, 5);
-            } else if (canPlace == 0 && prob <= 100) {
-                canPlace += 2;
+            } else if (prob <= 100) {
                 place(enemies, i, 5, map, 5);
             }
         }

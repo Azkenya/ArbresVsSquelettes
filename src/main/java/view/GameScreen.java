@@ -7,15 +7,17 @@ import model.entities.Skeleton;
 import model.entities.trees.Oak;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+
+import static tools.MathTools.nearestUnitPoint;
 
 public class GameScreen extends JFrame implements Updatable {
-    public static int widthPerUnit;
-    public static int heightPerUnit;
     private static JPanel mainContainer;
     private static JPanel sideMenu;
     private static JPanel shopScreen;
@@ -23,17 +25,17 @@ public class GameScreen extends JFrame implements Updatable {
     private final Wave wave;
     private Timer gameUpdateTimer;
     private static JLabel moneyDisplayed;
-
-    private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
+    public static boolean placingATree = false;
+    protected static Toolkit toolkit = Toolkit.getDefaultToolkit();
+    protected static Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
+            (int) Math.floor(toolkit.getScreenSize().height * 0.93));
+    public static int widthPerUnit = dim.width / 15;
+    public static int heightPerUnit = dim.height / 5;
 
     public GameScreen(Game game) throws IOException {
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.85),
-                (int) Math.floor(toolkit.getScreenSize().height * 0.95));
-        // widthPerUnit = 111;
-        // heightPerUnit = 200;
-        widthPerUnit = dim.width / 15;
-        heightPerUnit = dim.height / 5;
+
+        File imageFile = new File("src/main/resources/Game.jpg");
+
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
         this.game = game;
@@ -45,52 +47,55 @@ public class GameScreen extends JFrame implements Updatable {
         this.add(shopScreen); // Ajoute le shopScreen a l'affichage (de base il n'est pas visible)
 
         // Crée le menu du côté gauche
-        sideMenu = new JPanel();
-        sideMenu.setPreferredSize(new Dimension(widthPerUnit * 2, heightPerUnit));
-
+        sideMenu = new BackGround("src/main/resources/ShopImage.png",
+                new Dimension((int) (widthPerUnit * 1.7), heightPerUnit * 5));
+        sideMenu.setPreferredSize(new Dimension((int) (widthPerUnit * 1.7), heightPerUnit));
+        sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         // Ajoute l'affichage la money
         moneyDisplayed = new JLabel(Game.getPlayerMoney().toString());
-        moneyDisplayed.setFont(new Font("Arial", Font.PLAIN, 20));
-        sideMenu.add(moneyDisplayed);
-
+        moneyDisplayed.setOpaque(false);
+        moneyDisplayed.setForeground(Color.WHITE);
+        moneyDisplayed.setFont(new Font("Arial", Font.PLAIN, widthPerUnit / 6));
+        Box box = Box.createVerticalBox();
+        box.add(moneyDisplayed);
         // Ajoute le bouton du shop
         JButton shopButton = new JButton("Ouvrir le shop");
         shopButton.addActionListener(e -> {
-            this.pauseGame();
-            mainContainer.setVisible(false);
-            sideMenu.setVisible(false);
-            shopScreen.setVisible(true);
+            if (!placingATree)
+                ;
+            {
+                this.pauseGame();
+                mainContainer.setVisible(false);
+                sideMenu.setVisible(false);
+                shopScreen.setVisible(true);
+            }
         });
-        sideMenu.add(shopButton);
+        box.add(shopButton);
+
+        sideMenu.add(box);
 
         // Ajoute le menu de côté à l'affichage
         this.add(sideMenu);
 
         // Crée l'affichage du jeu
-        mainContainer = new JPanel(null);
-        mainContainer.setPreferredSize(dim);
-        // mainContainer.setPreferredSize(new
-        // Dimension(widthPerUnit*15,heightPerUnit*5));
+        mainContainer = new BackGround(imageFile.getAbsolutePath());
+        mainContainer.setPreferredSize(new Dimension(widthPerUnit * 15, heightPerUnit * 5));
+
         this.add(mainContainer);
-        // this.setContentPane(mainContainer);
-        this.pack();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        for (int i = 0; i < 15; i++) {
-            Oak testOak = new Oak(0, i, game.getMap());
-            this.game.addTree(testOak);
-        }
-        Oak testOak2 = new Oak(2, 4, game.getMap());
-        Oak testOak3 = new Oak(4, 4, game.getMap());
-        Oak testOak4 = new Oak(1, 4, game.getMap());
-        Oak testOak5 = new Oak(3, 4, game.getMap());
+        this.pack();
 
+        Oak testOak = new Oak(0, 4, game.getMap());
+        Oak testOak2 = new Oak(1, 4, game.getMap());
+        Oak testOak3 = new Oak(2, 4, game.getMap());
+        Oak testOak4 = new Oak(3, 4, game.getMap());
+        Oak testOak5 = new Oak(4, 4, game.getMap());
+        this.game.addTree(testOak);
         this.game.addTree(testOak2);
         this.game.addTree(testOak3);
         this.game.addTree(testOak4);
         this.game.addTree(testOak5);
-
-        System.out.println(game.getMap().getEntityAt(0, 0));
 
         this.initializeTimer();
         this.gameUpdateTimer.start();
@@ -100,9 +105,9 @@ public class GameScreen extends JFrame implements Updatable {
     public void spawnSkeletons() {
         int currentSubWave = this.wave.getCurrentSubWave();
         int currentRound = this.wave.getCurrentRound();
-        System.out.printf("%d subwave %d round\n", currentSubWave, currentRound);
-        if (currentRound < wave.getEnemies()[0].length - 1
-                && currentSubWave < wave.getEnemies().length - 1) {
+
+        if (currentSubWave < wave.getEnemies().length - 1
+                && currentRound < wave.getEnemies()[currentSubWave].length - 1) {
             for (int i = 0; i < 5; i++) {
                 Skeleton skeleton = wave.getEnemies()[currentSubWave][currentRound][i];
                 if (skeleton != null) {
@@ -111,6 +116,7 @@ public class GameScreen extends JFrame implements Updatable {
             }
             mainContainer.repaint();
         }
+
     }
 
     private void initializeTimer() {
@@ -122,10 +128,6 @@ public class GameScreen extends JFrame implements Updatable {
     public void update() {
         game.update();
         updateAllTexts();
-        for (Skeleton s : enemiesOnMap) {
-            System.out.print("Line " + s.getLine() + " Column " + s.getRealColumn() + "\n");
-        }
-        System.out.println();
 
     }
 
@@ -171,4 +173,144 @@ public class GameScreen extends JFrame implements Updatable {
             }
         }).start();
     }
+
+    public static JPanel getSideMenu() {
+        return sideMenu;
+    }
+
+    public void showAllGameScreen() {
+        mainContainer.setVisible(true);
+        sideMenu.setVisible(true);
+    }
+
+    public void addSpriteToMouseCursor(SpriteImage sprImg, int mouseX, int mouseY) {
+        SpriteClickListener spriteClickListener = new SpriteClickListener(sprImg);
+        this.addMouseListener(spriteClickListener);
+        this.addMouseMotionListener(spriteClickListener);
+
+        sprImg.getAttachedLabel().setBounds(mouseX, mouseY, widthPerUnit, heightPerUnit);
+
+        mainContainer.add(sprImg.getAttachedLabel());
+
+    }
+
+    private class SpriteClickListener implements MouseInputListener {
+
+        private boolean isMoving = true;
+        private SpriteImage currentSpriteMoving;
+
+        public SpriteClickListener(SpriteImage currentSpriteMoving) {
+            this.currentSpriteMoving = currentSpriteMoving;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            int dimensionX = widthPerUnit;
+            int dimensionY = heightPerUnit;
+            Point nearestPoint = nearestUnitPoint(e.getX() - dimensionX * 2 - ((int) dimensionX / 2),
+                    e.getY() - dimensionY / 2);
+
+            int correspondingLineOnMap = (int) nearestPoint.getY() / dimensionY;
+            int correspodingColumnOnMap = (int) nearestPoint.getX() / dimensionX;
+
+            if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null) {
+                System.out.println("Déjà sur un arbre");
+            } else {
+                isMoving = false;
+
+                System.out.println(correspondingLineOnMap);
+                System.out.println(correspodingColumnOnMap);
+
+                currentSpriteMoving.getAttachedTree().setLine(correspondingLineOnMap);
+                currentSpriteMoving.getAttachedTree().setColumn(correspodingColumnOnMap);
+
+                game.addTree(currentSpriteMoving.getAttachedTree());
+
+                removeMouseListener(this);
+                removeMouseMotionListener(this);
+
+                placingATree = false;
+
+                playGame();
+
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            int dimensionX = widthPerUnit;
+            int dimensionY = heightPerUnit;
+            if (isMoving) {
+                Point nearestPoint = nearestUnitPoint(e.getX() - dimensionX * 2 - (int) dimensionX / 2,
+                        e.getY() - dimensionY / 2);
+                currentSpriteMoving.setX((int) nearestPoint.getX());
+                currentSpriteMoving.setY((int) nearestPoint.getY());
+                currentSpriteMoving.setBounds(currentSpriteMoving.getX(), currentSpriteMoving.getY(),
+                        GameScreen.widthPerUnit, GameScreen.heightPerUnit);
+                currentSpriteMoving.getAttachedLabel().setBounds(currentSpriteMoving.getX(), currentSpriteMoving.getY(),
+                        widthPerUnit, heightPerUnit);
+                repaint();
+            }
+        }
+    }
+
+    public class BackGround extends JPanel {
+
+        private ImageIcon icon;
+
+        public BackGround(String img) {
+            this(new ImageIcon(img).getImage(), Toolkit.getDefaultToolkit().getScreenSize());
+        }
+
+        public BackGround(String img, Dimension dim) {
+            this(new ImageIcon(img).getImage(), dim);
+        }
+
+        public BackGround(Image img, Dimension dim) {
+            this.icon = new ImageIcon(img);
+            icon = resizeImageIcon(icon, dim);
+            Dimension size = dim;
+            setPreferredSize(size);
+            setMinimumSize(size);
+            setMaximumSize(size);
+            setSize(size);
+            setLayout(null);
+        }
+
+        public void paintComponent(Graphics g) {
+            g.drawImage(icon.getImage(), 0, 0, null);
+        }
+
+        public ImageIcon resizeImageIcon(ImageIcon icon, Dimension dim) {
+            Image img = icon.getImage();
+            Image newimg = img.getScaledInstance(dim.width, dim.height, java.awt.Image.SCALE_SMOOTH);
+            return new ImageIcon(newimg);
+        }
+    }
+
 }

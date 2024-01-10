@@ -90,7 +90,7 @@ public class Game implements Updatable {
     }
 
     public static void addMoney() {
-        playerMoney.add(new Money(25));
+        playerMoney.add(new Money(10));
     }
 
     public void updateTrees() {

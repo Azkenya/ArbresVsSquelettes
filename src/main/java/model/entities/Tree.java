@@ -4,6 +4,8 @@ import model.Entity;
 import model.config.Map;
 import controller.Game;
 import java.util.ArrayList;
+import model.entities.trees.Acacia;
+import model.entities.projectiles.OakProjectile;
 
 public abstract class Tree extends Entity {
     private int cost;
@@ -11,7 +13,7 @@ public abstract class Tree extends Entity {
     protected int cd = 0;
 
     public Tree(int cost, int hp, int line, int column, int damage, Map map, String treePath) {
-        super(hp, line, column, damage, map, "src/main/resources/treedef.png");
+        super(hp, line, column, damage, map, treePath);
         this.cost = cost;
     }
 
@@ -26,11 +28,13 @@ public abstract class Tree extends Entity {
             int currentColumn = this.getColumn();
             this.getAttachedImage().setBounds((int) (currentColumn * widthPerUnit), getAttachedImage().getY(),
                     getAttachedImage().getWidth(), getAttachedImage().getHeight());
-            if (cd == 50) {
-                this.shoot();
-                cd = 0;
-            } else {
-                cd++;
+            if (!(this instanceof Acacia)) {
+                if (cd == 50) {
+                    this.shoot();
+                    cd = 0;
+                } else {
+                    cd++;
+                }
             }
             for (Projectile proj : projectiles) {
                 proj.update();
@@ -40,8 +44,8 @@ public abstract class Tree extends Entity {
     }
 
     public void shoot() {
-        Projectile projectile = new Projectile(this.getLine(), this.getColumn(), this.getDamage(), getMap());
-        addProjectile(projectile);
+        Projectile projectile = new OakProjectile(this.getLine(), this.getColumn(), getMap());
+        this.addProjectile(projectile);
     }
 
     public void addProjectile(Projectile projectile) {

@@ -9,19 +9,23 @@ import view.GameScreen;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Projectile extends Entity {
+public abstract class Projectile extends Entity {
     protected Double speed;
     protected Double realColumn;
     protected int damage;
 
-    public Projectile(int line, int column, int damage, Map map) {
-        super(1, line, column, damage, map);
+    public Projectile(int line, int column, int damage, Map map, String path) {
+        this(1, line, column, damage, map, path);
+    }
+
+    public Projectile(int hp, int line, int column, int damage, Map map, String path) {
+        super(hp, line, column, damage, map);
         this.speed = 0.2;
         this.realColumn = Double.valueOf(column) + 0.5;
         this.damage = damage;
-        JLabel projImg = new JLabel(new ImageIcon("src/main/resources/projdef.png"));
+        JLabel projImg = new JLabel(new ImageIcon(path));
         projImg.setBounds((column) * widthPerUnit, line * heightPerUnit +
-                heightPerUnit / 2, 43, 19);
+                heightPerUnit / 2, 43, 30);
         // oakImg.setBounds(column*55,line*100,55, 100);
         projImg.setVisible(true);
         GameScreen.getMainContainer().add(projImg);
@@ -57,7 +61,7 @@ public class Projectile extends Entity {
             }
         }
         this.getAttachedImage().setBounds((int) (realColumn * widthPerUnit), line * heightPerUnit +
-                heightPerUnit / 2, 43, 19);
+                heightPerUnit / 2, 43, 30);
         ;
     }
 
