@@ -62,7 +62,7 @@ public class Game implements Updatable {
         if(graphicMode)view.spawnSkeletons();
         this.wave.update();
         this.updateTrees();
-        randMoney();
+//        randMoney();
         this.currentTurn++;
     }
 
@@ -78,8 +78,11 @@ public class Game implements Updatable {
         ArrayList<Tree> tempTrees = new ArrayList<>(trees);
         for (Tree tree : tempTrees) {
             if (tree.getHp() <= 0) {
+
                 System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has been destroyed");
-                if(graphicMode)tree.removeVisibility();
+                if(graphicMode){
+                    tree.removeVisibility();
+                }
                 trees.remove(tree);
             }else{
                 System.out.println("Tree at " + tree.getLine() + " " + tree.getColumn() + " has " + tree.getHp() + " hp");

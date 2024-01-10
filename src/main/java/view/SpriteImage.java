@@ -1,24 +1,30 @@
 package view;
 
+import model.entities.Tree;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-public class SpriteImage extends JComponent implements Cloneable {
+public class SpriteImage extends JComponent {
 
     private final BufferedImage sprite;
-    private int x,y;
-    private int width,height;
+    private int x, y;
+    private int width, height;
     private final String name;
+    private Tree attachedTree;
 
-    public SpriteImage(BufferedImage sprite, int x, int y, String name) {
+    public SpriteImage(BufferedImage sprite, int x, int y, String name, Tree attachedTree) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.name = name;
         this.width = GameScreen.widthPerUnit;
         this.height = GameScreen.heightPerUnit;
+
+        this.attachedTree = attachedTree;
     }
+
     public BufferedImage getSprite() {
         return sprite;
     }
@@ -54,14 +60,19 @@ public class SpriteImage extends JComponent implements Cloneable {
     }
 
     @Override
-    protected void paintComponent(Graphics g){
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        if(sprite != null){
-            g.drawImage(sprite, x,y,null);
+        if (sprite != null) {
+            g.drawImage(sprite, x, y, null);
         }
     }
-    @Override
-    public SpriteImage clone(){
-        return new SpriteImage(this.getSprite(), this.getX(), this.getY(), this.getName());
+
+    public JLabel getAttachedLabel() {
+        return attachedTree.getAttachedImage();
     }
+
+    public Tree getAttachedTree() {
+        return attachedTree;
+    }
+
 }

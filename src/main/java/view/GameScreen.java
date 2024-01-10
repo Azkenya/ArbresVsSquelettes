@@ -7,11 +7,15 @@ import model.entities.Skeleton;
 import model.entities.trees.Oak;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+
+import static tools.MathTools.nearestUnitPoint;
 
 public class GameScreen extends JFrame implements Updatable {
     public static int widthPerUnit;
@@ -23,6 +27,7 @@ public class GameScreen extends JFrame implements Updatable {
     private final Wave wave;
     private Timer gameUpdateTimer;
     private static JLabel moneyDisplayed;
+    public static boolean placingATree = false;
 
     private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
 
@@ -52,10 +57,12 @@ public class GameScreen extends JFrame implements Updatable {
         //Ajoute le bouton du shop
         JButton shopButton = new JButton("Ouvrir le shop");
         shopButton.addActionListener(e -> {
-            this.pauseGame();
-            mainContainer.setVisible(false);
-            sideMenu.setVisible(false);
-            shopScreen.setVisible(true);
+            if(!placingATree);{
+                this.pauseGame();
+                mainContainer.setVisible(false);
+                sideMenu.setVisible(false);
+                shopScreen.setVisible(true);
+            }
         });
         sideMenu.add(shopButton);
 
@@ -78,11 +85,15 @@ public class GameScreen extends JFrame implements Updatable {
         this.pack();
 
         Oak testOak = new Oak(0,4,game.getMap());
-        Oak testOak2 = new Oak(2,4,game.getMap());
+        Oak testOak2 = new Oak(1,4,game.getMap());
+        Oak testOak3 = new Oak(2,4,game.getMap());
+        Oak testOak4 = new Oak(3,4,game.getMap());
+        Oak testOak5 = new Oak(4,4,game.getMap());
         this.game.addTree(testOak);
         this.game.addTree(testOak2);
-
-        System.out.println(game.getMap().getEntityAt(0,0));
+        this.game.addTree(testOak3);
+        this.game.addTree(testOak4);
+        this.game.addTree(testOak5);
         
         this.initializeTimer();
         this.gameUpdateTimer.start();
@@ -161,5 +172,101 @@ public class GameScreen extends JFrame implements Updatable {
 
     public static JPanel getSideMenu() {
         return sideMenu;
+    }
+
+    public void showAllGameScreen(){
+        mainContainer.setVisible(true);
+        sideMenu.setVisible(true);
+    }
+
+    public void addSpriteToMouseCursor(SpriteImage sprImg,int mouseX, int mouseY){
+        SpriteClickListener spriteClickListener = new SpriteClickListener(sprImg);
+        this.addMouseListener(spriteClickListener);
+        this.addMouseMotionListener(spriteClickListener);
+
+        sprImg.getAttachedLabel().setBounds(mouseX,mouseY,widthPerUnit,heightPerUnit);
+
+        mainContainer.add(sprImg.getAttachedLabel());
+
+    }
+
+    private class SpriteClickListener implements MouseInputListener {
+
+        private boolean isMoving = true;
+        private int xclick, yclick;
+        private SpriteImage currentSpriteMoving;
+
+        public SpriteClickListener(SpriteImage currentSpriteMoving){
+            this.currentSpriteMoving = currentSpriteMoving;
+        }
+        @Override
+        public void mouseClicked(MouseEvent e) {
+
+            Point nearestPoint = nearestUnitPoint(e.getX() - 111*2 - 55 , e.getY() - 100);
+
+            int correspondingLineOnMap = (int) nearestPoint.getY() / 200;
+            int correspodingColumnOnMap = (int) nearestPoint.getX() / 111;
+
+            if(game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null){
+                System.out.println("Déjà sur un arbre");
+            }
+            else{
+                isMoving = false;
+
+                System.out.println(correspondingLineOnMap);
+                System.out.println(correspodingColumnOnMap);
+
+                currentSpriteMoving.getAttachedTree().setLine(correspondingLineOnMap);
+                currentSpriteMoving.getAttachedTree().setColumn(correspodingColumnOnMap);
+
+                game.addTree(currentSpriteMoving.getAttachedTree());
+
+                removeMouseListener(this);
+                removeMouseMotionListener(this);
+
+                placingATree = false;
+
+                playGame();
+
+            }
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            if(isMoving){
+                Point nearestPoint = nearestUnitPoint(e.getX() - 111*2 - 55 , e.getY() - 100);
+
+                currentSpriteMoving.setX((int) nearestPoint.getX());
+                currentSpriteMoving.setY((int) nearestPoint.getY());
+                currentSpriteMoving.setBounds(currentSpriteMoving.getX(),currentSpriteMoving.getY(),GameScreen.widthPerUnit, GameScreen.heightPerUnit);
+                currentSpriteMoving.getAttachedLabel().setBounds(currentSpriteMoving.getX(),currentSpriteMoving.getY(),widthPerUnit,heightPerUnit);
+                repaint();
+            }
+        }
     }
 }
