@@ -6,6 +6,9 @@ import model.entities.Tree;
 import model.entities.Skeleton;
 import model.entities.Projectile;
 import model.entities.projectiles.IceProjectile;
+
+import javax.swing.*;
+
 public class IceTree extends Tree {
     public static final int cost = 175;
     public static final int hp = 15;
@@ -14,6 +17,9 @@ public class IceTree extends Tree {
 
     public IceTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
+        JLabel iceTreeImage = new JLabel(new ImageIcon("src/main/resources/icetree.png"));
+        iceTreeImage.setBounds(column*111,line*200,111,200);
+        this.setAttachedImage(iceTreeImage);
     }
 
     @Override

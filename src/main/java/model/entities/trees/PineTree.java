@@ -5,6 +5,8 @@ import model.config.Map;
 import model.entities.Tree;
 import model.entities.Projectile;
 
+import javax.swing.*;
+
 public class PineTree extends Tree {
     public static final int cost = 50;
     public static final int hp = 1;
@@ -12,6 +14,9 @@ public class PineTree extends Tree {
 
     public PineTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
+        JLabel pineImage = new JLabel(new ImageIcon("src/main/resources/pinetree.png"));
+        pineImage.setBounds(column*111,line*200,111,200);
+        this.setAttachedImage(pineImage);
     }
 
     @Override

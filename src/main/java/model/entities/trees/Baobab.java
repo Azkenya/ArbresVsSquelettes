@@ -4,6 +4,9 @@ import model.Entity;
 import model.config.Map;
 import model.entities.Tree;
 import model.entities.Projectile;
+
+import javax.swing.*;
+
 public class Baobab extends Tree {
     public static final int cost = 250;
     public static final int hp = 10;
@@ -11,6 +14,9 @@ public class Baobab extends Tree {
     private int ProjectileCooldown = 0;
     public Baobab(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
+        JLabel baobabImage = new JLabel(new ImageIcon("src/main/resources/baobab.png"));
+        baobabImage.setBounds(column*111,line*200,111,200);
+        this.setAttachedImage(baobabImage);
     }
 
     @Override

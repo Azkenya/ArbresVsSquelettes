@@ -27,7 +27,8 @@ public class GameScreen extends JFrame implements Updatable {
     private final Wave wave;
     private Timer gameUpdateTimer;
     private static JLabel moneyDisplayed;
-    public static boolean placingATree = false;
+    public static boolean isPlacingATree = false;
+    private static  boolean isPaused = false;
 
     private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
 
@@ -57,7 +58,7 @@ public class GameScreen extends JFrame implements Updatable {
         //Ajoute le bouton du shop
         JButton shopButton = new JButton("Ouvrir le shop");
         shopButton.addActionListener(e -> {
-            if(!placingATree);{
+            if(!isPlacingATree){
                 this.pauseGame();
                 mainContainer.setVisible(false);
                 sideMenu.setVisible(false);
@@ -66,6 +67,22 @@ public class GameScreen extends JFrame implements Updatable {
         });
         sideMenu.add(shopButton);
 
+        //Ajouter le bouton pause/play
+        JButton pausePlayButton = new JButton("Pause");
+        pausePlayButton.addActionListener(e -> {
+            if(!isPlacingATree){
+
+                if(!isPaused){
+                    this.pauseGame();
+                    pausePlayButton.setText("Play");
+                }
+                else{
+                    this.playGame();
+                    pausePlayButton.setText("Pause");
+                }
+            }
+        });
+        sideMenu.add(pausePlayButton);
 
         //Ajoute le menu de côté à l'affichage
         this.add(sideMenu);
@@ -84,7 +101,7 @@ public class GameScreen extends JFrame implements Updatable {
 
         this.pack();
 
-        Oak testOak = new Oak(0,4,game.getMap());
+        Oak testOak = new Oak(0,14,game.getMap());
         Oak testOak2 = new Oak(1,4,game.getMap());
         Oak testOak3 = new Oak(2,4,game.getMap());
         Oak testOak4 = new Oak(3,4,game.getMap());
@@ -97,6 +114,7 @@ public class GameScreen extends JFrame implements Updatable {
         
         this.initializeTimer();
         this.gameUpdateTimer.start();
+
 
     }
 
@@ -140,9 +158,11 @@ public class GameScreen extends JFrame implements Updatable {
 
     public void pauseGame(){
         this.gameUpdateTimer.stop();
+        isPaused = true;
     }
     public void playGame(){
         this.gameUpdateTimer.start();
+        isPaused = false;
     }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
@@ -224,7 +244,7 @@ public class GameScreen extends JFrame implements Updatable {
                 removeMouseListener(this);
                 removeMouseMotionListener(this);
 
-                placingATree = false;
+                isPlacingATree = false;
 
                 playGame();
 

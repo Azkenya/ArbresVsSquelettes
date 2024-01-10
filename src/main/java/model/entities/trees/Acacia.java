@@ -4,6 +4,9 @@ import model.Entity;
 import model.config.Map;
 import model.entities.Tree;
 import controller.Game;
+
+import javax.swing.*;
+
 public class Acacia extends Tree {
 
     public static final int cost = 50;
@@ -12,6 +15,9 @@ public class Acacia extends Tree {
     private int MoneyCooldown = 0;
     public Acacia(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map);
+        JLabel acaciaImage = new JLabel(new ImageIcon("src/main/resources/acacia.png"));
+        acaciaImage.setBounds(column*111,line*200,111,200);
+        this.setAttachedImage(acaciaImage);
     }
 
     @Override

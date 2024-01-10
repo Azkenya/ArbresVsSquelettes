@@ -89,7 +89,7 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Map map = new Map();
-                Money playerMoney = new Money(150);
+                Money playerMoney = new Money(1500);
                 Game game = new Game(playerMoney,new Shop(playerMoney,map,new Scanner(System.in)),new ArrayList<>(),new Wave(1, map),map);
                 GameScreen screen;
                 try {
