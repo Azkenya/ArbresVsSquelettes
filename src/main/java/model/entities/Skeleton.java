@@ -4,8 +4,10 @@ import model.Entity;
 import model.config.Map;
 import controller.Game;
 import model.entities.trees.Oak;
+import view.GameScreen;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Skeleton extends Entity {
     private int range;
@@ -81,10 +83,16 @@ public class Skeleton extends Entity {
             //Else activate chainsaw
             else{
 
-                Projectile chainSaw = new Projectile(this.getLine(), this.getColumn(), 1, this.getMap());
+                Projectile chainSaw = new Projectile(this.getLine(), this.getColumn(), 1, getMap());
                 Tree.getChainsawProjectiles().add(chainSaw);
+                for(Projectile chainsaw : GameScreen.getChainsaws()){
+                    if(chainsaw.getLine() == this.getLine()){
+                        GameScreen.getMainContainer().remove(chainsaw.getAttachedImage());
+                    }
+                }
 
                 getMap().killEverythingOnLine(this.getLine());
+
                 getMap().getChainsaws()[this.getLine()] = false;
             }
         }

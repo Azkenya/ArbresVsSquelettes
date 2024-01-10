@@ -25,6 +25,7 @@ public class Game implements Updatable {
         this.currentTurn = 0;
         Game.trees = trees;
         this.wave = wave;
+
     }
 
     public void start(Scanner userInput) {
@@ -67,7 +68,7 @@ public class Game implements Updatable {
         }
         this.wave.update();
         this.updateTrees();
-//        randMoney();
+        randMoney();
         this.currentTurn++;
     }
 

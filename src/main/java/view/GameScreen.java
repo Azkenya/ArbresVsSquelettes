@@ -3,6 +3,7 @@ package view;
 import controller.Game;
 import controller.Updatable;
 import model.config.Wave;
+import model.entities.Projectile;
 import model.entities.Skeleton;
 import model.entities.trees.Oak;
 
@@ -29,6 +30,7 @@ public class GameScreen extends JFrame implements Updatable {
     private static JLabel moneyDisplayed;
     public static boolean isPlacingATree = false;
     private static  boolean isPaused = false;
+    private static ArrayList<Projectile> chainsaws = new ArrayList<>();
 
     private static final ArrayList<Skeleton> enemiesOnMap = Wave.getEnemiesOnMap();
 
@@ -111,6 +113,17 @@ public class GameScreen extends JFrame implements Updatable {
         this.game.addTree(testOak3);
         this.game.addTree(testOak4);
         this.game.addTree(testOak5);
+
+        Projectile chainSaw0 = new Projectile(0, 0, 0, game.getMap());
+        chainsaws.add(chainSaw0);
+        Projectile chainSaw1 = new Projectile(1, 0, 0, game.getMap());
+        chainsaws.add(chainSaw1);
+        Projectile chainSaw2 = new Projectile(2, 0, 0, game.getMap());
+        chainsaws.add(chainSaw2);
+        Projectile chainSaw3 = new Projectile(3, 0, 0, game.getMap());
+        chainsaws.add(chainSaw3);
+        Projectile chainSaw4 = new Projectile(4, 0, 0, game.getMap());
+        chainsaws.add(chainSaw4);
         
         this.initializeTimer();
         this.gameUpdateTimer.start();
@@ -208,6 +221,10 @@ public class GameScreen extends JFrame implements Updatable {
 
         mainContainer.add(sprImg.getAttachedLabel());
 
+    }
+
+    public static ArrayList<Projectile> getChainsaws() {
+        return chainsaws;
     }
 
     private class SpriteClickListener implements MouseInputListener {
