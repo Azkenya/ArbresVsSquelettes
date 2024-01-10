@@ -1,17 +1,26 @@
 package view;
 
 import controller.Game;
+import tools.MathTools;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import static tools.MathTools.nearestUnitPoint;
+
 public class ShopScreen extends JPanel {
+    private static GameScreen gameScreen;
     private static final ArrayList<SpriteImage> sprites = new ArrayList<>();
-    public ShopScreen(Game game){
-        sprites.add(new SpriteImage(new ImageIcon("src/main/resources/treedef.png").getImage(), 0,0,"Oak"));
+    public ShopScreen(Game game, GameScreen gameScreen) throws IOException {
+        ShopScreen.gameScreen = gameScreen;
+        sprites.add(new SpriteImage(ImageIO.read(new File("src/main/resources/treedef.png")), 0,0,"Oak"));
 
         this.setLayout(new FlowLayout());
 
@@ -20,7 +29,6 @@ public class ShopScreen extends JPanel {
         this.addMouseMotionListener(spriteClickListener);
 
         this.setVisible(false);
-
     }
 
 
@@ -43,6 +51,7 @@ public class ShopScreen extends JPanel {
             int xMouse = e.getX();
             int yMouse = e.getY();
 
+
             for(SpriteImage sprImg : sprites){
 
                 int xImg = sprImg.getX();
@@ -55,6 +64,7 @@ public class ShopScreen extends JPanel {
                     if ((xMouse >= xImg && xMouse <= xImg + imgWidth) && (yMouse >= yImg && yMouse <= yImg + imgHeight)) {
                         isMoving = true;
 
+
                         xclick = xImg - e.getX();
                         yclick = yImg - e.getY();
 
@@ -65,9 +75,13 @@ public class ShopScreen extends JPanel {
                 }
                 //Si on bouge déjà un sprite
                 else{
-                    isMoving = false;
-                    currentSpriteMoving = null;
-                }
+                     isMoving = false;
+                    setVisible(true);
+                    GameScreen.getMainContainer().setVisible(false);
+                    GameScreen.getSideMenu().setVisible(false);
+                     currentSpriteMoving = null;
+                     xclick = 0; yclick = 0;
+                    }
             }
         }
 
@@ -99,30 +113,15 @@ public class ShopScreen extends JPanel {
         @Override
         public void mouseMoved(MouseEvent e) {
             if(isMoving){
-                currentSpriteMoving.setX(e.getX() + xclick);
-                currentSpriteMoving.setY(e.getY() + yclick);
+                Point nearestPoint = nearestUnitPoint(e.getX() + xclick, e.getY() + yclick);
+
+                currentSpriteMoving.setX((int) nearestPoint.getX());
+                currentSpriteMoving.setY((int) nearestPoint.getY());
+                currentSpriteMoving.setBounds(currentSpriteMoving.getX(),currentSpriteMoving.getY(),GameScreen.widthPerUnit, GameScreen.heightPerUnit);
                 repaint();
             }
         }
 
-
-
-
     }
 
-    //Permet d'obtenir les coos du point le plus proche
-    private static Point nearestUnitPoint(int x, int y){
-
-        double xRatio = ((double) x / GameScreen.widthPerUnit);
-        double yRatio = ((double) y / GameScreen.heightPerUnit);
-
-        return null;
-
-
-
-    }
-
-    private static int decimalPartOfInt(int x){
-        return 0;
-    }
 }

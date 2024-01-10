@@ -37,7 +37,7 @@ public class GameScreen extends JFrame implements Updatable {
         game.setView(this);
 
         //Instancie le menu de shop
-        GameScreen.shopScreen = new ShopScreen(game);
+        GameScreen.shopScreen = new ShopScreen(game, this);
         this.add(shopScreen); //Ajoute le shopScreen a l'affichage (de base il n'est pas visible)
 
         //Crée le menu du côté gauche
@@ -64,7 +64,12 @@ public class GameScreen extends JFrame implements Updatable {
         this.add(sideMenu);
 
         //Crée l'affichage du jeu
-        mainContainer = new JPanel(null);
+        mainContainer = new JPanel(null){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+            }
+        };
         mainContainer.setPreferredSize(new Dimension(widthPerUnit*15,heightPerUnit*5));
 
         this.add(mainContainer);
@@ -152,5 +157,9 @@ public class GameScreen extends JFrame implements Updatable {
                     ((Timer)e.getSource()).stop();
             }
         }).start();
+    }
+
+    public static JPanel getSideMenu() {
+        return sideMenu;
     }
 }

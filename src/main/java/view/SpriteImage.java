@@ -1,21 +1,25 @@
 package view;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class SpriteImage {
+public class SpriteImage extends JComponent implements Cloneable {
 
-    private final Image sprite;
-    private int x = 0;
-    private int y = 0;
+    private final BufferedImage sprite;
+    private int x,y;
+    private int width,height;
     private final String name;
 
-    public SpriteImage(Image sprite, int x, int y, String name) {
+    public SpriteImage(BufferedImage sprite, int x, int y, String name) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.name = name;
+        this.width = GameScreen.widthPerUnit;
+        this.height = GameScreen.heightPerUnit;
     }
-    public Image getSprite() {
+    public BufferedImage getSprite() {
         return sprite;
     }
 
@@ -37,5 +41,27 @@ public class SpriteImage {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        if(sprite != null){
+            g.drawImage(sprite, x,y,null);
+        }
+    }
+    @Override
+    public SpriteImage clone(){
+        return new SpriteImage(this.getSprite(), this.getX(), this.getY(), this.getName());
     }
 }
