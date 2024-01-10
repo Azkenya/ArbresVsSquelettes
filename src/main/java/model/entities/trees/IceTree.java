@@ -6,6 +6,7 @@ import model.entities.Tree;
 import model.entities.Skeleton;
 import model.entities.Projectile;
 import model.entities.projectiles.IceProjectile;
+import javax.swing.*;
 
 public class IceTree extends Tree {
     public static final int cost = 175;
@@ -38,6 +39,7 @@ public class IceTree extends Tree {
     public void shoot() {
         Projectile projectile = new IceProjectile(this.getLine(), this.getColumn(), getMap());
         super.addProjectile(projectile);
+
     }
 
     public String toString() {
@@ -45,3 +47,6 @@ public class IceTree extends Tree {
     }
 
 }
+
+
+    

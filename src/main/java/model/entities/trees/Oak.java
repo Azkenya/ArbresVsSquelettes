@@ -21,7 +21,7 @@ public class Oak extends Tree {
 
     @Override
     public void shoot() {
-        Projectile projectile = new Nuke(this.getLine(), this.getColumn(), getMap());
+        Projectile projectile = new OakProjectile(this.getLine(), this.getColumn(), getMap());
         addProjectile(projectile);
     }
 

@@ -3,6 +3,8 @@ package view;
 import controller.Game;
 import controller.Updatable;
 import model.config.Wave;
+import model.entities.projectiles.ChainsawProjectile;
+import model.entities.Projectile;
 import model.entities.Skeleton;
 import model.entities.trees.Oak;
 
@@ -14,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static tools.MathTools.nearestUnitPoint;
 
@@ -25,15 +28,17 @@ public class GameScreen extends JFrame implements Updatable {
     private final Wave wave;
     private Timer gameUpdateTimer;
     private static JLabel moneyDisplayed;
-    public static boolean placingATree = false;
     protected static Toolkit toolkit = Toolkit.getDefaultToolkit();
     protected static Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
             (int) Math.floor(toolkit.getScreenSize().height * 0.93));
     public static int widthPerUnit = dim.width / 15;
     public static int heightPerUnit = dim.height / 5;
+    public static boolean isPlacingATree = false;
+    private static boolean isPaused = false;
+    private static ArrayList<ChainsawProjectile> chainsaws = new ArrayList<>();
 
     public GameScreen(Game game) throws IOException {
-
+        setResizable(false);
         File imageFile = new File("src/main/resources/Game.jpg");
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
@@ -61,9 +66,8 @@ public class GameScreen extends JFrame implements Updatable {
         // Ajoute le bouton du shop
         JButton shopButton = new JButton("Ouvrir le shop");
         shopButton.addActionListener(e -> {
-            if (!placingATree)
-                ;
-            {
+
+            if (!isPlacingATree) {
                 this.pauseGame();
                 mainContainer.setVisible(false);
                 sideMenu.setVisible(false);
@@ -72,6 +76,21 @@ public class GameScreen extends JFrame implements Updatable {
         });
         box.add(shopButton);
 
+        // Ajouter le bouton pause/play
+        JButton pausePlayButton = new JButton("Pause");
+        pausePlayButton.addActionListener(e -> {
+            if (!isPlacingATree) {
+
+                if (!isPaused) {
+                    this.pauseGame();
+                    pausePlayButton.setText("Play");
+                } else {
+                    this.playGame();
+                    pausePlayButton.setText("Pause");
+                }
+            }
+        });
+        box.add(pausePlayButton);
         sideMenu.add(box);
 
         // Ajoute le menu de côté à l'affichage
@@ -85,7 +104,6 @@ public class GameScreen extends JFrame implements Updatable {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.pack();
-
         Oak testOak = new Oak(0, 4, game.getMap());
         Oak testOak2 = new Oak(1, 4, game.getMap());
         Oak testOak3 = new Oak(2, 4, game.getMap());
@@ -96,6 +114,17 @@ public class GameScreen extends JFrame implements Updatable {
         this.game.addTree(testOak3);
         this.game.addTree(testOak4);
         this.game.addTree(testOak5);
+
+        ChainsawProjectile chainSaw0 = new ChainsawProjectile(0, 0, game.getMap());
+        chainsaws.add(chainSaw0);
+        ChainsawProjectile chainSaw1 = new ChainsawProjectile(1, 0, game.getMap());
+        chainsaws.add(chainSaw1);
+        ChainsawProjectile chainSaw2 = new ChainsawProjectile(2, 0, game.getMap());
+        chainsaws.add(chainSaw2);
+        ChainsawProjectile chainSaw3 = new ChainsawProjectile(3, 0, game.getMap());
+        chainsaws.add(chainSaw3);
+        ChainsawProjectile chainSaw4 = new ChainsawProjectile(4, 0, game.getMap());
+        chainsaws.add(chainSaw4);
 
         this.initializeTimer();
         this.gameUpdateTimer.start();
@@ -141,10 +170,12 @@ public class GameScreen extends JFrame implements Updatable {
 
     public void pauseGame() {
         this.gameUpdateTimer.stop();
+        isPaused = true;
     }
 
     public void playGame() {
         this.gameUpdateTimer.start();
+        isPaused = false;
     }
 
     private void animate(JComponent component, Point newPoint, int frames, int interval) {
@@ -194,6 +225,10 @@ public class GameScreen extends JFrame implements Updatable {
 
     }
 
+    public static ArrayList<ChainsawProjectile> getChainsaws() {
+        return chainsaws;
+    }
+
     private class SpriteClickListener implements MouseInputListener {
 
         private boolean isMoving = true;
@@ -229,7 +264,7 @@ public class GameScreen extends JFrame implements Updatable {
                 removeMouseListener(this);
                 removeMouseMotionListener(this);
 
-                placingATree = false;
+                isPlacingATree = false;
 
                 playGame();
 
@@ -312,5 +347,4 @@ public class GameScreen extends JFrame implements Updatable {
             return new ImageIcon(newimg);
         }
     }
-
 }

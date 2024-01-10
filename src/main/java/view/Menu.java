@@ -26,6 +26,7 @@ public class Menu extends JFrame {
     public static Dimension dim;
 
     public Menu() throws IOException {
+        setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.95),
                 (int) Math.floor(toolkit.getScreenSize().height * 0.95));
@@ -85,9 +86,10 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Map map = new Map();
-                Money playerMoney = new Money(150);
+                Money playerMoney = new Money(100);
                 Game game = new Game(playerMoney, new Shop(playerMoney, map, new Scanner(System.in)), new ArrayList<>(),
                         new Wave(1, map), map);
+
                 GameScreen screen;
                 try {
 

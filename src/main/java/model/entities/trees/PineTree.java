@@ -5,6 +5,8 @@ import model.entities.Tree;
 import model.entities.Projectile;
 import model.entities.projectiles.PineProjectile;
 
+import javax.swing.*;
+
 public class PineTree extends Tree {
     public static final int cost = 50;
     public static final int hp = 1;

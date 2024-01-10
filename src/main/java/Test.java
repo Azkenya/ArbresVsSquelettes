@@ -1,50 +1,38 @@
+import controller.Game;
+import model.config.Money;
+import view.GameScreen;
+import view.ShopScreen;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class Test extends JFrame {
-    private JLabel errorMessageLabel;
 
-    public Test() {
-        setTitle("Message d'erreur");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(300, 200);
-        setLayout(new FlowLayout());
+    public Test() throws IOException {
 
-        JButton errorButton = new JButton("Afficher l'erreur");
-        errorButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                afficherMessageErreur("Erreur : Champ invalide");
-            }
-        });
+        setTitle("test du shop");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(1903,1039);
+        setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+        this.pack();
+        ShopScreen test = new ShopScreen(new Game(new Money(150),null,null,null,null), null);
+        this.add(test);
 
-        errorMessageLabel = new JLabel();
-        add(errorButton);
-        add(errorMessageLabel);
 
         setVisible(true);
-    }
 
-    private void afficherMessageErreur(String message) {
-        errorMessageLabel.setText(message);
-        errorMessageLabel.setForeground(Color.RED);
-
-        Timer timer = new Timer(3000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                errorMessageLabel.setText("");
-            }
-        });
-        timer.setRepeats(false);
-        timer.start();
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new Test();
+                try {
+                    new Test();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
     }

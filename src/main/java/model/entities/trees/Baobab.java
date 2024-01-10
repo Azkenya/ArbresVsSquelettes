@@ -5,6 +5,7 @@ import model.config.Map;
 import model.entities.Tree;
 import model.entities.Projectile;
 import model.entities.projectiles.Nuke;
+import javax.swing.*;
 
 public class Baobab extends Tree {
     public static final int cost = 800;
@@ -23,6 +24,7 @@ public class Baobab extends Tree {
 
     public void update() {
         super.update();
+
     }
 
     public String toString() {

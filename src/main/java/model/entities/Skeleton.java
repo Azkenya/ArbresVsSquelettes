@@ -3,11 +3,14 @@ package model.entities;
 import model.Entity;
 import model.config.Map;
 import controller.Game;
-
+import model.entities.trees.Oak;
+import view.GameScreen;
+import model.entities.projectiles.ChainsawProjectile;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import view.Menu;
+import java.util.ArrayList;
 
 public abstract class Skeleton extends Entity {
     private int range;
@@ -26,6 +29,7 @@ public abstract class Skeleton extends Entity {
                                                  // jeu choisi
         this.speed = speed;
         this.realSpeed = realSpeed;
+
         this.realColumn = 15;
         this.isFrozen = false;
         // skelImg.setBounds(15*55,lane*100,55, 100);
@@ -71,7 +75,15 @@ public abstract class Skeleton extends Entity {
             }
             // Else activate chainsaw
             else {
-                getMap().killEverythingOnLine(this.getLine());
+
+                ChainsawProjectile chainSaw = new ChainsawProjectile(this.getLine(), this.getColumn(), getMap());
+                Tree.getChainsawProjectiles().add(chainSaw);
+                for (ChainsawProjectile chainsaw : GameScreen.getChainsaws()) {
+                    if (chainsaw.getLine() == this.getLine()) {
+                        GameScreen.getMainContainer().remove(chainsaw.getAttachedImage());
+                    }
+                }
+
                 getMap().getChainsaws()[this.getLine()] = false;
             }
         }

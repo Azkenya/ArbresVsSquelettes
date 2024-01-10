@@ -18,7 +18,6 @@ public class Game implements Updatable {
     private Wave wave;
     private GameScreen view;
     public static boolean graphicMode = true;
-    public Timer gameMoneyTimer;
     public int moneyTimerNonGraphic = 0;
 
     public Game(Money playerMoney, Shop shop, ArrayList<Tree> trees, Wave wave, Map map) {
@@ -28,10 +27,6 @@ public class Game implements Updatable {
         this.currentTurn = 0;
         Game.trees = trees;
         this.wave = wave;
-        if (graphicMode) {
-            initializeMoneyTimer();
-            gameMoneyTimer.start();
-        }
     }
 
     public void start(Scanner userInput) {
@@ -66,8 +61,13 @@ public class Game implements Updatable {
         if (this.wave.isFinished() && Wave.noEnemiesOnMap()) {
             this.win();
         }
-        if (graphicMode)
+
+        if (graphicMode) {
             view.spawnSkeletons();
+            for (Projectile chainsaw : Tree.getChainsawProjectiles()) {
+                chainsaw.update();
+            }
+        }
         this.wave.update();
         this.updateTrees();
         this.updateMoney();
@@ -81,12 +81,15 @@ public class Game implements Updatable {
                 moneyTimerNonGraphic = 0;
                 addMoney();
             }
-        }
-    }
+        } else {
+            if (moneyTimerNonGraphic == 300) {
+                moneyTimerNonGraphic = 0;
+                addMoney();
+            } else {
+                moneyTimerNonGraphic++;
+            }
 
-    private void initializeMoneyTimer() {
-        gameMoneyTimer = new Timer(5000, e -> addMoney());
-        gameMoneyTimer.setRepeats(true);
+        }
     }
 
     public static void addMoney() {
