@@ -41,7 +41,7 @@ public class GameScreen extends JFrame implements Updatable {
         game.setView(this);
 
         // Instancie le menu de shop
-        GameScreen.shopScreen = new ShopScreen(game);
+        GameScreen.shopScreen = new ShopScreen(game, this);
         this.add(shopScreen); // Ajoute le shopScreen a l'affichage (de base il n'est pas visible)
 
         // Crée le menu du côté gauche

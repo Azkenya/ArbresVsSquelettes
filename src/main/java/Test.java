@@ -1,57 +1,51 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Test extends JFrame {
-    private JPanel spritePanel;
-    ImageIcon caca = new ImageIcon("src/main/resources/treedef.png");
+    private JLabel errorMessageLabel;
 
     public Test() {
-        setTitle("Menu de Shop");
+        setTitle("Message d'erreur");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400,400);
+        setSize(300, 200);
+        setLayout(new FlowLayout());
 
-
-
-
-        // Panel pour afficher les sprites
-        spritePanel = new JPanel() {
+        JButton errorButton = new JButton("Afficher l'erreur");
+        errorButton.addActionListener(new ActionListener() {
             @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawImage(caca.getImage(), 0,0,null);
-                // Dessinez vos sprites ici avec g.drawImage()
-                // Exemple : g.drawImage(sprite1, x1, y1, null);
+            public void actionPerformed(ActionEvent e) {
+                afficherMessageErreur("Erreur : Champ invalide");
             }
-        };
+        });
 
-        spritePanel.addMouseListener(new SpriteClickListener());
+        errorMessageLabel = new JLabel();
+        add(errorButton);
+        add(errorMessageLabel);
 
-        spritePanel.setLayout(new FlowLayout());
-
-        add(spritePanel);
         setVisible(true);
     }
 
-    Image sprite1 = caca.getImage();
+    private void afficherMessageErreur(String message) {
+        errorMessageLabel.setText(message);
+        errorMessageLabel.setForeground(Color.RED);
 
-    private class SpriteClickListener extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            int x = e.getX();
-            int y = e.getY();
-
-            // Vérifiez si le clic est sur le sprite1
-            if (x >= 50 && x <= 50 + sprite1.getWidth(null) && y >= 50 && y <= 50 + sprite1.getHeight(null)) {
-                System.out.println("Sprite 1 sélectionné !");
+        Timer timer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                errorMessageLabel.setText("");
             }
-        }
+        });
+        timer.setRepeats(false);
+        timer.start();
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(Test::new);
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new Test();
+            }
+        });
     }
 }

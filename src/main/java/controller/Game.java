@@ -99,6 +99,7 @@ public class Game implements Updatable {
             if (tree.getHp() <= 0) {
                 if (graphicMode)
                     tree.removeVisibility();
+
                 trees.remove(tree);
             } else {
                 tree.update();

@@ -1,21 +1,31 @@
 package view;
 
+import model.entities.Tree;
+
+import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
-public class SpriteImage {
+public class SpriteImage extends JComponent {
 
-    private final Image sprite;
-    private int x = 0;
-    private int y = 0;
+    private final BufferedImage sprite;
+    private int x, y;
+    private int width, height;
     private final String name;
+    private Tree attachedTree;
 
-    public SpriteImage(Image sprite, int x, int y, String name) {
+    public SpriteImage(BufferedImage sprite, int x, int y, String name, Tree attachedTree) {
         this.sprite = sprite;
         this.x = x;
         this.y = y;
         this.name = name;
+        this.width = GameScreen.widthPerUnit;
+        this.height = GameScreen.heightPerUnit;
+
+        this.attachedTree = attachedTree;
     }
-    public Image getSprite() {
+
+    public BufferedImage getSprite() {
         return sprite;
     }
 
@@ -38,4 +48,31 @@ public class SpriteImage {
     public String getName() {
         return name;
     }
+
+    @Override
+    public int getWidth() {
+        return width;
+    }
+
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (sprite != null) {
+            g.drawImage(sprite, x, y, null);
+        }
+    }
+
+    public JLabel getAttachedLabel() {
+        return attachedTree.getAttachedImage();
+    }
+
+    public Tree getAttachedTree() {
+        return attachedTree;
+    }
+
 }

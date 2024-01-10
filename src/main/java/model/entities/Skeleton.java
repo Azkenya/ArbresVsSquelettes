@@ -90,7 +90,6 @@ public abstract class Skeleton extends Entity {
             this.setColumn((int) Math.ceil(currentColumn) - 1);
             // getMap().addEntity(this);
         }
-
     }
 
     // Updates the skeleton in console mode
