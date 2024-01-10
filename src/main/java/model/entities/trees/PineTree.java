@@ -11,7 +11,7 @@ public class PineTree extends Tree {
     public static final int damage = 1;
 
     public PineTree(int line, int column, Map map) {
-        super(cost, hp, line, column, damage, map);
+        super(cost, hp, line, column, damage, map, "src/main/resources/treedef.png");
     }
 
     public void update() {

@@ -28,6 +28,10 @@ public class Game implements Updatable {
         this.currentTurn = 0;
         Game.trees = trees;
         this.wave = wave;
+        if (graphicMode) {
+            initializeMoneyTimer();
+            gameMoneyTimer.start();
+        }
     }
 
     public void start(Scanner userInput) {
@@ -71,12 +75,7 @@ public class Game implements Updatable {
     }
 
     public void updateMoney() {
-        if (graphicMode) {
-            if (gameMoneyTimer == null) {
-                initializeMoneyTimer();
-                gameMoneyTimer.start();
-            }
-        } else {
+        if (!graphicMode) {
             moneyTimerNonGraphic++;
             if (moneyTimerNonGraphic == 1) {
                 moneyTimerNonGraphic = 0;
@@ -88,12 +87,6 @@ public class Game implements Updatable {
     private void initializeMoneyTimer() {
         gameMoneyTimer = new Timer(5000, e -> addMoney());
         gameMoneyTimer.setRepeats(true);
-    }
-
-    public static void randMoney() {
-        if (random()) {
-            playerMoney.add(new Money(25));
-        }
     }
 
     public static void addMoney() {
@@ -139,7 +132,7 @@ public class Game implements Updatable {
         trees.add(t);
         if (graphicMode) {
             this.map.addEntity(t);
-            view.getMainContainer().add(t.getAttachedImage());
+            GameScreen.getMainContainer().add(t.getAttachedImage());
             t.getAttachedImage().setVisible(true);
         }
     }
@@ -154,5 +147,9 @@ public class Game implements Updatable {
 
     public void setView(GameScreen view) {
         this.view = view;
+    }
+
+    public static Money getPlayerMoney() {
+        return playerMoney;
     }
 }

@@ -23,10 +23,12 @@ public class Menu extends JFrame {
     private JLabel l2;
     private JLabel l3;
     private JLabel l4;
+    public static Dimension dim;
 
     public Menu() throws IOException {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
-        Dimension dim = toolkit.getScreenSize();
+        dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.95),
+                (int) Math.floor(toolkit.getScreenSize().height * 0.95));
         File imageFile = new File("src/main/resources/Menu.jpg");
         setLayout(new BorderLayout());
         setContentPane(new BackGround(imageFile.getAbsolutePath()));

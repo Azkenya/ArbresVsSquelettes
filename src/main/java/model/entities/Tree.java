@@ -4,16 +4,14 @@ import model.Entity;
 import model.config.Map;
 import controller.Game;
 import java.util.ArrayList;
-import java.util.Iterator;
-import javax.swing.*;
 
 public abstract class Tree extends Entity {
     private int cost;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
     protected int cd = 0;
 
-    public Tree(int cost, int hp, int line, int column, int damage, Map map) {
-        super(hp, line, column, damage, map);
+    public Tree(int cost, int hp, int line, int column, int damage, Map map, String treePath) {
+        super(hp, line, column, damage, map, "src/main/resources/treedef.png");
         this.cost = cost;
     }
 
@@ -25,6 +23,9 @@ public abstract class Tree extends Entity {
                 this.attack(enemy);
             }
         } else {
+            int currentColumn = this.getColumn();
+            this.getAttachedImage().setBounds((int) (currentColumn * widthPerUnit), getAttachedImage().getY(),
+                    getAttachedImage().getWidth(), getAttachedImage().getHeight());
             if (cd == 50) {
                 this.shoot();
                 cd = 0;

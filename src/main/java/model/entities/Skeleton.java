@@ -5,6 +5,9 @@ import model.config.Map;
 import controller.Game;
 
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import view.Menu;
 
 public abstract class Skeleton extends Entity {
     private int range;
@@ -17,7 +20,7 @@ public abstract class Skeleton extends Entity {
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
     public Skeleton(int hp, int lane, int speed, Double realSpeed, Map map, String skelPath) {
-        super(hp, lane, 14, 1, map);
+        super(hp, lane, 14, 1, map, skelPath);
         this.range = (Game.graphicMode) ? 0 : 1; // Nous avons différentes gestions de la range en fonction du mode de
                                                  // jeu choisi
         this.speed = speed;
@@ -25,15 +28,14 @@ public abstract class Skeleton extends Entity {
         this.realColumn = 14;
         this.isFrozen = false;
         // skelImg.setBounds(15*55,lane*100,55, 100);
-        JLabel skelImg = new JLabel(new ImageIcon(skelPath));
-        skelImg.setBounds(15 * 111, lane * 200, 111, 200);
-        this.setAttachedImage(skelImg);
+
     }
 
     @Override
     public void update() {
         if (this.getHp() <= 0) {
             this.getAttachedImage().setVisible(false);
+            this.kill(0);
             return;
         }
         if (Game.graphicMode) {
@@ -56,13 +58,11 @@ public abstract class Skeleton extends Entity {
 
             // Moves as far as possible if not frozen
             if (!isFrozen) {
-                this.setColumn((int) currentColumn);
                 this.realColumn -= this.realSpeed;
-                this.getAttachedImage().setBounds((int) (currentColumn * 111), getAttachedImage().getY(),
+                this.getAttachedImage().setBounds((int) (currentColumn * widthPerUnit), getAttachedImage().getY(),
                         getAttachedImage().getWidth(), getAttachedImage().getHeight()); // Actualise l'affichage de la
                                                                                         // vue
             } else {
-                this.setColumn((int) currentColumn);
                 this.realColumn -= this.realSpeed / 2;
                 this.freezeDuration--;
                 if (this.freezeDuration == 0) {
@@ -240,4 +240,5 @@ public abstract class Skeleton extends Entity {
     public double getRealSpeed() {
         return realSpeed;
     }
+
 }

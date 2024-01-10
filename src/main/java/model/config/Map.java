@@ -1,18 +1,19 @@
 package model.config;
+
 import model.Entity;
 import model.entities.Skeleton;
 import model.entities.Tree;
-import model.config.Wave;
 import controller.Game;
 import java.util.Arrays;
 import java.util.ArrayList;
+
 public class Map {
     private Entity[][] map;
     private boolean[] chainsaws;
 
     public Map() {
         map = new Entity[5][15];
-        chainsaws =  new boolean[map.length];
+        chainsaws = new boolean[map.length];
         Arrays.fill(chainsaws, true);
     }
 
@@ -58,7 +59,7 @@ public class Map {
     }
 
     public Tree getTreeAt(int line, int column) {
-        if (map[line][column] instanceof Tree){
+        if (map[line][column] instanceof Tree) {
             return (Tree) map[line][column];
         }
         return null;
@@ -76,19 +77,17 @@ public class Map {
         for (int i = 0; i < this.map.length; i++) {
             s += i + " ";
 
-            //Ajoute les chainsaw
-            if(this.chainsaws[i]){
+            // Ajoute les chainsaw
+            if (this.chainsaws[i]) {
                 s += "c ";
-            }
-            else{
+            } else {
                 s += "  ";
             }
             for (int j = 0; j < this.map[i].length; j++) {
 
-                if (this.map[i][j] == null){
+                if (this.map[i][j] == null) {
                     s += "   ";
-                }
-                else{
+                } else {
                     s += this.map[i][j] + "  ";
                 }
             }
@@ -97,11 +96,11 @@ public class Map {
         return s;
     }
 
-    public int numberOfLines(){
+    public int numberOfLines() {
         return map.length;
     }
 
-    public int numberOfColumns(){
+    public int numberOfColumns() {
         return map[0].length;
     }
 
@@ -109,20 +108,19 @@ public class Map {
         return chainsaws;
     }
 
-    public void killEverythingOnLine(int line){
-        if(!Game.graphicMode){
-            for(int column = 0; column < map[line].length; column++){
+    public void killEverythingOnLine(int line) {
+        if (!Game.graphicMode) {
+            for (int column = 0; column < map[line].length; column++) {
                 Entity currentEntity = this.getEntityAt(line, column);
-                if(currentEntity != null){
-                    currentEntity.setHp(0); //Permet de tuer effectivement l'entité
-                    removeEntity(line, column); //Elle est retirée de la map
+                if (currentEntity != null) {
+                    currentEntity.setHp(0); // Permet de tuer effectivement l'entité
+                    removeEntity(line, column); // Elle est retirée de la map
                 }
             }
-        }
-        else{
+        } else {
             ArrayList<Skeleton> skeletonsToRemove = new ArrayList<>();
-            for(Skeleton s : Wave.getEnemiesOnMap()){
-                if(s.getLine() == line){
+            for (Skeleton s : Wave.getEnemiesOnMap()) {
+                if (s.getLine() == line) {
                     skeletonsToRemove.add(s);
                 }
             }
@@ -130,19 +128,20 @@ public class Map {
             Wave.getEnemiesOnMap().removeAll(skeletonsToRemove);
         }
     }
-    public boolean isEnemyOnLastColumn(){
-        if(!Game.graphicMode){
-            for(int line = 0; line < map.length; line++){
-                if(map[line][map[line].length - 1] != null && !(map[line][map[line].length - 1] instanceof Tree)){
+
+    public boolean isEnemyOnLastColumn() {
+        if (!Game.graphicMode) {
+            for (int line = 0; line < map.length; line++) {
+                if (map[line][map[line].length - 1] != null && !(map[line][map[line].length - 1] instanceof Tree)) {
                     return true;
                 }
             }
             return false;
         }
-        
-        else{
-            for(Skeleton s : Wave.getEnemiesOnMap()){
-                if(s.getRealColumn() >= map[0].length - 1.5){
+
+        else {
+            for (Skeleton s : Wave.getEnemiesOnMap()) {
+                if (s.getRealColumn() >= map[0].length - 1.5) {
                     return true;
                 }
             }

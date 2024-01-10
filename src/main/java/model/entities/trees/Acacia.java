@@ -14,9 +14,13 @@ public class Acacia extends Tree {
     private int TerminalCooldown = 0;
 
     public Acacia(int line, int column, Map map) {
-        super(cost, hp, line, column, damage, map);
+        super(cost, hp, line, column, damage, map, "src/main/resources/treedef.png");
         initializeTimer();
         MoneyCooldown.start();
+    }
+
+    public Acacia(int line, int column, Map map, boolean fake) {
+        super(cost, hp, line, column, damage, map, "src/main/resources/treedef.png");
     }
 
     // TODO make getters and setters in the parent class

@@ -7,9 +7,6 @@ import controller.Updatable;
 import model.entities.skeletons.*;
 import model.entities.Skeleton;
 import controller.Game;
-import view.GameScreen;
-
-import javax.imageio.IIOException;
 
 public class Wave implements Updatable {
     private Skeleton[][][] enemies;
@@ -20,6 +17,7 @@ public class Wave implements Updatable {
     private int currentSubWave;
     private boolean isEndless;
     private int endlessLevel = 0;
+    private int cd = 0;
 
     public Wave(Skeleton[][][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
@@ -53,17 +51,19 @@ public class Wave implements Updatable {
         this.updateEnemies();
         if (this.currentSubWave < this.enemies.length) {
             if (this.currentRound < this.enemies[this.currentSubWave].length) {
-                if (!map.isEnemyOnLastColumn() || Game.graphicMode) {
+                if (!map.isEnemyOnLastColumn()) {
                     if (!Game.graphicMode) {
                         if (this.currentRound >= 0)
                             this.spawnEnemies();
                         this.currentRound++;
                     } else {
-                        System.out.println(
-                                "CurrentRound: " + this.currentRound + "\nNextRoundIsEmpty : " + nextRoundIsEmpty());
-                        this.spawnEnemies();
-                        System.out.println("Spawned enemies");
-                        this.currentRound++;
+                        if (cd == 100) {
+                            this.spawnEnemies();
+                            this.currentRound++;
+                            cd = 0;
+                        } else {
+                            cd++;
+                        }
                     }
                 }
 
@@ -110,13 +110,15 @@ public class Wave implements Updatable {
     }
 
     public void updateEnemies() {
+        ArrayList<Skeleton> toRemove = new ArrayList<Skeleton>();
         for (int i = 0; i < Wave.enemiesOnMap.size(); i++) {
             Skeleton skeleton = Wave.enemiesOnMap.get(i);
             skeleton.update();
             if (skeleton.getHp() <= 0) {
-                enemiesOnMap.remove(skeleton);
+                toRemove.add(skeleton);
             }
         }
+        Wave.enemiesOnMap.removeAll(toRemove);
     }
 
     public void spawnEnemies() {

@@ -14,7 +14,7 @@ public class IceTree extends Tree {
     public int freezingMode = 0;
 
     public IceTree(int line, int column, Map map) {
-        super(cost, hp, line, column, damage, map);
+        super(cost, hp, line, column, damage, map, "src/main/resources/treedef.png");
     }
 
     @Override
@@ -26,47 +26,18 @@ public class IceTree extends Tree {
         }
     }
 
-    @Override
-    public int getPrice() {
-        return super.getPrice();
-    }
-
-    public int getHp() {
-        return super.getHp();
-    }
-
-    public void setHp(int hp) {
-        super.setHp(hp);
-    }
-
-    public int getDamage() {
-        return super.getDamage();
-    }
-
-    public void setDamage(int damage) {
-        super.setDamage(damage);
-    }
-
     public void update() {
         super.update();
-        this.updateGraphic();
         if (freezingMode > 0) {
             freezingMode--;
         }
 
     }
 
-    public void updateGraphic() {
-        this.shoot();
-    }
-
+    @Override
     public void shoot() {
         Projectile projectile = new IceProjectile(this.getLine(), this.getColumn(), this.getDamage(), this.getMap());
         super.addProjectile(projectile);
-    }
-
-    public void kill(int damageDealt) {
-        super.kill(damageDealt);
     }
 
     public String toString() {
