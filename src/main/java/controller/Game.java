@@ -59,7 +59,12 @@ public class Game implements Updatable {
         if(this.wave.isFinished() && Wave.noEnemiesOnMap()){
             this.win();
         }
-        if(graphicMode)view.spawnSkeletons();
+        if(graphicMode){
+            view.spawnSkeletons();
+            for(Projectile chainsaw : Tree.getChainsawProjectiles()){
+                chainsaw.update();
+            }
+        }
         this.wave.update();
         this.updateTrees();
 //        randMoney();

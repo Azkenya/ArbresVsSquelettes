@@ -9,6 +9,8 @@ import javax.swing.*;
 public abstract class Tree extends Entity {
     private int cost;
     private ArrayList<Projectile> projectiles = new ArrayList<>();
+
+    private static ArrayList<Projectile> chainsawProjectiles = new ArrayList<>();
     protected int ProjectileCooldown = 0;
 
     public Tree(int cost, int hp, int line, int column, int damage, Map map) {
@@ -26,7 +28,6 @@ public abstract class Tree extends Entity {
         }else{
             for(Projectile proj : projectiles){
                 proj.update();
-
             }
         }
     }
@@ -54,4 +55,7 @@ public abstract class Tree extends Entity {
         return super.getDamage();
     }
 
+    public static ArrayList<Projectile> getChainsawProjectiles() {
+        return chainsawProjectiles;
+    }
 }

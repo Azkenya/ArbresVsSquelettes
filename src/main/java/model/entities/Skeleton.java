@@ -3,6 +3,7 @@ package model.entities;
 import model.Entity;
 import model.config.Map;
 import controller.Game;
+import model.entities.trees.Oak;
 
 import javax.swing.*;
 
@@ -20,7 +21,7 @@ public class Skeleton extends Entity {
         super(hp, lane, 14, 1, map);
         this.range = (Game.graphicMode)? 0 : 1; //Nous avons différentes gestions de la range en fonction du mode de jeu choisi
         this.speed = 1;
-        this.realSpeed = 0.005;
+        this.realSpeed = 0.1;//0.005
         this.realColumn = 15;
         this.isFrozen = false;
 
@@ -79,6 +80,10 @@ public class Skeleton extends Entity {
             }
             //Else activate chainsaw
             else{
+
+                Projectile chainSaw = new Projectile(this.getLine(), this.getColumn(), 1, this.getMap());
+                Tree.getChainsawProjectiles().add(chainSaw);
+
                 getMap().killEverythingOnLine(this.getLine());
                 getMap().getChainsaws()[this.getLine()] = false;
             }
