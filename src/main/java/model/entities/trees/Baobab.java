@@ -8,9 +8,9 @@ import model.entities.projectiles.Nuke;
 import javax.swing.*;
 
 public class Baobab extends Tree {
-    public static final int cost = 800;
+    public static final int cost = 850;
     public static final int hp = 10;
-    public static final int damage = 10000;
+    public static final int damage = 10;
 
     public Baobab(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/Baobab.png");

@@ -33,7 +33,7 @@ public class Acacia extends Tree {
     }
 
     public void updateGraphic() {
-        if (TerminalCooldown == 600) {
+        if (TerminalCooldown == 400) {
             Game.addMoney();
             TerminalCooldown = 0;
         } else {

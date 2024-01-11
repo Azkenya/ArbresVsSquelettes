@@ -37,6 +37,9 @@ public abstract class Tree extends Entity {
                 } else {
                     cd++;
                 }
+            } else {
+                Acacia acacia = (Acacia) this;
+                acacia.updateGraphic();
             }
             for (Projectile proj : projectiles) {
                 proj.update();
