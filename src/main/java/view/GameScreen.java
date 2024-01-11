@@ -7,7 +7,7 @@ import model.entities.projectiles.ChainsawProjectile;
 import model.entities.Projectile;
 import model.entities.Skeleton;
 import model.entities.trees.Oak;
-
+import model.entities.trees.*;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -152,16 +152,16 @@ public class GameScreen extends JFrame implements Updatable {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.pack();
-        Oak testOak = new Oak(0, 4, game.getMap());
-        Oak testOak2 = new Oak(1, 4, game.getMap());
-        Oak testOak3 = new Oak(2, 4, game.getMap());
-        Oak testOak4 = new Oak(3, 4, game.getMap());
-        Oak testOak5 = new Oak(4, 4, game.getMap());
-        this.game.addTree(testOak);
-        this.game.addTree(testOak2);
-        this.game.addTree(testOak3);
-        this.game.addTree(testOak4);
-        this.game.addTree(testOak5);
+        // Oak testOak = new Oak(0, 4, game.getMap());
+        // Oak testOak2 = new Oak(1, 4, game.getMap());
+        // Oak testOak3 = new Oak(2, 4, game.getMap());
+        // Oak testOak4 = new Oak(3, 4, game.getMap());
+        // Oak testOak5 = new Oak(4, 4, game.getMap());
+        // this.game.addTree(testOak);
+        // this.game.addTree(testOak2);
+        // this.game.addTree(testOak3);
+        // this.game.addTree(testOak4);
+        // this.game.addTree(testOak5);
 
         ChainsawProjectile chainSaw0 = new ChainsawProjectile(0, 0, game.getMap());
         chainsaws.add(chainSaw0);
@@ -292,28 +292,44 @@ public class GameScreen extends JFrame implements Updatable {
 
             int correspondingLineOnMap = (int) nearestPoint.getY() / dimensionY;
             int correspodingColumnOnMap = (int) nearestPoint.getX() / dimensionX;
-
-            if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null) {
-                System.out.println("Déjà sur un arbre");
+            if (currentSpriteMoving.getAttachedTree() instanceof DarkOak) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof Oak) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
+            } else if (currentSpriteMoving.getAttachedTree() instanceof FastPineTree) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof PineTree) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
+            } else if (currentSpriteMoving.getAttachedTree() instanceof TwiceAcacia) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof Acacia) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
+            } else if (currentSpriteMoving.getAttachedTree() instanceof SasukeBaobab) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof Baobab) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
             } else {
-                isMoving = false;
-
-                System.out.println(correspondingLineOnMap);
-                System.out.println(correspodingColumnOnMap);
-
-                currentSpriteMoving.getAttachedTree().setLine(correspondingLineOnMap);
-                currentSpriteMoving.getAttachedTree().setColumn(correspodingColumnOnMap);
-
-                game.addTree(currentSpriteMoving.getAttachedTree());
-
-                removeMouseListener(this);
-                removeMouseMotionListener(this);
-
-                isPlacingATree = false;
-
-                playGame();
-
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null) {
+                    System.out.println("Déjà sur un arbre");
+                } else {
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
             }
+        }
+
+        public void placeTree(int line, int column) {
+            currentSpriteMoving.getAttachedTree().setLine(line);
+            currentSpriteMoving.getAttachedTree().setColumn(column);
+            game.addTree(currentSpriteMoving.getAttachedTree());
+            isMoving = false;
+            removeMouseListener(this);
+            removeMouseMotionListener(this);
+            isPlacingATree = false;
+            playGame();
         }
 
         @Override

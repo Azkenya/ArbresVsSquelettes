@@ -3,7 +3,7 @@ package view;
 import controller.Game;
 import model.config.Money;
 import model.entities.trees.*;
-
+import model.entities.Tree;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
@@ -51,6 +51,22 @@ public class ShopScreen extends JPanel {
         JLabel buyPineTreeButton = new JLabel(new ImageIcon(pineTreeFile.getAbsolutePath()));
         this.setShopActionListener(buyPineTreeButton, errorMessageLabel, 4);
 
+        File darkOakFile = new File("src/main/resources/DarkOakShop.png");
+        JLabel buyDarkOakButton = new JLabel(new ImageIcon(darkOakFile.getAbsolutePath()));
+        this.setShopActionListener(buyDarkOakButton, errorMessageLabel, 5);
+
+        File fastPineFile = new File("src/main/resources/FastPineTreeShop.png");
+        JLabel buyFastPineButton = new JLabel(new ImageIcon(fastPineFile.getAbsolutePath()));
+        this.setShopActionListener(buyFastPineButton, errorMessageLabel, 6);
+
+        File twiceAcaciaFile = new File("src/main/resources/TwiceAcaciaShop.png");
+        JLabel buyTwiceAcaciaButton = new JLabel(new ImageIcon(twiceAcaciaFile.getAbsolutePath()));
+        this.setShopActionListener(buyTwiceAcaciaButton, errorMessageLabel, 7);
+
+        File sasukeBaobabFile = new File("src/main/resources/SasukeBaobabShop.png");
+        JLabel buySasukeBaobabButton = new JLabel(new ImageIcon(sasukeBaobabFile.getAbsolutePath()));
+        this.setShopActionListener(buySasukeBaobabButton, errorMessageLabel, 8);
+
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(e -> {
             setVisible(false);
@@ -68,10 +84,21 @@ public class ShopScreen extends JPanel {
         trees.add(buyIceTreeButton);
         trees.add(Box.createHorizontalStrut(25));
         trees.add(buyPineTreeButton);
-        wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 3));
+        Box upgrades = Box.createHorizontalBox();
+        upgrades.add(Box.createHorizontalStrut(25));
+        upgrades.add(buyDarkOakButton);
+        upgrades.add(Box.createHorizontalStrut(25));
+        upgrades.add(buyFastPineButton);
+        upgrades.add(Box.createHorizontalStrut(25));
+        upgrades.add(buyTwiceAcaciaButton);
+        upgrades.add(Box.createHorizontalStrut(25));
+        upgrades.add(buySasukeBaobabButton);
+
+        // wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 3));
         wrapper.add(trees);
+        wrapper.add(upgrades);
         wrapper.add(errorMessageLabel);
-        wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 8));
+        // wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 8));
         wrapper.add(exitButton);
         trees.setAlignmentX(Component.CENTER_ALIGNMENT);
         wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -133,13 +160,22 @@ public class ShopScreen extends JPanel {
                         case 4:
                             enoughMoney = Game.getPlayerMoney().getAmount() >= PineTree.cost;
                             break;
+                        case 5:
+                            enoughMoney = Game.getPlayerMoney().getAmount() >= DarkOak.cost;
+                            break;
+                        case 6:
+                            enoughMoney = Game.getPlayerMoney().getAmount() >= FastPineTree.cost;
+                            break;
+                        case 7:
+                            enoughMoney = Game.getPlayerMoney().getAmount() >= TwiceAcacia.cost;
+                            break;
+                        case 8:
+                            enoughMoney = Game.getPlayerMoney().getAmount() >= SasukeBaobab.cost;
+                            break;
+
                     }
                     // Si on a assez d'argent
                     if (enoughMoney) {
-
-                        setVisible(false);
-                        gameScreen.showAllGameScreen();
-                        GameScreen.isPlacingATree = true;
 
                         try {
 
@@ -147,7 +183,7 @@ public class ShopScreen extends JPanel {
                                 // Le tree qui doit être ajouté est un Oak
                                 case 0:
                                     gameScreen.addSpriteToMouseCursor(
-                                            new SpriteImage(ImageIO.read(new File("src/main/resources/treedef.png")), 0,
+                                            new SpriteImage(ImageIO.read(new File("src/main/resources/Oak.png")), 0,
                                                     0,
                                                     "Oak", new Oak(0, 0, game.getMap())),
                                             0, 0);
@@ -155,7 +191,7 @@ public class ShopScreen extends JPanel {
                                 // Un acacia
                                 case 1:
                                     gameScreen.addSpriteToMouseCursor(
-                                            new SpriteImage(ImageIO.read(new File("src/main/resources/acacia.png")), 0,
+                                            new SpriteImage(ImageIO.read(new File("src/main/resources/Acacia.png")), 0,
                                                     0,
                                                     "Acacia", new Acacia(0, 0, game.getMap())),
                                             0, 0);
@@ -163,7 +199,7 @@ public class ShopScreen extends JPanel {
                                 // Un baobab
                                 case 2:
                                     gameScreen.addSpriteToMouseCursor(
-                                            new SpriteImage(ImageIO.read(new File("src/main/resources/baobab.png")), 0,
+                                            new SpriteImage(ImageIO.read(new File("src/main/resources/Baobab.png")), 0,
                                                     0,
                                                     "Baobab", new Baobab(0, 0, game.getMap())),
                                             0, 0);
@@ -171,7 +207,7 @@ public class ShopScreen extends JPanel {
                                 // Un IceTree
                                 case 3:
                                     gameScreen.addSpriteToMouseCursor(
-                                            new SpriteImage(ImageIO.read(new File("src/main/resources/baobab.png")), 0,
+                                            new SpriteImage(ImageIO.read(new File("src/main/resources/IceTree.png")), 0,
                                                     0,
                                                     "IceTree", new IceTree(0, 0, game.getMap())),
                                             0, 0);
@@ -179,31 +215,169 @@ public class ShopScreen extends JPanel {
                                 // Un PineTree
                                 case 4:
                                     gameScreen.addSpriteToMouseCursor(
-                                            new SpriteImage(ImageIO.read(new File("src/main/resources/baobab.png")), 0,
+                                            new SpriteImage(ImageIO.read(new File("src/main/resources/PineTree.png")),
+                                                    0,
                                                     0,
                                                     "PineTree", new PineTree(0, 0, game.getMap())),
                                             0, 0);
+                                    break;
+                                case 5:
+                                    boolean oakFound = false;
+                                    for (Tree t : game.trees) {
+                                        if (t instanceof Oak) {
+                                            oakFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if (oakFound) {
+                                        gameScreen.addSpriteToMouseCursor(
+                                                new SpriteImage(
+                                                        ImageIO.read(new File("src/main/resources/DarkOak.png")), 0,
+                                                        0,
+                                                        "DarkOak", new DarkOak(0, 0, game.getMap())),
+                                                0, 0);
+                                        break;
+                                    }
+                                    errorDisplaying = true;
+                                    errorMessageLabel.setText("Error : No Oak to plant on");
+                                    Timer timer = new Timer(2000, new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            errorMessageLabel.setText("");
+                                            errorDisplaying = false;
+                                        }
+                                    });
+                                    timer.setRepeats(false);
+                                    timer.start();
+                                    break;
+                                case 6:
+                                    boolean pineFound = false;
+                                    for (Tree t : game.trees) {
+                                        if (t instanceof PineTree) {
+                                            pineFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if (pineFound) {
+                                        gameScreen.addSpriteToMouseCursor(
+                                                new SpriteImage(
+                                                        ImageIO.read(new File("src/main/resources/FastPineTree.png")),
+                                                        0,
+                                                        0,
+                                                        "FastPineTree", new FastPineTree(0, 0, game.getMap())),
+                                                0, 0);
+                                        break;
+                                    }
+                                    errorDisplaying = true;
+                                    errorMessageLabel.setText("Error : No PineTree to plant on");
+                                    Timer timer2 = new Timer(2000, new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            errorMessageLabel.setText("");
+                                            errorDisplaying = false;
+                                        }
+                                    });
+                                    timer2.setRepeats(false);
+                                    timer2.start();
+                                    break;
+                                case 7:
+                                    boolean acaciaFound = false;
+                                    for (Tree t : game.trees) {
+                                        if (t instanceof Acacia) {
+                                            acaciaFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if (acaciaFound) {
+                                        gameScreen.addSpriteToMouseCursor(
+                                                new SpriteImage(
+                                                        ImageIO.read(new File("src/main/resources/TwiceAcacia.png")),
+                                                        0,
+                                                        0,
+                                                        "TwiceAcacia", new TwiceAcacia(0, 0, game.getMap())),
+                                                0, 0);
+                                        break;
+                                    }
+                                    errorDisplaying = true;
+                                    errorMessageLabel.setText("Error : No Acacia to plant on");
+                                    Timer timer3 = new Timer(2000, new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            errorMessageLabel.setText("");
+                                            errorDisplaying = false;
+                                        }
+                                    });
+                                    timer3.setRepeats(false);
+                                    timer3.start();
+                                    break;
+                                case 8:
+                                    boolean baobabFound = false;
+                                    for (Tree t : game.trees) {
+                                        if (t instanceof Baobab) {
+                                            baobabFound = true;
+                                            break;
+                                        }
+                                    }
+                                    if (baobabFound) {
+                                        gameScreen.addSpriteToMouseCursor(
+                                                new SpriteImage(
+                                                        ImageIO.read(new File("src/main/resources/SasukeBaobab.png")),
+                                                        0,
+                                                        0,
+                                                        "SasukeBaobab", new SasukeBaobab(0, 0, game.getMap())),
+                                                0, 0);
+                                        break;
+                                    }
+                                    errorDisplaying = true;
+                                    errorMessageLabel.setText("Error : No Baobab to plant on");
+                                    Timer timer4 = new Timer(2000, new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e) {
+                                            errorMessageLabel.setText("");
+                                            errorDisplaying = false;
+                                        }
+                                    });
+                                    timer4.setRepeats(false);
+                                    timer4.start();
                                     break;
                             }
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
-                        switch (treeID) {
-                            case 0:
-                                Game.getPlayerMoney().remove(new Money(Oak.cost));
-                                break;
-                            case 1:
-                                Game.getPlayerMoney().remove(new Money(Acacia.cost));
-                                break;
-                            case 2:
-                                Game.getPlayerMoney().remove(new Money(Baobab.cost));
-                                break;
-                            case 3:
-                                Game.getPlayerMoney().remove(new Money(IceTree.cost));
-                                break;
-                            case 4:
-                                Game.getPlayerMoney().remove(new Money(PineTree.cost));
-                                break;
+                        if (!errorDisplaying) {
+                            setVisible(false);
+                            gameScreen.showAllGameScreen();
+                            GameScreen.isPlacingATree = true;
+                            switch (treeID) {
+                                case 0:
+                                    Game.getPlayerMoney().remove(new Money(Oak.cost));
+                                    break;
+                                case 1:
+                                    Game.getPlayerMoney().remove(new Money(Acacia.cost));
+                                    break;
+                                case 2:
+                                    Game.getPlayerMoney().remove(new Money(Baobab.cost));
+                                    break;
+                                case 3:
+                                    Game.getPlayerMoney().remove(new Money(IceTree.cost));
+                                    break;
+                                case 4:
+                                    Game.getPlayerMoney().remove(new Money(PineTree.cost));
+                                    break;
+                                case 5:
+                                    Game.getPlayerMoney().remove(new Money(DarkOak.cost));
+                                    break;
+                                case 6:
+                                    Game.getPlayerMoney().remove(new Money(FastPineTree.cost));
+                                    break;
+                                case 7:
+                                    Game.getPlayerMoney().remove(new Money(TwiceAcacia.cost));
+                                    break;
+                                case 8:
+                                    Game.getPlayerMoney().remove(new Money(SasukeBaobab.cost));
+                                    break;
+
+                            }
                         }
                     }
                     // Si on a pas assez d'argent
@@ -211,7 +385,7 @@ public class ShopScreen extends JPanel {
                         // Affiche pendant 3 secondes le message d'erreur
                         errorDisplaying = true;
                         errorMessageLabel.setText("Error : Not Enough Money");
-                        Timer timer = new Timer(3000, new ActionListener() {
+                        Timer timer = new Timer(2000, new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
                                 errorMessageLabel.setText("");

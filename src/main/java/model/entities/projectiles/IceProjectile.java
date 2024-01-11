@@ -14,30 +14,6 @@ public class IceProjectile extends Projectile {
     }
 
     @Override
-    /*
-     * public void updateGraphic() {
-     * double currentColumn = this.realColumn;
-     * int currentLine = this.getLine();
-     * 
-     * Skeleton target = this.findTarget();
-     * 
-     * if (target != null) {
-     * if (currentColumn - target.getRealColumn() <= 0.05) {
-     * target.kill(this.damage);
-     * target.freeze();
-     * this.kill(1);
-     * } else {
-     * this.realColumn += this.speed;
-     * }
-     * } else {
-     * this.realColumn += this.speed;
-     * if (currentColumn >= 15) {
-     * this.kill(1);
-     * }
-     * }
-     * }
-     */
-
     public void updateGraphic() {
         Skeleton target = this.findTarget();
         int line = this.getLine();
