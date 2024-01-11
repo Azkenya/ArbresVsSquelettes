@@ -103,7 +103,7 @@ public class Game implements Updatable {
                     tree.removeVisibility();
                     tree.getProjectiles().forEach(Entity::removeVisibility);
                 }
-
+                map.removeEntity(tree.getLine(),tree.getColumn());
                 trees.remove(tree);
             } else {
                 tree.update();

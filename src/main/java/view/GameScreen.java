@@ -350,6 +350,7 @@ public class GameScreen extends JFrame implements Updatable {
             } else {
                 if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null) {
                     System.out.println("Déjà sur un arbre");
+                    return;
                 } else {
                     placeTree(correspondingLineOnMap, correspodingColumnOnMap);
                 }
