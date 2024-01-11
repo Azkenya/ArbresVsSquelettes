@@ -213,7 +213,7 @@ public class Wave implements Updatable {
                     place(enemies, i, 1, map, 1);
                 canPlace = false;
             } else if (prob <= 70 && canPlace) {
-                place(enemies, i, 2, map, 2);
+                place(enemies, i, 2, map, 1);
                 canPlace = false;
             } else if (!canPlace) {
                 canPlace = true;
