@@ -34,6 +34,11 @@ public class MathTools {
             returnY = (int) ((Math.floor(yRatio)+1)*GameScreen.heightPerUnit);
         }
 
+        //Reglage temporaire pour les chainsaws
+        if(returnX == 0){
+            returnX = GameScreen.widthPerUnit;
+        }
+
         return new Point(returnX,returnY);
     }
 
