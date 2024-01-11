@@ -9,7 +9,7 @@ echo "0 - Windows"
 echo "1 - Linux"
 read platform
 
-if [ $platform -ne 0 -a $platform -ne 1 ]
+if [ $platform != "0" -a $platform != "1" ]
 then
     echo "Error : Invalid argument supplied. Should be 0 (Windows) or 1 (Linux)"
     exit 1
