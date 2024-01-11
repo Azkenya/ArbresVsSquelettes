@@ -20,7 +20,7 @@ public abstract class Projectile extends Entity {
 
     public Projectile(int hp, int line, int column, int damage, Map map, String path) {
         super(hp, line, column, damage, map);
-        this.speed = 0.2;
+        this.speed = (0.2*GameScreen.widthPerUnit)/(115);
         this.realColumn = Double.valueOf(column) + 0.5;
         this.damage = damage;
         JLabel projImg = new JLabel(new ImageIcon(path));
