@@ -43,10 +43,16 @@ public class GameScreen extends JFrame implements Updatable {
     private static final JLabel winLabel = new JLabel("You Win");
     private static Timer restartTimer;
 
-    public GameScreen(Game game) throws IOException {
+    public GameScreen(Game game, int mapStyle) throws IOException {
         GameScreen gameScreen = this;
         setResizable(false);
-        File imageFile = new File("src/main/resources/Game.jpg");
+        File imageFile;
+        if (mapStyle == 0){
+            imageFile = new File("src/main/resources/Game.jpg");
+        }
+        else{
+            imageFile = new File("src/main/resources/DarkGame.png");
+        }
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
@@ -70,8 +76,15 @@ public class GameScreen extends JFrame implements Updatable {
         this.add(shopScreen); // Ajoute le shopScreen a l'affichage (de base il n'est pas visible)
 
         // Crée le menu du côté gauche
-        sideMenu = new BackGround("src/main/resources/ShopImage.png",
-                new Dimension((int) (widthPerUnit * 1.7), heightPerUnit * 5));
+        if (mapStyle == 0){
+            sideMenu = new BackGround("src/main/resources/ShopImage.png",
+                    new Dimension((int) (widthPerUnit * 1.7), heightPerUnit * 5));
+        }
+        else{
+            sideMenu = new BackGround("src/main/resources/DarkShopImage.png",
+                    new Dimension((int) (widthPerUnit * 1.7), heightPerUnit * 5));
+        }
+
         sideMenu.setPreferredSize(new Dimension((int) (widthPerUnit * 1.7), heightPerUnit));
         sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
         // Ajoute l'affichage la money

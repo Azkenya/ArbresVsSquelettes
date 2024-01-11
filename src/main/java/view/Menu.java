@@ -21,6 +21,7 @@ import tools.IOTools;
 public class Menu extends JFrame {
     private JLabel l1,l2,l3,l4,l5;
     public static Dimension dim;
+    private int mapStyle = 0; //0 is default, 1 is dark
 
     public Menu() throws IOException {
         setResizable(false);
@@ -77,10 +78,27 @@ public class Menu extends JFrame {
         box2.add(box);
         box2.add(Box.createRigidArea(new Dimension(0, 20)));
         JButton quitButton = new JButton("Quit");
+        JButton changeMapButton = new JButton("Map : Default");
+        box2.add(changeMapButton);
+        box2.add(Box.createRigidArea(new Dimension(0, 20)));
         box2.add(quitButton);
+
         for (Component comp : box2.getComponents()) {
             ((JComponent) comp).setAlignmentX(JComponent.CENTER_ALIGNMENT);
         }
+
+
+        changeMapButton.addActionListener(e -> {
+            if(mapStyle == 0){
+                changeMapButton.setText("Map : Dark");
+                mapStyle = 1;
+            }
+            else{
+                changeMapButton.setText("Map : Default");
+                mapStyle = 0;
+            }
+        });
+
         quitButton.addActionListener(e -> {
             System.out.println("Thanks for playing ArbresVsSquelettes, see you next time !");
             System.exit(0);
@@ -97,7 +115,7 @@ public class Menu extends JFrame {
                 GameScreen screen;
                 try {
 
-                    screen = new GameScreen(game);
+                    screen = new GameScreen(game,mapStyle);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -122,7 +140,7 @@ public class Menu extends JFrame {
                         new Wave(2, map), map);
                 GameScreen screen;
                 try {
-                    screen = new GameScreen(game);
+                    screen = new GameScreen(game,mapStyle);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -147,7 +165,7 @@ public class Menu extends JFrame {
                         new Wave(3, map), map);
                 GameScreen screen;
                 try {
-                    screen = new GameScreen(game);
+                    screen = new GameScreen(game,mapStyle);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -172,7 +190,7 @@ public class Menu extends JFrame {
                         new Wave(4, map), map);
                 GameScreen screen;
                 try {
-                    screen = new GameScreen(game);
+                    screen = new GameScreen(game,mapStyle);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -188,6 +206,7 @@ public class Menu extends JFrame {
                 l5.setBorder(new MatteBorder(0, 0, 5, 0, Color.BLACK));
             }
         });
+
         setTitle("Menu");
         pack();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
