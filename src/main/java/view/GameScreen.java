@@ -26,7 +26,7 @@ public class GameScreen extends JFrame implements Updatable {
     private static JPanel shopScreen;
     private final Game game;
     private final Wave wave;
-    private Timer gameUpdateTimer;
+    private static Timer gameUpdateTimer;
     private static JLabel moneyDisplayed;
     protected static Toolkit toolkit = Toolkit.getDefaultToolkit();
     protected static Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
@@ -37,11 +37,29 @@ public class GameScreen extends JFrame implements Updatable {
     private static boolean isPaused = false;
     private static ArrayList<ChainsawProjectile> chainsaws = new ArrayList<>();
 
+    //Message de GameOver
+    private static final JLabel gameOverLabel = new JLabel("Game Over");
+    //Message de réussite
+    private static final JLabel winLabel = new JLabel("You Win");
+    private static Timer restartTimer;
+
     public GameScreen(Game game) throws IOException {
+        GameScreen gameScreen = this;
         setResizable(false);
         File imageFile = new File("src/main/resources/Game.jpg");
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+
+        //Timer associé au gameOver pour l'afficher 3 secondes
+        restartTimer = new Timer(3000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Retourner au menu principal au bout de 5 secondes
+                goBackToMainMenu(gameScreen);
+            }
+        });
+        restartTimer.setRepeats(false);
+
 
         this.game = game;
         this.wave = game.getWave();
@@ -68,7 +86,7 @@ public class GameScreen extends JFrame implements Updatable {
         shopButton.addActionListener(e -> {
 
             if (!isPlacingATree) {
-                this.pauseGame();
+                GameScreen.pauseGame();
                 mainContainer.setVisible(false);
                 sideMenu.setVisible(false);
                 shopScreen.setVisible(true);
@@ -82,10 +100,10 @@ public class GameScreen extends JFrame implements Updatable {
             if (!isPlacingATree) {
 
                 if (!isPaused) {
-                    this.pauseGame();
+                    GameScreen.pauseGame();
                     pausePlayButton.setText("Play");
                 } else {
-                    this.playGame();
+                    GameScreen.playGame();
                     pausePlayButton.setText("Pause");
                 }
             }
@@ -95,16 +113,7 @@ public class GameScreen extends JFrame implements Updatable {
         //Ajoute le bouton retour au menu principal
         JButton backToMainMenuButton = new JButton("Go back to Main Menu");
         backToMainMenuButton.addActionListener(e -> {
-            this.pauseGame();
-            Menu menu;
-            try {
-                setVisible(false);
-                menu = new Menu();
-            } catch (IOException ex) {
-                throw new RuntimeException(ex);
-            }
-            menu.setVisible(true);
-
+            goBackToMainMenu(this);
         });
         box.add(backToMainMenuButton);
         sideMenu.add(box);
@@ -115,6 +124,24 @@ public class GameScreen extends JFrame implements Updatable {
         // Crée l'affichage du jeu
         mainContainer = new BackGround(imageFile.getAbsolutePath());
         mainContainer.setPreferredSize(new Dimension(widthPerUnit * 15, heightPerUnit * 5));
+
+        //Instancie le message de GameOver
+        gameOverLabel.setForeground(Color.red);
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD, (200*mainContainer.getWidth()*mainContainer.getHeight()) / (1920*1080)));
+        gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
+        gameOverLabel.setVerticalAlignment(JLabel.CENTER);
+        gameOverLabel.setBounds(mainContainer.getX()/2, mainContainer.getY()/2, mainContainer.getWidth(), mainContainer.getHeight());
+        gameOverLabel.setVisible(false);
+        mainContainer.add(gameOverLabel);
+
+        //Instancie le message de Win
+        winLabel.setForeground(Color.green);
+        winLabel.setFont(new Font("Arial", Font.BOLD, (200*mainContainer.getWidth()*mainContainer.getHeight()) / (1920*1080)));
+        winLabel.setHorizontalAlignment(JLabel.CENTER);
+        winLabel.setVerticalAlignment(JLabel.CENTER);
+        winLabel.setBounds(mainContainer.getX()/2, mainContainer.getY()/2, mainContainer.getWidth(), mainContainer.getHeight());
+        winLabel.setVisible(false);
+        mainContainer.add(winLabel);
 
         this.add(mainContainer);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -143,7 +170,7 @@ public class GameScreen extends JFrame implements Updatable {
         chainsaws.add(chainSaw4);
 
         this.initializeTimer();
-        this.gameUpdateTimer.start();
+        GameScreen.gameUpdateTimer.start();
 
     }
 
@@ -184,43 +211,15 @@ public class GameScreen extends JFrame implements Updatable {
         return mainContainer;
     }
 
-    public void pauseGame() {
-        this.gameUpdateTimer.stop();
+    public static void pauseGame() {
+        gameUpdateTimer.stop();
         isPaused = true;
     }
 
-    public void playGame() {
-        this.gameUpdateTimer.start();
+    public static void playGame() {
+        gameUpdateTimer.start();
         isPaused = false;
     }
-
-    private void animate(JComponent component, Point newPoint, int frames, int interval) {
-        // Frame est le nombre de frames totales de l'animation ATTENTION LE NOMBRE DE
-        // FRAMES NE PEUT PAS ETRE SUPERIEUR AU NOMBRE DE PIXELS DE LIMAGE ANIMEE
-        // Interval est le nombre de millisecondes entre chaque refresh de l'animation
-        Rectangle compBounds = component.getBounds();
-
-        Point oldPoint = new Point(compBounds.x, compBounds.y),
-                animFrame = new Point((newPoint.x - oldPoint.x) / frames,
-                        (newPoint.y - oldPoint.y) / frames);
-
-        new Timer(interval, new ActionListener() {
-            int currentFrame = 0;
-
-            public void actionPerformed(ActionEvent e) {
-                component.setBounds(oldPoint.x + (animFrame.x * currentFrame),
-                        oldPoint.y + (animFrame.y * currentFrame),
-                        compBounds.width,
-                        compBounds.height);
-
-                if (currentFrame != frames)
-                    currentFrame++;
-                else
-                    ((Timer) e.getSource()).stop();
-            }
-        }).start();
-    }
-
     public static JPanel getSideMenu() {
         return sideMenu;
     }
@@ -243,6 +242,27 @@ public class GameScreen extends JFrame implements Updatable {
 
     public static ArrayList<ChainsawProjectile> getChainsaws() {
         return chainsaws;
+    }
+
+    public static JLabel getGameOverLabel(){
+        return GameScreen.gameOverLabel;
+    }
+    public static JLabel getWinLabel(){
+        return GameScreen.winLabel;
+    }
+    public static Timer getRestartTimer(){
+        return GameScreen.restartTimer;
+    }
+    private static void goBackToMainMenu(GameScreen gameScreen){
+        GameScreen.pauseGame();
+        Menu menu;
+        try {
+            gameScreen.setVisible(false);
+            menu = new Menu();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+        menu.setVisible(true);
     }
 
     private class SpriteClickListener implements MouseInputListener {
@@ -329,7 +349,6 @@ public class GameScreen extends JFrame implements Updatable {
             }
         }
     }
-
     public class BackGround extends JPanel {
 
         private ImageIcon icon;
