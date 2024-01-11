@@ -254,13 +254,13 @@ public class Menu extends JFrame {
     }
 
     public static void writeToFile(String str) throws IOException{
-        IOTools.writeToFile(str,"./unlockedDifficultyLevel");
+        IOTools.writeToFile(str,"/unlockedDifficultyLevel");
     }
 
     public static int readUnlockedDifficultyLevel() {
         int retour = 0;
         try {
-            retour = Integer.parseInt(IOTools.readFromFile("./unlockedDifficultyLevel"));
+            retour = Integer.parseInt(IOTools.readFromFile("/unlockedDifficultyLevel"));
         }catch (IOException ioException){
             ioException.printStackTrace();
         }

@@ -122,7 +122,10 @@ public class Game implements Updatable {
             GameScreen.getWinLabel().setVisible(true);
             GameScreen.pauseGame();
             try {
-                Menu.writeToFile(String.valueOf(wave.waveDifficulty+1));
+                int difficultyDone = wave.waveDifficulty+1;
+                if(Menu.readUnlockedDifficultyLevel() < difficultyDone){
+                    Menu.writeToFile(String.valueOf(difficultyDone));
+                }
             }catch (IOException e){
                 e.printStackTrace();
             }
