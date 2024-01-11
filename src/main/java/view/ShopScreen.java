@@ -116,7 +116,7 @@ public class ShopScreen extends JPanel {
     }
 
     public static void playMusic(){
-        backgroundMusic.start();
+        backgroundMusic.loop(Integer.MAX_VALUE);
     }
 
     // Permet d'associer le listenner des boutons du shop

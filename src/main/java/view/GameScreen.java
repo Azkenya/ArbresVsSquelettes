@@ -32,8 +32,8 @@ public class GameScreen extends JFrame implements Updatable {
     protected static Toolkit toolkit = Toolkit.getDefaultToolkit();
     protected static Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
             (int) Math.floor(toolkit.getScreenSize().height * 0.93));
-    public static int widthPerUnit = dim.width / 15;
-    public static int heightPerUnit = dim.height / 5;
+    public static int widthPerUnit = dim.width / 15 ;
+    public static int heightPerUnit = dim.height / 5 ;
     public static boolean isPlacingATree = false;
     private static boolean isPaused;
     private static ArrayList<ChainsawProjectile> chainsaws = new ArrayList<>();
@@ -52,6 +52,8 @@ public class GameScreen extends JFrame implements Updatable {
         GameScreen.isPaused = false;
         GameScreen gameScreen = this;
         GameScreen.backgroundMusic = backgroundMusic;
+        backgroundMusic.loop(Integer.MAX_VALUE);
+
         setResizable(false);
         File imageFile;
         if (mapStyle == 0){
@@ -97,7 +99,7 @@ public class GameScreen extends JFrame implements Updatable {
         // Ajoute l'affichage la money
         moneyDisplayed = new JLabel(Game.getPlayerMoney().toString());
         moneyDisplayed.setOpaque(false);
-        moneyDisplayed.setForeground(Color.WHITE);
+        moneyDisplayed.setForeground(Color.BLACK);
         moneyDisplayed.setFont(new Font("Arial", Font.PLAIN, widthPerUnit / 6));
         Box box = Box.createVerticalBox();
         box.add(moneyDisplayed);
@@ -294,7 +296,7 @@ public class GameScreen extends JFrame implements Updatable {
     }
     public static void playMusic(){
         backgroundMusic.setMicrosecondPosition(musicTimer);
-        backgroundMusic.start();
+        backgroundMusic.loop(Integer.MAX_VALUE);
     }
 
     private class SpriteClickListener implements MouseInputListener {
