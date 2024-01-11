@@ -59,7 +59,6 @@ public class ShopScreen extends JPanel {
             GameScreen.playGame();
         });
 
-
         trees.add(buyOakButton);
         trees.add(Box.createHorizontalStrut(25));
         trees.add(buyAcaciaButton);
@@ -72,7 +71,7 @@ public class ShopScreen extends JPanel {
         wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 3));
         wrapper.add(trees);
         wrapper.add(errorMessageLabel);
-        wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 5));
+        wrapper.add(Box.createVerticalStrut(GameScreen.dim.height / 8));
         wrapper.add(exitButton);
         trees.setAlignmentX(Component.CENTER_ALIGNMENT);
         wrapper.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -80,7 +79,8 @@ public class ShopScreen extends JPanel {
         this.setLayout(new FlowLayout());
 
         errorMessageLabel.setForeground(Color.red);
-        errorMessageLabel.setFont(new Font("Arial", Font.PLAIN, (100*GameScreen.dim.width*GameScreen.dim.height) / (1920*1080)));
+        errorMessageLabel.setFont(
+                new Font("Arial", Font.PLAIN, (100 * GameScreen.dim.width * GameScreen.dim.height) / (1920 * 1080)));
 
         this.setVisible(false);
     }

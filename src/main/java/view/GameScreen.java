@@ -30,16 +30,16 @@ public class GameScreen extends JFrame implements Updatable {
     private static JLabel moneyDisplayed;
     protected static Toolkit toolkit = Toolkit.getDefaultToolkit();
     protected static Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
-            (int) Math.floor(toolkit.getScreenSize().height * 0.93));
+            (int) Math.floor(toolkit.getScreenSize().height * 0.90));
     public static int widthPerUnit = dim.width / 15;
     public static int heightPerUnit = dim.height / 5;
     public static boolean isPlacingATree = false;
     private static boolean isPaused = false;
     private static ArrayList<ChainsawProjectile> chainsaws = new ArrayList<>();
 
-    //Message de GameOver
+    // Message de GameOver
     private static final JLabel gameOverLabel = new JLabel("Game Over");
-    //Message de réussite
+    // Message de réussite
     private static final JLabel winLabel = new JLabel("You Win");
     private static Timer restartTimer;
 
@@ -50,7 +50,7 @@ public class GameScreen extends JFrame implements Updatable {
 
         setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
 
-        //Timer associé au gameOver pour l'afficher 3 secondes
+        // Timer associé au gameOver pour l'afficher 3 secondes
         restartTimer = new Timer(3000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -59,7 +59,6 @@ public class GameScreen extends JFrame implements Updatable {
             }
         });
         restartTimer.setRepeats(false);
-
 
         this.game = game;
         this.wave = game.getWave();
@@ -73,12 +72,14 @@ public class GameScreen extends JFrame implements Updatable {
         sideMenu = new BackGround("src/main/resources/ShopImage.png",
                 new Dimension((int) (widthPerUnit * 1.7), heightPerUnit * 5));
         sideMenu.setPreferredSize(new Dimension((int) (widthPerUnit * 1.7), heightPerUnit));
-        sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 4));
         // Ajoute l'affichage la money
         moneyDisplayed = new JLabel(Game.getPlayerMoney().toString());
-        moneyDisplayed.setOpaque(false);
+        moneyDisplayed.setOpaque(true);
         moneyDisplayed.setForeground(Color.WHITE);
-        moneyDisplayed.setFont(new Font("Arial", Font.PLAIN, widthPerUnit / 6));
+        moneyDisplayed.setBackground(Color.BLACK);
+        moneyDisplayed.setPreferredSize(sideMenu.getPreferredSize());
+        moneyDisplayed.setAlignmentX(Component.CENTER_ALIGNMENT);
         Box box = Box.createVerticalBox();
         box.add(moneyDisplayed);
         // Ajoute le bouton du shop
@@ -110,7 +111,7 @@ public class GameScreen extends JFrame implements Updatable {
         });
         box.add(pausePlayButton);
 
-        //Ajoute le bouton retour au menu principal
+        // Ajoute le bouton retour au menu principal
         JButton backToMainMenuButton = new JButton("Go back to Main Menu");
         backToMainMenuButton.addActionListener(e -> {
             goBackToMainMenu(this);
@@ -125,21 +126,25 @@ public class GameScreen extends JFrame implements Updatable {
         mainContainer = new BackGround(imageFile.getAbsolutePath());
         mainContainer.setPreferredSize(new Dimension(widthPerUnit * 15, heightPerUnit * 5));
 
-        //Instancie le message de GameOver
+        // Instancie le message de GameOver
         gameOverLabel.setForeground(Color.red);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, (200*mainContainer.getWidth()*mainContainer.getHeight()) / (1920*1080)));
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD,
+                (200 * mainContainer.getWidth() * mainContainer.getHeight()) / (1920 * 1080)));
         gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
         gameOverLabel.setVerticalAlignment(JLabel.CENTER);
-        gameOverLabel.setBounds(mainContainer.getX()/2, mainContainer.getY()/2, mainContainer.getWidth(), mainContainer.getHeight());
+        gameOverLabel.setBounds(mainContainer.getX() / 2, mainContainer.getY() / 2, mainContainer.getWidth(),
+                mainContainer.getHeight());
         gameOverLabel.setVisible(false);
         mainContainer.add(gameOverLabel);
 
-        //Instancie le message de Win
+        // Instancie le message de Win
         winLabel.setForeground(Color.green);
-        winLabel.setFont(new Font("Arial", Font.BOLD, (200*mainContainer.getWidth()*mainContainer.getHeight()) / (1920*1080)));
+        winLabel.setFont(new Font("Arial", Font.BOLD,
+                (200 * mainContainer.getWidth() * mainContainer.getHeight()) / (1920 * 1080)));
         winLabel.setHorizontalAlignment(JLabel.CENTER);
         winLabel.setVerticalAlignment(JLabel.CENTER);
-        winLabel.setBounds(mainContainer.getX()/2, mainContainer.getY()/2, mainContainer.getWidth(), mainContainer.getHeight());
+        winLabel.setBounds(mainContainer.getX() / 2, mainContainer.getY() / 2, mainContainer.getWidth(),
+                mainContainer.getHeight());
         winLabel.setVisible(false);
         mainContainer.add(winLabel);
 
@@ -220,6 +225,7 @@ public class GameScreen extends JFrame implements Updatable {
         gameUpdateTimer.start();
         isPaused = false;
     }
+
     public static JPanel getSideMenu() {
         return sideMenu;
     }
@@ -244,16 +250,19 @@ public class GameScreen extends JFrame implements Updatable {
         return chainsaws;
     }
 
-    public static JLabel getGameOverLabel(){
+    public static JLabel getGameOverLabel() {
         return GameScreen.gameOverLabel;
     }
-    public static JLabel getWinLabel(){
+
+    public static JLabel getWinLabel() {
         return GameScreen.winLabel;
     }
-    public static Timer getRestartTimer(){
+
+    public static Timer getRestartTimer() {
         return GameScreen.restartTimer;
     }
-    private static void goBackToMainMenu(GameScreen gameScreen){
+
+    private static void goBackToMainMenu(GameScreen gameScreen) {
         GameScreen.pauseGame();
         Menu menu;
         try {
@@ -349,6 +358,7 @@ public class GameScreen extends JFrame implements Updatable {
             }
         }
     }
+
     public class BackGround extends JPanel {
 
         private ImageIcon icon;

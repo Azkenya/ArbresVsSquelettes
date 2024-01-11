@@ -20,6 +20,7 @@ public abstract class Skeleton extends Entity {
     private Timer freezeTimer;
     private double realColumn;
     private double realSpeed;
+    private int cd;
 
     // la lane correspond à la ligne sur laquelle le squelette va apparaitre,
     // il apparaitra toujours sur la colonne 15
@@ -58,7 +59,12 @@ public abstract class Skeleton extends Entity {
         int treeAtIndex = this.treeInOurRange();
         // If there is an entity in our range and it is a Tree, attack it
         if (treeAtIndex != -1) {
-            this.attack(Game.trees.get(treeAtIndex));
+            if (cd == 0) {
+                cd = 60;
+                this.attack(Game.trees.get(treeAtIndex));
+            } else {
+                cd--;
+            }
         } else {
 
             // Moves as far as possible if not frozen
@@ -229,11 +235,10 @@ public abstract class Skeleton extends Entity {
     }
 
     public void skeletonsWin() {
-        if(!Game.graphicMode){
+        if (!Game.graphicMode) {
             System.out.println("Les squelettes ont gagné, game over");
             System.exit(0);
-        }
-        else{
+        } else {
             GameScreen.getGameOverLabel().setVisible(true);
             GameScreen.pauseGame();
             GameScreen.getRestartTimer().start();
