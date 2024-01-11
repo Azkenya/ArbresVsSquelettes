@@ -5,8 +5,8 @@
 # Path: launch.sh
 
 echo Which platform are you on ?
-echo "0 - Windows"
-echo "1 - Linux"
+echo "(0) - Windows"
+echo "(1) - Linux"
 read platform
 
 if [ $platform != "0" -a $platform != "1" ]
@@ -20,7 +20,6 @@ echo "Starting..."
 find -name "*.java" > files.txt
 echo "Compiling..."
 javac -d src/classFiles @files.txt
-echo "Running..."
 
 if [ $platform -eq 0 ] 
 then
@@ -40,16 +39,24 @@ read gameMode
 if [ $gameMode == "0" ]
 then
     echo Game mode selected : $gameMode 
+    echo "Running..."
     java -cp $CLASSPATH view.TerminalInterface
 elif [ $gameMode == "1" ]
 then
     echo Game mode selected : $gameMode
+    echo "Running..."
     java -cp $CLASSPATH view.App
 else
     echo Error : please enter 0 or 1
     exit 1
-fi    
+fi
+
 
 DELCLASSPATH="src/classFiles/*"
 rm -r $DELCLASSPATH
 rm files.txt
+#For Windows
+#read -p "Press any key to continue" x
+
+
+

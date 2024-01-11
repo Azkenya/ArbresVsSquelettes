@@ -75,19 +75,19 @@ public class TerminalInterface {
         while(true){
 
             System.out.println("Please enter the difficulty you want : ");
-            System.out.println("1 - Easy\n2 - Medium\n3 - Hard");
+            System.out.println("1 - Easy\n2 - Medium\n3 - Hard\n4 - Endless");
             String answer = userInput.nextLine();
 
             try{
                 Integer.parseInt(answer);
             }catch (Exception e){
-                System.out.println("Error : please enter a valid difficulty number (1/2/3) !");
+                System.out.println("Error : please enter a valid difficulty number (1/2/3/4) !");
                 continue;
             }
 
             int difficultyLevel = Integer.parseInt(answer);
-            if(difficultyLevel <= 0 || difficultyLevel > 3){
-                System.out.println("Error : please enter a valid difficulty number (1/2/3) !");
+            if(difficultyLevel <= 0 || difficultyLevel > 4){
+                System.out.println("Error : please enter a valid difficulty number (1/2/3/4) !");
                 continue;
             }
             return difficultyLevel;

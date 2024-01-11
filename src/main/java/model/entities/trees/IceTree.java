@@ -16,6 +16,7 @@ public class IceTree extends Tree {
 
     public IceTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/IceTree.png");
+        super.name = "IceTree";
     }
 
     @Override

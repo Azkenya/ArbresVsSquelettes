@@ -14,6 +14,7 @@ public class FastPineTree extends Tree {
 
     public FastPineTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/FastPineTree.png");
+        super.name = "FastPine";
     }
 
     @Override

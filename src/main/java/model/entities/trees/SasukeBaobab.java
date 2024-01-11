@@ -12,6 +12,7 @@ public class SasukeBaobab extends Baobab {
 
     public SasukeBaobab(int line, int column, Map map) {
         super(line, column, map, DEFAULT_IMAGE_PATH, DEFAULT_COST, DEFAULT_DAMAGE);
+        super.name = "DarkBaobab";
     }
 
     public void shoot() {

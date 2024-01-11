@@ -12,6 +12,7 @@ public class DarkOak extends Tree {
 
     public DarkOak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/DarkOak.png");
+        super.name = "DarkOak";
     }
 
     @Override

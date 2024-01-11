@@ -119,7 +119,7 @@ public class Shop {
     public void displayTreesAvailable() {
         int k = 1;
         for (Tree t : availableTrees) {
-            System.out.printf("%d / %s tree : Cost - %d, Damages - %d ", k, t.getClass().toString().substring(6),
+            System.out.printf("%d / %s : Cost - %d, Damages - %d ", k, t.getName(),
                     t.getCost(), t.getDamage());
             if (t instanceof IceTree) {
                 System.out.print(" - This tree can freeze enemies");

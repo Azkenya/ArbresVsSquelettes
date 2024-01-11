@@ -13,6 +13,7 @@ public abstract class Tree extends Entity {
     protected int cd = 0;
     private static ArrayList<Projectile> chainsawProjectiles = new ArrayList<>();
     protected int ProjectileCooldown = 0;
+    protected String name;
 
     public Tree(int cost, int hp, int line, int column, int damage, Map map, String treePath) {
         super(hp, line, column, damage, map, treePath);
@@ -82,5 +83,9 @@ public abstract class Tree extends Entity {
 
     public ArrayList<Projectile> getProjectiles() {
         return projectiles;
+    }
+
+    public String getName() {
+        return name;
     }
 }

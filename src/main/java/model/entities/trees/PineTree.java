@@ -14,6 +14,7 @@ public class PineTree extends Tree {
 
     public PineTree(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/PineTree.png");
+        super.name = "PineTree";
     }
 
     @Override

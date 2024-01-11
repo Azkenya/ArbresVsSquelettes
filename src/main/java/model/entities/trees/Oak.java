@@ -13,6 +13,7 @@ public class Oak extends Tree {
 
     public Oak(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/Oak.png");
+        super.name = "Oak";
     }
 
     public void update() {

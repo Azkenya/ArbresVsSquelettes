@@ -13,10 +13,12 @@ public class Acacia extends Tree {
 
     public Acacia(int line, int column, Map map) {
         super(cost, hp, line, column, damage, map, "src/main/resources/Acacia.png");
+        super.name = "Acacia";
     }
 
     public Acacia(int line, int column, Map map, boolean fake) {
         super(cost, hp, line, column, damage, map, "src/main/resources/Acacia.png");
+        super.name = "Acacia";
     }
 
     // TODO make getters and setters in the parent class
