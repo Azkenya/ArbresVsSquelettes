@@ -1,5 +1,6 @@
 package view;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
@@ -22,8 +23,14 @@ public class Menu extends JFrame {
     private JLabel l1,l2,l3,l4,l5;
     public static Dimension dim;
     private int mapStyle = 0; //0 is default, 1 is dark
+    private static Clip backgroundMusic;
 
     public Menu() throws IOException {
+
+        backgroundMusic = tools.IOTools.getClipAssociatedToMusic("src/main/resources/menuAndGameMusic.wav");
+        backgroundMusic.start();
+
+
         setResizable(false);
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.95),
@@ -115,7 +122,7 @@ public class Menu extends JFrame {
                 GameScreen screen;
                 try {
 
-                    screen = new GameScreen(game,mapStyle);
+                    screen = new GameScreen(game,mapStyle,backgroundMusic);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -140,7 +147,7 @@ public class Menu extends JFrame {
                         new Wave(2, map), map);
                 GameScreen screen;
                 try {
-                    screen = new GameScreen(game,mapStyle);
+                    screen = new GameScreen(game,mapStyle,backgroundMusic);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -165,7 +172,7 @@ public class Menu extends JFrame {
                         new Wave(3, map), map);
                 GameScreen screen;
                 try {
-                    screen = new GameScreen(game,mapStyle);
+                    screen = new GameScreen(game,mapStyle,backgroundMusic);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -190,7 +197,7 @@ public class Menu extends JFrame {
                         new Wave(4, map), map);
                 GameScreen screen;
                 try {
-                    screen = new GameScreen(game,mapStyle);
+                    screen = new GameScreen(game,mapStyle,backgroundMusic);
                     setVisible(false);
                     screen.setVisible(true);
                 } catch (IOException ioException) {
@@ -260,4 +267,7 @@ public class Menu extends JFrame {
         return retour;
     }
 
+    public static Clip getBackgroundMusic() {
+        return backgroundMusic;
+    }
 }

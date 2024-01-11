@@ -1,5 +1,8 @@
 package tools;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import java.io.*;
 
 public class IOTools {
@@ -14,5 +17,20 @@ public class IOTools {
         String currentLine = reader.readLine();
         reader.close();
         return currentLine;
+    }
+
+    public static Clip getClipAssociatedToMusic(String location){
+        Clip clip = null;
+        try{
+            File musicPath = new File(location);
+            AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
+            clip = AudioSystem.getClip();
+            clip.open(audioInput);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return clip;
+
     }
 }

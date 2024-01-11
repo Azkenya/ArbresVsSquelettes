@@ -8,6 +8,7 @@ import model.entities.Projectile;
 import model.entities.Skeleton;
 import model.entities.trees.Oak;
 
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -34,7 +35,7 @@ public class GameScreen extends JFrame implements Updatable {
     public static int widthPerUnit = dim.width / 15;
     public static int heightPerUnit = dim.height / 5;
     public static boolean isPlacingATree = false;
-    private static boolean isPaused = false;
+    private static boolean isPaused;
     private static ArrayList<ChainsawProjectile> chainsaws = new ArrayList<>();
 
     //Message de GameOver
@@ -42,9 +43,15 @@ public class GameScreen extends JFrame implements Updatable {
     //Message de réussite
     private static final JLabel winLabel = new JLabel("You Win");
     private static Timer restartTimer;
+    //Musique de fond
+    private  static Clip backgroundMusic;
+    //Gère le pause/play de la musique de fond
+    private static long musicTimer;
 
-    public GameScreen(Game game, int mapStyle) throws IOException {
+    public GameScreen(Game game, int mapStyle, Clip backgroundMusic) throws IOException {
+        GameScreen.isPaused = false;
         GameScreen gameScreen = this;
+        GameScreen.backgroundMusic = backgroundMusic;
         setResizable(false);
         File imageFile;
         if (mapStyle == 0){
@@ -97,11 +104,12 @@ public class GameScreen extends JFrame implements Updatable {
         // Ajoute le bouton du shop
         JButton shopButton = new JButton("Ouvrir le shop");
         shopButton.addActionListener(e -> {
-
             if (!isPlacingATree) {
                 GameScreen.pauseGame();
                 mainContainer.setVisible(false);
                 sideMenu.setVisible(false);
+                pauseMusic();
+                ShopScreen.playMusic();
                 shopScreen.setVisible(true);
             }
         });
@@ -226,11 +234,13 @@ public class GameScreen extends JFrame implements Updatable {
 
     public static void pauseGame() {
         gameUpdateTimer.stop();
+        pauseMusic();
         isPaused = true;
     }
 
     public static void playGame() {
         gameUpdateTimer.start();
+        playMusic();
         isPaused = false;
     }
     public static JPanel getSideMenu() {
@@ -276,6 +286,15 @@ public class GameScreen extends JFrame implements Updatable {
             throw new RuntimeException(ex);
         }
         menu.setVisible(true);
+    }
+
+    public static void pauseMusic(){
+        musicTimer = backgroundMusic.getMicrosecondPosition();
+        backgroundMusic.stop();
+    }
+    public static void playMusic(){
+        backgroundMusic.setMicrosecondPosition(musicTimer);
+        backgroundMusic.start();
     }
 
     private class SpriteClickListener implements MouseInputListener {

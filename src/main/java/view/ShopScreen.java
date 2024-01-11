@@ -5,6 +5,7 @@ import model.config.Money;
 import model.entities.trees.*;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import javax.swing.border.MatteBorder;
 
@@ -24,7 +25,13 @@ public class ShopScreen extends JPanel {
     private static boolean errorDisplaying = false;
     private static final ArrayList<SpriteImage> sprites = new ArrayList<>();
 
+    //Musique de fond
+    private  static Clip backgroundMusic;
+
     public ShopScreen(Game game, GameScreen gameScreen) throws IOException {
+
+        backgroundMusic = tools.IOTools.getClipAssociatedToMusic("src/main/resources/shopMusic.wav");
+
         ShopScreen.gameScreen = gameScreen;
         ShopScreen.game = game;
         Box wrapper = Box.createVerticalBox();
@@ -53,6 +60,7 @@ public class ShopScreen extends JPanel {
 
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(e -> {
+            backgroundMusic.stop();
             setVisible(false);
             GameScreen.getMainContainer().setVisible(true);
             GameScreen.getSideMenu().setVisible(true);
@@ -107,6 +115,10 @@ public class ShopScreen extends JPanel {
         g.drawImage(jardiland, 0, 0, null);
     }
 
+    public static void playMusic(){
+        backgroundMusic.start();
+    }
+
     // Permet d'associer le listenner des boutons du shop
     private void setShopActionListener(JLabel button, JLabel errorMessageLabel, int treeID) {
         button.setBorder(new MatteBorder(0, 0, 5, 0, Color.red));
@@ -137,6 +149,7 @@ public class ShopScreen extends JPanel {
                     // Si on a assez d'argent
                     if (enoughMoney) {
 
+                        backgroundMusic.stop();
                         setVisible(false);
                         gameScreen.showAllGameScreen();
                         GameScreen.isPlacingATree = true;
@@ -233,4 +246,5 @@ public class ShopScreen extends JPanel {
             }
         });
     }
+
 }
