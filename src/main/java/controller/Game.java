@@ -163,4 +163,7 @@ public class Game implements Updatable {
     public static Money getPlayerMoney() {
         return playerMoney;
     }
+    public static void setGraphicMode(boolean b){
+        graphicMode = b;
+    }
 }

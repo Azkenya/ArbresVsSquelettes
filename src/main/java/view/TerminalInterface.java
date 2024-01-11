@@ -23,6 +23,7 @@ public class TerminalInterface {
         if (hasStarted) {
             int difficultyLvl = chooseDifficultyLevel();
             game = new Game(playerMoney,null, new ArrayList<>(), new Wave(difficultyLvl,map), map);
+            Game.setGraphicMode(false);
             Shop shop = new Shop(playerMoney, map, userInput);
             game.setShop(shop);
 
