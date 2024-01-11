@@ -35,7 +35,7 @@ public class Menu extends JFrame {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.95),
                 (int) Math.floor(toolkit.getScreenSize().height * 0.95));
-        File imageFile = new File("src/main/resources/Menu.jpg");
+        File imageFile = new File("src/main/resources/Menu.png");
         setLayout(new BorderLayout());
         setContentPane(new BackGround(imageFile.getAbsolutePath()));
 
