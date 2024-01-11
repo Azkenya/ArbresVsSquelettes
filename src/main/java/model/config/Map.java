@@ -33,10 +33,12 @@ public class Map {
             this.map[e.getLine()][e.getColumn()] = e;
             return true;
         } else {
-            if((!(e instanceof DarkOak)) && (!(e instanceof TwiceAcacia))&& (!(e instanceof SasukeBaobab))&& (!(e instanceof FastPineTree))){
-            System.out.println("Error : there is already an entity here\n");
-            return false;
+            if ((!(e instanceof DarkOak)) && (!(e instanceof TwiceAcacia)) && (!(e instanceof SasukeBaobab)) && (!(e instanceof FastPineTree))) {
+                System.out.println("Error : there is already an entity here\n");
+                return false;
+            }
         }
+        return false;
     }
 
     public Skeleton getFirstSkeletonInLine(int line) {
