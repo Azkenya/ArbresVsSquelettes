@@ -6,7 +6,7 @@ import model.entities.Skeleton;
 public class GlassesSkeleton extends Skeleton {
     public static final int DEFAULT_HP = 35;
     public static final int DEFAULT_SPEED = 1;
-    public static final double DEFAULT_REAL_SPEED = 0.005;
+    public static final double DEFAULT_REAL_SPEED = 0.0075;
     public static final String DEFAULT_PATH = "src/main/resources/SkelGlasses.png";
 
     public GlassesSkeleton(int lane, Map map) {
