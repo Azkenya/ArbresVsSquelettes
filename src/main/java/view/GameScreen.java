@@ -99,11 +99,9 @@ public class GameScreen extends JFrame implements Updatable {
         sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 4));
         // Ajoute l'affichage la money
         moneyDisplayed = new JLabel(Game.getPlayerMoney().toString());
-        moneyDisplayed.setOpaque(true);
-        moneyDisplayed.setForeground(Color.WHITE);
-        moneyDisplayed.setBackground(Color.BLACK);
+        moneyDisplayed.setOpaque(false);
+        moneyDisplayed.setForeground(Color.BLACK);
         moneyDisplayed.setPreferredSize(sideMenu.getPreferredSize());
-        moneyDisplayed.setAlignmentX(Component.CENTER_ALIGNMENT);
         Box box = Box.createVerticalBox();
         box.add(moneyDisplayed);
         // Ajoute le bouton du shop
