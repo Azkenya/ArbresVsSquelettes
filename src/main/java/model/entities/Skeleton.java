@@ -84,6 +84,8 @@ public abstract class Skeleton extends Entity {
                     }
                 }
 
+                getMap().killEverythingOnLine(this.getLine());
+
                 getMap().getChainsaws()[this.getLine()] = false;
             }
         }
@@ -227,8 +229,15 @@ public abstract class Skeleton extends Entity {
     }
 
     public void skeletonsWin() {
-        System.out.println("Les squelettes ont gagné, game over");
-        System.exit(0);
+        if(!Game.graphicMode){
+            System.out.println("Les squelettes ont gagné, game over");
+            System.exit(0);
+        }
+        else{
+            GameScreen.getGameOverLabel().setVisible(true);
+            GameScreen.pauseGame();
+            GameScreen.getRestartTimer().start();
+        }
     }
 
     public void freeze() {

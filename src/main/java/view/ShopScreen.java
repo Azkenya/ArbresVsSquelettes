@@ -56,7 +56,7 @@ public class ShopScreen extends JPanel {
             setVisible(false);
             GameScreen.getMainContainer().setVisible(true);
             GameScreen.getSideMenu().setVisible(true);
-            gameScreen.playGame();
+            GameScreen.playGame();
         });
 
         trees.add(buyOakButton);
