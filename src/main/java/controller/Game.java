@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.lang.Math;
+
+import model.Entity;
 import model.config.*;
 import model.entities.*;
 import view.GameScreen;
@@ -97,8 +99,10 @@ public class Game implements Updatable {
         ArrayList<Tree> tempTrees = new ArrayList<>(trees);
         for (Tree tree : tempTrees) {
             if (tree.getHp() <= 0) {
-                if (graphicMode)
+                if (graphicMode){
                     tree.removeVisibility();
+                    tree.getProjectiles().forEach(Entity::removeVisibility);
+                }
 
                 trees.remove(tree);
             } else {

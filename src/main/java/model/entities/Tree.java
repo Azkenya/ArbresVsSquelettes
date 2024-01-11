@@ -79,4 +79,8 @@ public abstract class Tree extends Entity {
     public static ArrayList<Projectile> getChainsawProjectiles() {
         return chainsawProjectiles;
     }
+
+    public ArrayList<Projectile> getProjectiles() {
+        return projectiles;
+    }
 }
