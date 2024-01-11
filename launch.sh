@@ -38,12 +38,12 @@ echo "(1) - Visual Mode"
 read gameMode
 if [ $gameMode == "0" ]
 then
-    echo Game mode selected : $gameMode 
+    echo Game mode selected : Terminal
     echo "Running..."
     java -cp $CLASSPATH view.TerminalInterface
 elif [ $gameMode == "1" ]
 then
-    echo Game mode selected : $gameMode
+    echo Game mode selected : Visual
     echo "Running..."
     java -cp $CLASSPATH view.App
 else
