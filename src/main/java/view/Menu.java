@@ -115,7 +115,7 @@ public class Menu extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 Map map = new Map();
-                Money playerMoney = new Money(100);
+                Money playerMoney = new Money(10000);
                 Game game = new Game(playerMoney, new Shop(playerMoney, map, new Scanner(System.in)), new ArrayList<>(),
                         new Wave(1, map), map);
 

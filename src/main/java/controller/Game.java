@@ -113,12 +113,11 @@ public class Game implements Updatable {
 
 
     public void win() {
-        if(!graphicMode){
+        if (!graphicMode) {
             System.out.println("You have won ArbresVsSquelettes congrats !\nSee you next time :)");
             System.out.println("By Azkenya & Ama92");
             System.exit(0);
-        }
-        else{
+        } else {
             GameScreen.getWinLabel().setVisible(true);
             GameScreen.pauseGame();
             try {

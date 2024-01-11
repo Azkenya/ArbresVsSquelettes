@@ -6,9 +6,10 @@ import model.config.Wave;
 import model.entities.projectiles.ChainsawProjectile;
 import model.entities.Projectile;
 import model.entities.Skeleton;
-import model.entities.trees.Oak;
+import model.entities.trees.*;
 
 import javax.sound.sampled.Clip;
+import model.entities.trees.*;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -31,9 +32,9 @@ public class GameScreen extends JFrame implements Updatable {
     private static JLabel moneyDisplayed;
     protected static Toolkit toolkit = Toolkit.getDefaultToolkit();
     protected static Dimension dim = new Dimension((int) Math.floor(toolkit.getScreenSize().width * 0.90),
-            (int) Math.floor(toolkit.getScreenSize().height * 0.93));
-    public static int widthPerUnit = dim.width / 15 ;
-    public static int heightPerUnit = dim.height / 5 ;
+            (int) Math.floor(toolkit.getScreenSize().height * 0.90));
+    public static int widthPerUnit = dim.width / 15;
+    public static int heightPerUnit = dim.height / 5;
     public static boolean isPlacingATree = false;
     private static boolean isPaused;
     private static ArrayList<ChainsawProjectile> chainsaws = new ArrayList<>();
@@ -95,17 +96,20 @@ public class GameScreen extends JFrame implements Updatable {
         }
 
         sideMenu.setPreferredSize(new Dimension((int) (widthPerUnit * 1.7), heightPerUnit));
-        sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 0));
+        sideMenu.setLayout(new FlowLayout(FlowLayout.CENTER, 0, 4));
         // Ajoute l'affichage la money
         moneyDisplayed = new JLabel(Game.getPlayerMoney().toString());
-        moneyDisplayed.setOpaque(false);
-        moneyDisplayed.setForeground(Color.BLACK);
-        moneyDisplayed.setFont(new Font("Arial", Font.PLAIN, widthPerUnit / 6));
+        moneyDisplayed.setOpaque(true);
+        moneyDisplayed.setForeground(Color.WHITE);
+        moneyDisplayed.setBackground(Color.BLACK);
+        moneyDisplayed.setPreferredSize(sideMenu.getPreferredSize());
+        moneyDisplayed.setAlignmentX(Component.CENTER_ALIGNMENT);
         Box box = Box.createVerticalBox();
         box.add(moneyDisplayed);
         // Ajoute le bouton du shop
         JButton shopButton = new JButton("Ouvrir le shop");
         shopButton.addActionListener(e -> {
+
             if (!isPlacingATree) {
                 GameScreen.pauseGame();
                 mainContainer.setVisible(false);
@@ -133,7 +137,7 @@ public class GameScreen extends JFrame implements Updatable {
         });
         box.add(pausePlayButton);
 
-        //Ajoute le bouton retour au menu principal
+        // Ajoute le bouton retour au menu principal
         JButton backToMainMenuButton = new JButton("Go back to Main Menu");
         backToMainMenuButton.addActionListener(e -> {
             goBackToMainMenu(this);
@@ -148,21 +152,25 @@ public class GameScreen extends JFrame implements Updatable {
         mainContainer = new BackGround(imageFile.getAbsolutePath());
         mainContainer.setPreferredSize(new Dimension(widthPerUnit * 15, heightPerUnit * 5));
 
-        //Instancie le message de GameOver
+        // Instancie le message de GameOver
         gameOverLabel.setForeground(Color.red);
-        gameOverLabel.setFont(new Font("Arial", Font.BOLD, (200*mainContainer.getWidth()*mainContainer.getHeight()) / (1920*1080)));
+        gameOverLabel.setFont(new Font("Arial", Font.BOLD,
+                (200 * mainContainer.getWidth() * mainContainer.getHeight()) / (1920 * 1080)));
         gameOverLabel.setHorizontalAlignment(JLabel.CENTER);
         gameOverLabel.setVerticalAlignment(JLabel.CENTER);
-        gameOverLabel.setBounds(mainContainer.getX()/2, mainContainer.getY()/2, mainContainer.getWidth(), mainContainer.getHeight());
+        gameOverLabel.setBounds(mainContainer.getX() / 2, mainContainer.getY() / 2, mainContainer.getWidth(),
+                mainContainer.getHeight());
         gameOverLabel.setVisible(false);
         mainContainer.add(gameOverLabel);
 
-        //Instancie le message de Win
+        // Instancie le message de Win
         winLabel.setForeground(Color.green);
-        winLabel.setFont(new Font("Arial", Font.BOLD, (200*mainContainer.getWidth()*mainContainer.getHeight()) / (1920*1080)));
+        winLabel.setFont(new Font("Arial", Font.BOLD,
+                (200 * mainContainer.getWidth() * mainContainer.getHeight()) / (1920 * 1080)));
         winLabel.setHorizontalAlignment(JLabel.CENTER);
         winLabel.setVerticalAlignment(JLabel.CENTER);
-        winLabel.setBounds(mainContainer.getX()/2, mainContainer.getY()/2, mainContainer.getWidth(), mainContainer.getHeight());
+        winLabel.setBounds(mainContainer.getX() / 2, mainContainer.getY() / 2, mainContainer.getWidth(),
+                mainContainer.getHeight());
         winLabel.setVisible(false);
         mainContainer.add(winLabel);
 
@@ -170,16 +178,16 @@ public class GameScreen extends JFrame implements Updatable {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         this.pack();
-        Oak testOak = new Oak(0, 4, game.getMap());
-        Oak testOak2 = new Oak(1, 4, game.getMap());
-        Oak testOak3 = new Oak(2, 4, game.getMap());
-        Oak testOak4 = new Oak(3, 4, game.getMap());
-        Oak testOak5 = new Oak(4, 4, game.getMap());
-        this.game.addTree(testOak);
-        this.game.addTree(testOak2);
-        this.game.addTree(testOak3);
-        this.game.addTree(testOak4);
-        this.game.addTree(testOak5);
+        // Oak testOak = new Oak(0, 4, game.getMap());
+        // Oak testOak2 = new Oak(1, 4, game.getMap());
+        // Oak testOak3 = new Oak(2, 4, game.getMap());
+        // Oak testOak4 = new Oak(3, 4, game.getMap());
+        // Oak testOak5 = new Oak(4, 4, game.getMap());
+        // this.game.addTree(testOak);
+        // this.game.addTree(testOak2);
+        // this.game.addTree(testOak3);
+        // this.game.addTree(testOak4);
+        // this.game.addTree(testOak5);
 
         ChainsawProjectile chainSaw0 = new ChainsawProjectile(0, 0, game.getMap());
         chainsaws.add(chainSaw0);
@@ -245,6 +253,7 @@ public class GameScreen extends JFrame implements Updatable {
         playMusic();
         isPaused = false;
     }
+
     public static JPanel getSideMenu() {
         return sideMenu;
     }
@@ -269,16 +278,19 @@ public class GameScreen extends JFrame implements Updatable {
         return chainsaws;
     }
 
-    public static JLabel getGameOverLabel(){
+    public static JLabel getGameOverLabel() {
         return GameScreen.gameOverLabel;
     }
-    public static JLabel getWinLabel(){
+
+    public static JLabel getWinLabel() {
         return GameScreen.winLabel;
     }
-    public static Timer getRestartTimer(){
+
+    public static Timer getRestartTimer() {
         return GameScreen.restartTimer;
     }
-    private static void goBackToMainMenu(GameScreen gameScreen){
+
+    private static void goBackToMainMenu(GameScreen gameScreen) {
         GameScreen.pauseGame();
         Menu menu;
         try {
@@ -317,28 +329,44 @@ public class GameScreen extends JFrame implements Updatable {
 
             int correspondingLineOnMap = (int) nearestPoint.getY() / dimensionY;
             int correspodingColumnOnMap = (int) nearestPoint.getX() / dimensionX;
-
-            if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null) {
-                System.out.println("Déjà sur un arbre");
+            if (currentSpriteMoving.getAttachedTree() instanceof DarkOak) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof Oak) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
+            } else if (currentSpriteMoving.getAttachedTree() instanceof FastPineTree) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof PineTree) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
+            } else if (currentSpriteMoving.getAttachedTree() instanceof TwiceAcacia) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof Acacia) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
+            } else if (currentSpriteMoving.getAttachedTree() instanceof SasukeBaobab) {
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) instanceof Baobab) {
+                    game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap).kill(Integer.MAX_VALUE);
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
             } else {
-                isMoving = false;
-
-                System.out.println(correspondingLineOnMap);
-                System.out.println(correspodingColumnOnMap);
-
-                currentSpriteMoving.getAttachedTree().setLine(correspondingLineOnMap);
-                currentSpriteMoving.getAttachedTree().setColumn(correspodingColumnOnMap);
-
-                game.addTree(currentSpriteMoving.getAttachedTree());
-
-                removeMouseListener(this);
-                removeMouseMotionListener(this);
-
-                isPlacingATree = false;
-
-                playGame();
-
+                if (game.getMap().getEntityAt(correspondingLineOnMap, correspodingColumnOnMap) != null) {
+                    System.out.println("Déjà sur un arbre");
+                } else {
+                    placeTree(correspondingLineOnMap, correspodingColumnOnMap);
+                }
             }
+        }
+
+        public void placeTree(int line, int column) {
+            currentSpriteMoving.getAttachedTree().setLine(line);
+            currentSpriteMoving.getAttachedTree().setColumn(column);
+            game.addTree(currentSpriteMoving.getAttachedTree());
+            isMoving = false;
+            removeMouseListener(this);
+            removeMouseMotionListener(this);
+            isPlacingATree = false;
+            playGame();
         }
 
         @Override
@@ -383,6 +411,7 @@ public class GameScreen extends JFrame implements Updatable {
             }
         }
     }
+
     public class BackGround extends JPanel {
 
         private ImageIcon icon;

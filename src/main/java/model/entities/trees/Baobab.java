@@ -16,6 +16,14 @@ public class Baobab extends Tree {
         super(cost, hp, line, column, damage, map, "src/main/resources/Baobab.png");
     }
 
+    public Baobab(int line, int column, Map map, String path) {
+        super(cost, hp, line, column, damage, map, path);
+    }
+
+    public Baobab(int line, int column, Map map, String path, int cost, int damage) {
+        super(cost, hp, line, column, damage, map, path);
+    }
+
     @Override
     public void shoot() {
         Projectile projectile = new Nuke(this.getLine(), this.getColumn(), getMap());

@@ -22,6 +22,10 @@ public class Shop {
         availableTrees.add(new PineTree(-1, -1, null));
         availableTrees.add(new IceTree(-1, -1, null));
         availableTrees.add(new Baobab(-1, -1, null));
+        availableTrees.add(new DarkOak(-1, -1, null));
+        availableTrees.add(new TwiceAcacia(-1, -1, null, true));
+        availableTrees.add(new FastPineTree(-1, -1, null));
+        availableTrees.add(new SasukeBaobab(-1, -1, null));
 
         this.map = map;
         this.userInput = userInput;
@@ -61,9 +65,11 @@ public class Shop {
             return;
         }
         if (this.map.addEntity(t)) {
+
             System.out.println(
                     "\nSuccesfully placed the tree at line " + t.getLine() + " and at column " + t.getColumn() + "\n");
             Game.trees.add(t);
+
         } else {
             playerMoney.add(new Money(t.getCost()));// Si on ne peut pas placer l'arbre, on recrédite le compte du
                                                     // joueur du prix de l'arbre
@@ -119,6 +125,14 @@ public class Shop {
                 System.out.print(" - This tree can freeze enemies");
             } else if (t instanceof Acacia) {
                 System.out.print(" - This tree randomly makes you earn money");
+            } else if (t instanceof DarkOak) {
+                System.out.print(" - This tree can only be planted on an Oak");
+            } else if (t instanceof TwiceAcacia) {
+                System.out.print(" - This tree can only be planted on an Acacia");
+            } else if (t instanceof SasukeBaobab) {
+                System.out.print(" - This tree can only be planted on a Baobab");
+            } else if (t instanceof FastPineTree) {
+                System.out.print(" - This tree can only be planted on a PineTree");
             }
             System.out.println();
             k++;

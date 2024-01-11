@@ -3,6 +3,7 @@ package model.config;
 import model.Entity;
 import model.entities.Skeleton;
 import model.entities.Tree;
+import model.entities.trees.*;
 import controller.Game;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -19,13 +20,25 @@ public class Map {
 
     // faire en sorte que addEntity prenne des coordonnées en paramètre
     public boolean addEntity(Entity e) {
+        if (e instanceof DarkOak) {
+            if (this.getEntityAt(e.getLine(), e.getColumn()) instanceof Oak) {
+                this.map[e.getLine()][e.getColumn()] = e;
+                return true;
+            } else {
+                System.out.println("Please plant a Dark Oak on an Oak\n");
+                return false;
+            }
+        }
         if (this.getEntityAt(e.getLine(), e.getColumn()) == null) {
             this.map[e.getLine()][e.getColumn()] = e;
             return true;
         } else {
-            System.out.println("Error : there is already an entity here\n");
-            return false;
+            if ((!(e instanceof DarkOak)) && (!(e instanceof TwiceAcacia)) && (!(e instanceof SasukeBaobab)) && (!(e instanceof FastPineTree))) {
+                System.out.println("Error : there is already an entity here\n");
+                return false;
+            }
         }
+        return false;
     }
 
     public Skeleton getFirstSkeletonInLine(int line) {
