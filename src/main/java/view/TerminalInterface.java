@@ -18,7 +18,7 @@ public class TerminalInterface {
     public static void main(String[] args) {
 
         Map map = Entity.getMap();
-        Money playerMoney = new Money(1000);
+        Money playerMoney = new Money(100);
         boolean hasStarted = startMainMenu();
         if (hasStarted) {
             int difficultyLvl = chooseDifficultyLevel();
