@@ -25,8 +25,8 @@ public class ShopScreen extends JPanel {
     private static boolean errorDisplaying = false;
     private static final ArrayList<SpriteImage> sprites = new ArrayList<>();
 
-    //Musique de fond
-    private  static Clip backgroundMusic;
+    // Musique de fond
+    private static Clip backgroundMusic;
 
     public ShopScreen(Game game, GameScreen gameScreen) throws IOException {
 
@@ -82,7 +82,6 @@ public class ShopScreen extends JPanel {
             GameScreen.getSideMenu().setVisible(true);
             GameScreen.playGame();
         });
-
 
         trees.add(buyOakButton);
         trees.add(Box.createHorizontalStrut(25));
@@ -143,7 +142,7 @@ public class ShopScreen extends JPanel {
         g.drawImage(jardiland, 0, 0, null);
     }
 
-    public static void playMusic(){
+    public static void playMusic() {
         backgroundMusic.loop(Integer.MAX_VALUE);
     }
 
@@ -191,9 +190,6 @@ public class ShopScreen extends JPanel {
                     if (enoughMoney) {
 
                         backgroundMusic.stop();
-                        setVisible(false);
-                        gameScreen.showAllGameScreen();
-                        GameScreen.isPlacingATree = true;
 
                         try {
 
@@ -241,7 +237,7 @@ public class ShopScreen extends JPanel {
                                     break;
                                 case 5:
                                     boolean oakFound = false;
-                                    for (Tree t : game.trees) {
+                                    for (Tree t : Game.trees) {
                                         if (t instanceof Oak) {
                                             oakFound = true;
                                             break;
@@ -258,7 +254,7 @@ public class ShopScreen extends JPanel {
                                     }
                                     errorDisplaying = true;
                                     errorMessageLabel.setText("Error : No Oak to plant on");
-                                    Timer timer = new Timer(2000, new ActionListener() {
+                                    Timer timer = new Timer(3000, new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             errorMessageLabel.setText("");
@@ -270,7 +266,7 @@ public class ShopScreen extends JPanel {
                                     break;
                                 case 6:
                                     boolean pineFound = false;
-                                    for (Tree t : game.trees) {
+                                    for (Tree t : Game.trees) {
                                         if (t instanceof PineTree) {
                                             pineFound = true;
                                             break;
@@ -288,7 +284,7 @@ public class ShopScreen extends JPanel {
                                     }
                                     errorDisplaying = true;
                                     errorMessageLabel.setText("Error : No PineTree to plant on");
-                                    Timer timer2 = new Timer(2000, new ActionListener() {
+                                    Timer timer2 = new Timer(3000, new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             errorMessageLabel.setText("");
@@ -300,7 +296,7 @@ public class ShopScreen extends JPanel {
                                     break;
                                 case 7:
                                     boolean acaciaFound = false;
-                                    for (Tree t : game.trees) {
+                                    for (Tree t : Game.trees) {
                                         if (t instanceof Acacia) {
                                             acaciaFound = true;
                                             break;
@@ -318,7 +314,7 @@ public class ShopScreen extends JPanel {
                                     }
                                     errorDisplaying = true;
                                     errorMessageLabel.setText("Error : No Acacia to plant on");
-                                    Timer timer3 = new Timer(2000, new ActionListener() {
+                                    Timer timer3 = new Timer(3000, new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             errorMessageLabel.setText("");
@@ -330,9 +326,10 @@ public class ShopScreen extends JPanel {
                                     break;
                                 case 8:
                                     boolean baobabFound = false;
-                                    for (Tree t : game.trees) {
+                                    for (Tree t : Game.trees) {
                                         if (t instanceof Baobab) {
                                             baobabFound = true;
+                                            System.out.println("Baobab found");
                                             break;
                                         }
                                     }
@@ -348,7 +345,7 @@ public class ShopScreen extends JPanel {
                                     }
                                     errorDisplaying = true;
                                     errorMessageLabel.setText("Error : No Baobab to plant on");
-                                    Timer timer4 = new Timer(2000, new ActionListener() {
+                                    Timer timer4 = new Timer(3000, new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e) {
                                             errorMessageLabel.setText("");
@@ -362,6 +359,7 @@ public class ShopScreen extends JPanel {
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
+
                         if (!errorDisplaying) {
                             setVisible(false);
                             gameScreen.showAllGameScreen();
