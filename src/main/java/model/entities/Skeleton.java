@@ -84,7 +84,7 @@ public abstract class Skeleton extends Entity {
                     }
                 }
 
-                //getMap().killEverythingOnLine(this.getLine());
+                getMap().killEverythingOnLine(this.getLine());
 
                 getMap().getChainsaws()[this.getLine()] = false;
             }
@@ -234,7 +234,7 @@ public abstract class Skeleton extends Entity {
             System.exit(0);
         }
         else{
-            GameScreen.getWinLabel().setVisible(true);
+            GameScreen.getGameOverLabel().setVisible(true);
             GameScreen.pauseGame();
             GameScreen.getRestartTimer().start();
         }
