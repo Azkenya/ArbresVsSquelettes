@@ -27,12 +27,6 @@ public class Wave implements Updatable {
         Wave.map = map;
         this.currentRound = 0;
         this.currentSubWave = 0;
-
-        try {
-            tools.IOTools.writeToFile(this.enemiesToString(), "/cacaDeWave.txt");
-        } catch (IOException e) {
-            System.out.println("oh non error io");
-        }
     }
 
     /**
