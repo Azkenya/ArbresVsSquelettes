@@ -91,6 +91,22 @@ public class GameScreen extends JFrame implements Updatable {
             }
         });
         box.add(pausePlayButton);
+
+        //Ajoute le bouton retour au menu principal
+        JButton backToMainMenuButton = new JButton("Go back to Main Menu");
+        backToMainMenuButton.addActionListener(e -> {
+            this.pauseGame();
+            Menu menu;
+            try {
+                setVisible(false);
+                menu = new Menu();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            menu.setVisible(true);
+
+        });
+        box.add(backToMainMenuButton);
         sideMenu.add(box);
 
         // Ajoute le menu de côté à l'affichage
