@@ -329,7 +329,6 @@ public class ShopScreen extends JPanel {
                                     for (Tree t : Game.trees) {
                                         if (t instanceof Baobab) {
                                             baobabFound = true;
-                                            System.out.println("Baobab found");
                                             break;
                                         }
                                     }
