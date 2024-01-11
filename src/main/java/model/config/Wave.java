@@ -18,6 +18,7 @@ public class Wave implements Updatable {
     private boolean isEndless;
     private int endlessLevel = 0;
     private int cd = 0;
+    public int waveDifficulty = 0;
 
     public Wave(Skeleton[][][] enemies, ArrayList<Skeleton> enemiesOnMap, Map map) {
         this.enemies = enemies;
@@ -41,6 +42,7 @@ public class Wave implements Updatable {
      */
     public Wave(int n, Map map) {
         this(makeWave(n, map), new ArrayList<Skeleton>(), map);
+        this.waveDifficulty = n;
         if (n == 4) {
             this.isEndless = true;
         }
@@ -85,20 +87,6 @@ public class Wave implements Updatable {
         }
     }
 
-    public boolean nextRoundIsEmpty() {
-        if (this.currentRound < 0) {
-            return true;
-        }
-        if (this.currentRound + 1 >= this.enemies[this.currentSubWave].length) {
-            return true;
-        }
-        for (int i = 0; i < 5; i++) {
-            if (this.enemies[this.currentSubWave][this.currentRound + 1][i] != null) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public boolean isFinished() {
         return this.isFinished;
@@ -137,8 +125,7 @@ public class Wave implements Updatable {
      */
     public static int random(int n) {
         Random rand = new Random();
-        int Numb = rand.nextInt(n + 1);
-        return Numb;
+        return rand.nextInt(n + 1);
     }
 
     /**
@@ -624,33 +611,33 @@ public class Wave implements Updatable {
 
     public String toString() {
         // print the enemies array
-        var s = "0 1 2 3 4\n";
+        StringBuilder s = new StringBuilder("0 1 2 3 4\n");
         for (int i = 0; i < enemies.length; i++) {
             for (int j = 0; j < enemies[i].length; j++) {
 
                 for (int k = 0; k < enemies[i][j].length; k++) {
-                    s += " ";
+                    s.append(" ");
                     if (enemies[i][j][k] != null) {
-                        s += enemies[i][j][k].toString();
+                        s.append(enemies[i][j][k].toString());
                     } else {
-                        s += " ";
+                        s.append(" ");
                     }
                 }
-                s += "\n";
+                s.append("\n");
             }
-            s += "\nFin de la sous-vague " + i + "\n\n";
+            s.append("\nFin de la sous-vague ").append(i).append("\n\n");
         }
-        return s;
+        return s.toString();
     }
 
     public String enemiesToString() {
         StringBuilder retStr = new StringBuilder();
-        for (int i = 0; i < enemies.length; i++) {
-            retStr.append("[ " + enemies.length + "\n");
-            for (int j = 0; j < enemies[i].length; j++) {
-                retStr.append("    [ " + enemies[i].length + "\n       ");
-                for (int k = 0; k < enemies[i][j].length; k++) {
-                    retStr.append("" + enemies[i][j][k] + " ");
+        for (Skeleton[][] enemy : enemies) {
+            retStr.append("[ ").append(enemies.length).append("\n");
+            for (Skeleton[] skeletons : enemy) {
+                retStr.append("    [ ").append(enemy.length).append("\n       ");
+                for (Skeleton skeleton : skeletons) {
+                    retStr.append(skeleton).append(" ");
                 }
                 retStr.append("\n    ]\n\n");
             }
@@ -661,10 +648,6 @@ public class Wave implements Updatable {
 
     public static ArrayList<Skeleton> getEnemiesOnMap() {
         return Wave.enemiesOnMap;
-    }
-
-    public static void setEnemiesOnMap(ArrayList<Skeleton> enemiesOnMap) {
-        Wave.enemiesOnMap = enemiesOnMap;
     }
 
     public Skeleton[][][] getEnemies() {
@@ -678,4 +661,5 @@ public class Wave implements Updatable {
     public int getCurrentSubWave() {
         return currentSubWave;
     }
+
 }

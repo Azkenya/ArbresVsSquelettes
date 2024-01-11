@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.io.File;
-import java.nio.charset.MalformedInputException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import javax.swing.border.*;
@@ -17,12 +16,10 @@ import model.config.Map;
 import model.config.Money;
 import model.config.Shop;
 import model.config.Wave;
+import tools.IOTools;
 
 public class Menu extends JFrame {
-    private JLabel l1;
-    private JLabel l2;
-    private JLabel l3;
-    private JLabel l4;
+    private JLabel l1,l2,l3,l4,l5;
     public static Dimension dim;
 
     public Menu() throws IOException {
@@ -53,17 +50,24 @@ public class Menu extends JFrame {
         l4.setBorder(new MatteBorder(0, 0, 5, 0, Color.BLACK));
 
         File label5File = new File("src/main/resources/Endless.png");
-        JLabel l5 = new JLabel(new ImageIcon(label5File.getAbsolutePath()));
+        l5 = new JLabel(new ImageIcon(label5File.getAbsolutePath()));
         l5.setBorder(new MatteBorder(0, 0, 5, 0, Color.BLACK));
 
         Box box = Box.createHorizontalBox();
         box.add(l2);
-        box.add(Box.createRigidArea(new Dimension(10, 0)));
-        box.add(l3);
-        box.add(Box.createRigidArea(new Dimension(10, 0)));
-        box.add(l4);
-        box.add(Box.createRigidArea(new Dimension(10, 0)));
-        box.add(l5);
+        int unlockedDifficultyLevel = readUnlockedDifficultyLevel();
+        if (unlockedDifficultyLevel >= 2){
+            box.add(Box.createRigidArea(new Dimension(10, 0)));
+            box.add(l3);
+        }
+        if (unlockedDifficultyLevel >= 3){
+            box.add(Box.createRigidArea(new Dimension(10, 0)));
+            box.add(l4);
+        }
+        if (unlockedDifficultyLevel >= 4){
+            box.add(Box.createRigidArea(new Dimension(10, 0)));
+            box.add(l5);
+        }
 
         Box box2 = new Box(BoxLayout.Y_AXIS);
         // box2.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -218,9 +222,23 @@ public class Menu extends JFrame {
 
         public ImageIcon resizeImageIcon(ImageIcon icon, Dimension dim) {
             Image img = icon.getImage();
-            Image newimg = img.getScaledInstance(dim.width, dim.height, java.awt.Image.SCALE_SMOOTH);
+            Image newimg = img.getScaledInstance(dim.width, dim.height, Image.SCALE_SMOOTH);
             return new ImageIcon(newimg);
         }
+    }
+
+    public static void writeToFile(String str) throws IOException{
+        IOTools.writeToFile(str,"./unlockedDifficultyLevel");
+    }
+
+    public static int readUnlockedDifficultyLevel() {
+        int retour = 0;
+        try {
+            retour = Integer.parseInt(IOTools.readFromFile("./unlockedDifficultyLevel"));
+        }catch (IOException ioException){
+            ioException.printStackTrace();
+        }
+        return retour;
     }
 
 }

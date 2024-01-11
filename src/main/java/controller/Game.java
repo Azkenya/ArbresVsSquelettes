@@ -1,19 +1,18 @@
 package controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 import java.lang.Math;
 import model.config.*;
 import model.entities.*;
 import view.GameScreen;
-import javax.swing.Timer;
+import view.Menu;
 
 public class Game implements Updatable {
     private static Money playerMoney;
     private Map map;
     private Shop shop;
-    private int currentTurn;
     public static ArrayList<Tree> trees;
     private Wave wave;
     private GameScreen view;
@@ -24,7 +23,6 @@ public class Game implements Updatable {
         Game.playerMoney = playerMoney;
         this.map = map;
         this.shop = shop;
-        this.currentTurn = 0;
         Game.trees = trees;
         this.wave = wave;
     }
@@ -71,7 +69,6 @@ public class Game implements Updatable {
         this.wave.update();
         this.updateTrees();
         this.updateMoney();
-        this.currentTurn++;
     }
 
     public void updateMoney() {
@@ -110,9 +107,6 @@ public class Game implements Updatable {
         }
     }
 
-    public static boolean random() {
-        return Math.random() < 0.3;
-    }
 
     public void win() {
         if(!graphicMode){
@@ -123,6 +117,11 @@ public class Game implements Updatable {
         else{
             GameScreen.getWinLabel().setVisible(true);
             GameScreen.pauseGame();
+            try {
+                Menu.writeToFile(String.valueOf(wave.waveDifficulty+1));
+            }catch (IOException e){
+                e.printStackTrace();
+            }
             GameScreen.getRestartTimer().start();
         }
     }
