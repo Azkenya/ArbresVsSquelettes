@@ -19,7 +19,7 @@ fi
 echo "Starting..."
 find -name "*.java" > files.txt
 echo "Compiling..."
-javac -d src/classFiles @files.txt
+javac --release 11 -d src/classFiles @files.txt
 
 if [ $platform -eq 0 ] 
 then
